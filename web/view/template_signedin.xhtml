@@ -109,7 +109,7 @@
                     var refreshTime = 600000; // in milliseconds, so 10 minutes
                     $.ajaxSetup( {cache:false} )
                     window.setInterval( function() {
-                        var url =  '#{ref.js_keepalive_url}'; //'http://localhost:80/estimator/view/login.jsf';
+                        var url =  '#{ref.js_keepalive_url}'; //'http://localhost:80/estimator/view/login_new.jsf';
                         $.get( url );
                     }, refreshTime );                                       
                     
@@ -192,7 +192,7 @@
             
           
           
-          
+<!--          
       <f:subview id="guest" rendered="#{!login.loggedIn}" >
               
               <div id="content2"> 
@@ -203,6 +203,17 @@
                 </p>
                 <div id="mark" class="clear"></div>  
               </div>  
+             
+          </f:subview>-->
+      
+<f:subview id="guest" rendered="#{!login.loggedIn}" >
+              
+              <div id="content2">            
+                <ui:insert name="content">
+                   [Template content will be inserted here]
+                </ui:insert>
+                <div id="mark" class="clear"></div>                  
+            </div> 
              
           </f:subview>
                 

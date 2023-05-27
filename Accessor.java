@@ -375,10 +375,10 @@ public class Accessor<UserTransaction> {
             
             FacesContext context = FacesContext.getCurrentInstance();
             Counselor me = (Counselor)context.getApplication().evaluateExpressionGet(context, "#{login.currentUser}", Object.class);
-            edu.lsu.estimator.Logs modlog = new edu.lsu.estimator.Logs( new java.util.Date(), "ADDID", "MODSTUD", me.getUsername() , "TRIED" );
-            modlog.setLocation(" recid="+std.getRecid()+" lasuid="+std.getStudentALsuid());
-            modlog.setResult("OK");
-            em.persist(modlog);
+//            edu.lsu.estimator.Logs modlog = new edu.lsu.estimator.Logs( new java.util.Date(), "ADDID", "MODSTUD", me.getUsername() , "TRIED" );
+//            modlog.setLocation(" recid="+std.getRecid()+" lasuid="+std.getStudentALsuid());
+//            modlog.setResult("OK");
+//            em.persist(modlog);
             
             em.flush();
         }catch(javax.validation.ConstraintViolationException ve){

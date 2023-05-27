@@ -221,11 +221,11 @@
 /*      */ 
 /*      */ 
 /*      */   
-/*      */   private int sfund1amt;
+/*      */   private int sfund1amt=0;
 /*      */ 
 /*      */ 
 /*      */   
-/*      */   private int sfund2amt;
+/*      */   private int sfund2amt=0;
 /*      */ 
 /*      */ 
 /*      */   
@@ -296,7 +296,7 @@
 /*  296 */     this.stdo_ealsu = this.std_ealsu;
 /*      */     
 /*  298 */     str = this.stud.getIndEanonlsu();
-/*  299 */     if (this.stud.getStudentAgNonlsuAllowrance().intValue() > 0) {
+/*  299 */     if (this.stud.getStudentAgNonlsuAllowrance()!=null && this.stud.getStudentAgNonlsuAllowrance().intValue() > 0) {
 /*  300 */       str = "Yes";
 /*      */     } else {
 /*  302 */       str = "No";
@@ -487,26 +487,26 @@
 /*      */ 
 /*      */ 
 /*      */     
-/*  490 */     this.sfund1amt = this.stud.getStudentAuScholarship1Amt().intValue();
-/*  491 */     this.sfund2amt = this.stud.getStudentAxScholarship2Amt().intValue();
+/*  490 */     this.sfund1amt = this.stud.getStudentAuScholarship1Amt() !=null ? this.stud.getStudentAuScholarship1Amt().intValue():  this.sfund1amt;
+/*  491 */     this.sfund2amt = this.stud.getStudentAxScholarship2Amt() !=null ? this.stud.getStudentAxScholarship2Amt().intValue() :  this.sfund2amt  ;
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/*  498 */     t = this.stud.getFund7id().intValue();
+/*  498 */     t = this.stud.getFund7id()!=null ? this.stud.getFund7id().intValue() : 0;
 /*  499 */     if (t > 0 && diffyear > 0 && this.ref.fundMaxOutIndById(prefunds[t].intValue()) < 0) this.stud.setStudentBmScholarship7Amt(Integer.valueOf(0));
 /*      */     
-/*  501 */     t = this.stud.getFund8id().intValue();
+/*  501 */     t = this.stud.getFund8id() !=null ? this.stud.getFund8id().intValue() : 0;
 /*  502 */     if (t > 0 && diffyear > 0 && this.ref.fundMaxOutIndById(prefunds[t].intValue()) < 0) this.stud.setStudentBpScholarship8Amt(Integer.valueOf(0));
 /*      */     
-/*  504 */     t = this.stud.getFund9id().intValue();
+/*  504 */     t = this.stud.getFund9id() !=null ? this.stud.getFund9id().intValue() :0;
 /*  505 */     if (t > 0 && diffyear > 0 && this.ref.fundMaxOutIndById(prefunds[t].intValue()) < 0) this.stud.setStudentBsScholarship9Amt(Integer.valueOf(0));
 /*      */     
-/*  507 */     this.sfund7amt = this.stud.getStudentBmScholarship7Amt().intValue();
-/*  508 */     this.sfund8amt = this.stud.getStudentBpScholarship8Amt().intValue();
-/*  509 */     this.sfund9amt = this.stud.getStudentBsScholarship9Amt().intValue();
+/*  507 */     this.sfund7amt = this.stud.getStudentBmScholarship7Amt() !=null ? this.stud.getStudentBmScholarship7Amt().intValue() :0;
+/*  508 */     this.sfund8amt = this.stud.getStudentBpScholarship8Amt() !=null ? this.stud.getStudentBpScholarship8Amt().intValue() : 0;
+/*  509 */     this.sfund9amt = this.stud.getStudentBsScholarship9Amt()!=null ? this.stud.getStudentBsScholarship9Amt().intValue() :0;
 /*      */     
 /*  511 */     this.stud.setStudentFisy(this.ref.getFiscal_year());
 /*      */ 
@@ -1359,7 +1359,7 @@
 /*      */     
 /* 1360 */     String msg = "";
 /* 1361 */     int miss = 0, err = 0;
-/* 1362 */     if (this.stud.getStudentAuScholarship1Amt().intValue() > 0) {
+/* 1362 */     if (this.stud.getStudentAuScholarship1Amt()!=null && this.stud.getStudentAuScholarship1Amt().intValue() > 0) {
 /* 1363 */       if (this.ref.fundNotesReqById(this.stud.getFund1id().intValue()) > 0 && (
 /* 1364 */         this.stud.getStudentAtScholarship1Note() == null || this.stud.getStudentAtScholarship1Note().trim().isEmpty())) {
 /* 1365 */         msg = "Notes for Scholarship '" + this.stud.getStudentAsScholarship1Name() + "' is Required.";
@@ -1655,7 +1655,8 @@
 /*      */         
 /* 1656 */         int max = this.ref.fundMatchTopById(this.stud.getFund9id().intValue());
 /* 1657 */         int in = this.stud.getStudentBsScholarship9Amt().intValue();
-/* 1658 */         if (np && user_over_maxamt(this.login.getCurrentUser().getSuperuser().intValue(), in, this.sfund9amt, max) < 1) {
+int value_max=(this.login.getCurrentUser()!=null && this.login.getCurrentUser().getSuperuser()!=null) ? this.login.getCurrentUser().getSuperuser().intValue():0;
+/* 1658 */         if (np && user_over_maxamt(value_max, in, this.sfund9amt, max) < 1) {
 /*      */ 
 /*      */ 
 /*      */           
@@ -1832,7 +1833,8 @@
 /* 1832 */     if (pu) {
 /* 1833 */       this.stud.setCounselorId(Integer.valueOf(this.ref.getSys_counselor_id()));
 /*      */     } else {
-/* 1835 */       this.stud.setCounselorId(this.login.getCurrentUser().getUserid());
+    int counsellor_id=this.login.getCurrentUser()!=null && this.login.getCurrentUser().getUserid()!=null ? this.login.getCurrentUser().getUserid():0;
+/* 1835 */       this.stud.setCounselorId(counsellor_id);
 /*      */     } 
 /* 1837 */     this.stud.setClientId(Integer.valueOf(this.ref.getClientid()));
 /* 1838 */     this.stud.setRecid("tmpid");
@@ -3442,8 +3444,16 @@
 /*      */   void loadStudInstituteScholarshipAwards() {
 /* 3443 */     String[] scholarships = { this.stud.getStudentAsScholarship1Name(), this.stud.getStudentAvScholarship2Name(), this.stud.getStudentAyScholarship3Name(), this.stud.getStudentBbScholarship4Name(), this.stud.getStudentBeScholarship5Name(), this.stud.getStudentBhScholarship6Name(), this.stud.getStudentBkScholarship7Name(), this.stud.getStudentBnScholarship8Name(), this.stud.getStudentBqScholarship9Name() };
 /*      */ 
-/*      */     
-/* 3446 */     int[] amts = { this.stud.getStudentAuScholarship1Amt().intValue(), this.stud.getStudentAxScholarship2Amt().intValue(), this.stud.getStudentBaScholarship3Amt().intValue(), this.stud.getStudentBdScholarship4Amt().intValue(), this.stud.getStudentBgScholarship5Amt().intValue(), this.stud.getStudentBjScholarship6Amt().intValue(), this.stud.getStudentBmScholarship7Amt().intValue(), this.stud.getStudentBpScholarship8Amt().intValue(), this.stud.getStudentBsScholarship9Amt().intValue() };
+                int value_1=this.stud.getStudentAuScholarship1Amt()!=null ? this.stud.getStudentAuScholarship1Amt().intValue():0;
+                 int value_2=      this.stud.getStudentAxScholarship2Amt()!=null ? this.stud.getStudentAxScholarship2Amt().intValue() :0;
+                int value_3= this.stud.getStudentBaScholarship3Amt()!=null ? this.stud.getStudentBaScholarship3Amt().intValue():0;        
+/*      */     int value_4= this.stud.getStudentBdScholarship4Amt()!=null ? this.stud.getStudentBdScholarship4Amt().intValue() :0;
+int value_5=this.stud.getStudentBgScholarship5Amt()!=null ? this.stud.getStudentBgScholarship5Amt().intValue():0;
+int value_6=this.stud.getStudentBjScholarship6Amt()!=null ? this.stud.getStudentBjScholarship6Amt().intValue():0;
+int value_7=this.stud.getStudentBmScholarship7Amt()!=null ?this.stud.getStudentBmScholarship7Amt().intValue():0;
+int value_8=this.stud.getStudentBpScholarship8Amt()!=null ? this.stud.getStudentBpScholarship8Amt().intValue():0;
+int value_9=this.stud.getStudentBsScholarship9Amt()!=null ?this.stud.getStudentBsScholarship9Amt().intValue():0;
+/* 3446 */     int[] amts = { value_1, value_2, value_3, value_4,value_5, value_6,value_7, value_8,value_9 };
 /*      */ 
 /*      */     
 /* 3449 */     String[] notes = { this.stud.getStudentAtScholarship1Note(), this.stud.getStudentAwScholarship2Note(), this.stud.getStudentAzScholarship3Note(), this.stud.getStudentBcScholarship4Note(), this.stud.getStudentBfScholarship5Note(), this.stud.getStudentBiScholarship6Note(), this.stud.getStudentBlScholarship7Note(), this.stud.getStudentBoScholarship8Note(), this.stud.getStudentBrScholarship9Note() };

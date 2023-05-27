@@ -81,7 +81,8 @@
  /*     */    private boolean loggedin = false;
     /*     */
  /*     */    private boolean no_autosync;
-
+             
+              private boolean guestUser;
     /*     */
  /*     */ @PostConstruct
     /*     */ public void setAttrFromLazyInjects() {
@@ -358,6 +359,17 @@
        
         /* 333 */ return (this.user != null);
         /*     */    }
+    
+     public boolean isGuestLoggedIn() {
+         
+       
+        /* 333 */ return (this.user != null);
+        /*     */    }
+//                  public boolean isGuestUser()
+//    {
+//   this.guestUser=true;
+//   return true;//"estimate-new?faces-redirect=true";
+//    }
 
     @Produces
     /*     */    @LoggedIn

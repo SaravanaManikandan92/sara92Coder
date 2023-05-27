@@ -17,11 +17,11 @@
 
                 <f:subview id="valid" rendered="#{ref.clientid gt 0 and ref.sys_blk_ind le 0 and ref.sys_cfg_ind gt 0 and ref.sys_usr_ind gt 0}" >
                     <p:layout fullPage="true">
-                       
+
 
                         <div class="loginCenter">
                             <p:layoutUnit position="center"  style="position:relative;margin:10px 0px 20px 5px; width: 50% important;background-color:white">
-                                
+
                                 <div id="loginView" class="loginView" >
 
                                     <div id="loginHeader" style="width: 100%;
@@ -88,7 +88,8 @@
 
                                     <div id="loginBtn_" style="position:relative;top:21%;">
                                         <div>
-                                            <h:commandButton id="btn" type="submit" value="#{msg['LoginForm.SigninButton']}" action="#{login.login}" rendered="#{!login.loggedIn}"  tabindex="3" 
+                                            <h:commandButton id="btn" type="submit" value="#{msg['LoginForm.SigninButton']}" action="#{login.login}" 
+                                                             rendered="#{!login.loggedIn}"  tabindex="3" 
                                                              style="position: relative;
 
                                                              width: 90%;
@@ -107,53 +108,58 @@
                                          justify-content: flex-start;
                                          align-items: center;
                                          ">
-                                          <div id="notifier">
-                                              <p:dialog header="Help" widgetVar="hlpdlg">
-   <div id="sidebar">
-                       <h3>Need Help?</h3>
-                       <p>
-                          Knowledge Base and Issue Tracker 
-                       </p>
-                       <ul>
-                          <li><a href="http://199.233.154.145/bugfree">Estimator Online Support</a></li>
-                       </ul>
-                       <p>
-                          Identity is required and you can click the bottom link to request an account.
-                       </p>
-                       
-                       <br/>
-                       
-                       <p>
-                          The site provides a platform for you to post request and view response from developers about:
-                       </p>
-                       <ul>
-                          <li>Issue or bug</li>                          
-                          <li>Change interface</li>
-                          <li>Add new function</li>
-                          <li>Enhance function</li>
-                          <li>Suggestion or Comment</li>
-                          <li>Question</li>                          
-                       </ul>
-                       <p>
-                          If you prefer email software, click <a href="mailto:kwang@lasierra.edu?subject=request_about_estimator&amp;body=Please type in the detail">here</a> to compose email.
-                       </p>
-                    </div>
+                                        <div id="notifier">
+                                            <p:dialog header="Help" widgetVar="hlpdlg">
+                                                <div id="sidebar">
+                                                    <h3>Need Help?</h3>
+                                                    <p>
+                                                        Knowledge Base and Issue Tracker 
+                                                    </p>
+                                                    <ul>
+                                                        <li><a href="http://199.233.154.145/bugfree">Estimator Online Support</a></li>
+                                                    </ul>
+                                                    <p>
+                                                        Identity is required and you can click the bottom link to request an account.
+                                                    </p>
 
-</p:dialog></div>
-                                        
+                                                    <br/>
+
+                                                    <p>
+                                                        The site provides a platform for you to post request and view response from developers about:
+                                                    </p>
+                                                    <ul>
+                                                        <li>Issue or bug</li>                          
+                                                        <li>Change interface</li>
+                                                        <li>Add new function</li>
+                                                        <li>Enhance function</li>
+                                                        <li>Suggestion or Comment</li>
+                                                        <li>Question</li>                          
+                                                    </ul>
+                                                    <p>
+                                                        If you prefer email software, click <a href="mailto:kwang@lasierra.edu?subject=request_about_estimator&amp;body=Please type in the detail">here</a> to compose email.
+                                                    </p>
+                                                </div>
+
+                                            </p:dialog></div>
+                                        <!--                                        href="http://localhost:8080/view/estimate-new.jsf" action="login_new?faces-redirect=true"  -->
                                         <div id="guestLogin" >
-                                            <span>    <a href="http://localhost:8080/view/estimate-new.jsf">Sign in as guest</a> | Can't login  </span>
+                                            <span >     
+                                                <a href="/view/estimate-new.jsf">Sign in as guest </a>| Can't login
+                                                <!--                                               <p> <p:commandLink action="estimate-new.jsf" >Sign in as guest</p:commandLink> </p>-->
+                                            </span>
+
                                         </div>
                                         <div onclick="hlpdlg.show()"><img src="../resources/img/new_help_icon.png"  > </img></div></div>
-                                  
-                                    
+
+
                                     <p:separator style="
                                                  position: relative;
                                                  width: 92%;
-                                                 height: 2px;
-                                                 background-color: #01080c;
-                                                 top: 30%;
-                                                 left: 0%;" />
+                                                 height: 1px;
+                                                 background-color: #aadddd57;
+                                                 top: 38%;
+                                                 left: 0%;
+                                                 opacity: 0.5;" />
 
                                     <div id="serverStatus" style="position:relative;top:40%">
                                         <!--                                        <p:panel id="status" header="Server And Estimator Availability and Status "                  

@@ -1354,6 +1354,8 @@ The openssl commands are very useful for debugging SSL problems. For instance, t
         pdf.setPrtTz(ref.getTzSN());
 
         //  prtId ########### FAILED: may not be null --will be composed by trigger (counselor:client:seqnumb)
+        Random rand = new Random();
+        int rand_int1 = rand.nextInt(10000);
         pdf.setPrtId("tmpid");
         log.info("vvvvvvvvvvvvvvvvvvvvvvvvvvv  to be saved print has stud recid=%s, counselorid=%d, mode=%d", pdf.getRecid(), pdf.getCounselorId(), mode);
 

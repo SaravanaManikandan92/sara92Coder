@@ -83,11 +83,11 @@
 /*     */   public static final int qCoaDorm = 17158;
 /*     */   public static final int qCoaCommunityFr = 16927;
 /*     */   public static final int qCoaDormFr = 17158;
-/*  86 */   public static final int yCoaCommunity = Math.max(50781, 50783);
-/*  87 */   public static final int yCoaDorm = Math.max(51474, 51476);
+/*  86 */   public static final int yCoaCommunity = Math.max(62462, 62464);// Math.max(50781, 50783);
+/*  87 */   public static final int yCoaDorm = Math.max(53534, 53536);//old Math.max(51474, 51476)
 /*     */   
 /*  89 */   public static final int yCoaCommunityFr = yCoaCommunity + 220;
-/*  90 */   public static final int yCoaDormFr = yCoaDorm + 220;
+/*  90 */   public static final int yCoaDormFr = yCoaDorm + 220; // old values yCoaDorm + 220 
 /*     */ 
 /*     */ 
 /*     */   

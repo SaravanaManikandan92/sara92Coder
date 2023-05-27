@@ -50,7 +50,7 @@ public class AppReference {
 //global settings, shared among all users/sessions
     private int test_ind = 0;
     private int fiscal_year = 2018;//2012;
-    private String faid_year = "2013 ~ 2014";//"2012 ~ 2013";
+    private String faid_year = "2023 ~ 2024";//"2012 ~ 2013"; // old 2013 ~ 2014
     private String verString = "Version 3.0.0.0";
     private NumberFormat fmtInt = new DecimalFormat("$#,###");
     

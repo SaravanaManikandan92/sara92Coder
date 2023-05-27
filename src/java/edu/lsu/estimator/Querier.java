@@ -429,19 +429,19 @@
 /*  428 */       sql.append(" and s.studentFisy=").append(this.ref.getFiscal_year());
 /*      */     }
 /*  430 */     log.info("************************** QUERIER get para allfisy=%s, while ref fisy=%d", new Object[] { Boolean.valueOf(this.allfisy), Integer.valueOf(this.ref.getFiscal_year()) });
-/*  431 */     if (!this.plusclosed) {
-/*  432 */       sql.append(" and s.ncStdInd=0");
-/*      */     }
+///*  431 */     if (!this.plusclosed) { //this logic is not clear 
+///*  432 */       sql.append(" and s.ncStdInd=0");
+///*      */     }
 /*  434 */     if (this.studtypes != null && this.studtypes.length > 0 && !this.studtypes[0].equals("ALL"))
 /*      */     {
 /*  436 */       sql.append(matchStudAcademicOpt(this.studtypes));
 /*      */     }
 /*      */ 
 /*      */ 
-/*      */ String sql_="select s from Student s where 1=1  and s.studentALsuid like '984517'";
+/*      */  //String sql_="select s from Student s where 1=1  and s.studentALsuid like '984517'";
 /*      */     log.info("Student Query >>> "+ sql);
- log.info("Student Query2 >>> "+ sql_);
-/*  442 */     return sql_;
+ log.info("Student Query2 >>> "+ sql);
+/*  442 */     return sql.toString();
 /*      */   }
 /*      */ 
 /*      */ 
