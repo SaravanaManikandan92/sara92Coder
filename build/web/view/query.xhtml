@@ -7,7 +7,7 @@
    xmlns:p="http://primefaces.org/ui" 
    template="/view/template_signedin.xhtml"> 
     
-     <!--  xmlns:p="http://primefaces.prime.com.tr/ui" is for PF 3.0 M3, higher ones use xmlns:p="http://primefaces.org/ui" -->
+   
     <ui:define name="content">
         
         <style type="text/css">
@@ -23,10 +23,7 @@
 }
 div.ui-messages-error{
     margin-top:0px;
-}/*
-div#dyn:hover{
-    background-color:#b0c4df;
-}*/
+}
 hr{
     margin: 3px;    
 }
@@ -48,15 +45,11 @@ hr{
 
                  <div id="opt" style="border:1px solid gray; margin-bottom:50px; display: #{querier.optstatus gt 0 ? 'block':'none'};" > <!--visibility: hidden; border-spacing: 1px;  -->   
                     <div style="float:right; border:0px solid gray; width:49%; height:154px; right:200px;">
-                        <!-- onchange="set_optchged();" -->
-                        <!--
-                        <h:selectBooleanCheckbox id="onlyme" value="#{querier.onlybyme}" > 
-                            <f:ajax event="change" execute="@this" render="optchges"  listener="#{querier.optchanged}" />
-                        </h:selectBooleanCheckbox>#{msg['filtermystud']} -->                         
+                                              
                         
                         <h:selectOneRadio layout="pageDirection"  id="onlyme" value="#{querier.onlybyme}">
                             <f:selectItem itemLabel="#{msg['filtermystud']}" itemValue="my" />
-                        <!--    <f:selectItem itemLabel="#{msg['filtermynewstud']}" itemValue="my new" /> -->
+                      
                             <f:selectItem itemLabel="#{msg['filterothers']}" itemValue="others" />
                             <f:selectItem itemLabel="#{msg['filterall']}" itemValue="all" />
                             <f:ajax event="change" execute="@this" render="optchges"  listener="#{querier.optchanged}" />
@@ -102,30 +95,16 @@ hr{
 
                     <div id="switch" style="clear:both; border-bottom:0px solid gray; border-top: 1px solid gray; text-align: center; padding:5px 0px; ">
                         <h:commandButton id="chgopt" value="Change Options"  actionListener="#{querier.checkOpts}"> 
-                                        <!-- action="#{querier.optmsg}"  actions is used to perform business logic and navigation task. this can take parameter-->
-                                        <!--  action listeners are used to perform UI interface logic or action invoke observation.
-                                        Use actionListener if you want have a hook before the real business action get executed, e.g. to log it, 
-                                        and/or to set an additional property (by <f:setPropertyActionListener>), 
-                                        and/or to have access to the component which invoked the action (which is available by ActionEvent argument). 
-                                         the actionListener swallows any exceptions and won't propagate it up (i.e. you won't see an error/exception page, JSF will log them however). 
-                                        This is done so because the business logic, exception handling and navigation handling job is up to the action method.
-                                         ActionListener gets fired first, with an option to modify the response, before Action gets called and determines the location of the next page. 
-                                        it can not take parameter-->
+                                       
                             <p:ajax process="@form" update="@form -auth-sv-querymsgs"  oncomplete="resize_height();"/> <!--stdtypeopt onlyme-->
                         </h:commandButton> 
                          <h:inputText style="display:none;" id="optchges" value="#{querier.optchges}" /> <!-- <h:message id="optmsg" for="chgopt" styleClass="messages"/> -->
                     </div>
                 </div>
              </h:form>
-                <!-- onevent="click" 
-                    <h:selectManyCheckbox id="stdtypeopt" immediate="true" layout="pageDirection" required="true" onchange="submit();" valueChangeListener="#{querier.stdTypeChanged}">                 
-                    </h:selectManyCheckbox>
-                    -->            
+                         
             <div>
-                <!-- f:ajax  default event is action for ActionSource (ie: button) components and 
-                valueChange for EditableValueHolder components (ie: input), but has to  tab out or click outside the input field to fire the event. 
-                action and valueChange are actual String values -->
-                
+              
             <h:form id="query"  prependId="false">
 <script type="text/javascript">
     //<![CDATA[         
@@ -150,10 +129,7 @@ hr{
   function focuslasuid(){
       var obj = $("#auth-sv-lasuid");
       if( obj){
-        var v = $(obj).val();//obj.value;
-          //obj.value='';
-          //obj.focus();          
-        //obj.value=v;
+        var v = $(obj).val();
           
           $(obj).focus().val("");
           $(obj).focus().val(v);
@@ -186,38 +162,7 @@ hr{
                 <div id="filter" style="border:1px solid gray;">
                     <table id="queryby">
                         <tr id="trhead"><th>#{msg['QueryForm.UserIDlabel']}:</th><th>#{msg['QueryForm.Fnamelabel']}:</th><th>#{msg['QueryForm.Lnamelabel']}:</th><th>#{msg['QueryForm.DOBlabel']} (#{ref.dateInputShowStr}):</th><th></th></tr>
-                        <tr id="trbody"><!--
-                            <td>
-                                <h:inputText id="byid"  value="#{querier.lsuidStr}" label="#{msg['QueryForm.UserIDlabel']}">
-                                    <f:ajax event="keyup" execute="@this" render="@this" />  
-                                </h:inputText>
-                  
-                            </td>
-                            <td>
-                                <h:inputText id="byfname"  value="#{querier.fnameStr}" label="#{msg['QueryForm.Fnamelabel']}">
-                                    <f:ajax event="keyup" execute="@this" render="@this" />  
-                                </h:inputText>
-                            </td>
-                            <td>
-                                <h:inputText id="bylname"  value="#{querier.lnameStr}" label="#{msg['QueryForm.Lnamelabel']}">
-                                    <f:ajax event="keyup" execute="@this" render="@this" />  
-                                </h:inputText>
-                            </td>
-                            <td>
-                                <h:inputText id="bydob"  value="#{querier.dobDate}" label="#{msg['QueryForm.DOBlabel']}">
-                                    <f:ajax event="keyup" execute="@this" render="@this" /> 
-                                </h:inputText>
-                            </td>
-                           
-                        </tr>
-                                        
-                                        
- <p:autoComplete id="autoTest" value="#{testAutoComplete.player}"
-completeMethod="#{testAutoComplete.complete}" widgetVar="autoTest" var="player"
-itemValue="#{player}" itemLabel="#{player.alias}" converter="playerConverter" onstart="handleStart(request)" oncomplete="handleComplete(response)">                                       
-                                        
-                                        
-                        <tr> -->
+                        <tr id="trbody">
                             <td>
                                 <p:autoComplete id="autoid"  queryDelay="100" maxResults="24" value="#{querier.lsuidStr}" completeMethod="#{querier.autolsuidStr}" effect="blind" size="10" >
                                     <p:ajax event="change" process="@this"   update="@this searchbtn newbtn" listener="#{querier.chglsuidStr}"  />

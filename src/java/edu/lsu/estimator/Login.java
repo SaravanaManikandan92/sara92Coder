@@ -275,7 +275,8 @@
  /*     */
  /*     */
  /*     */
- /* 257 */ return "query?faces-redirect=true";
+ /* 257 */ //return "query?faces-redirect=true"; actual
+ return "query_new?faces-redirect=true";
             /*     */        }
         /*     */
  /*     */
