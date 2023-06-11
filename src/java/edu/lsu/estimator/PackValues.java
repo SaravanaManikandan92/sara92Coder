@@ -47,162 +47,162 @@
 /*     */ 
 /*     */ public final class PackValues
 /*     */ {
-/*     */   public static final int qTuition = 11076;
-/*     */   public static final int qRoomAndBoard = 2930;
+/*     */   public static final int qTuition = 11970;//11076;
+/*     */   public static final int qRoomAndBoard = 4236;//2930;
 /*     */   public static final int qHealth = 0;
 /*     */   public static final int qSaFee = 0;
 /*     */   public static final int qRecFee = 0;
 /*     */   public static final int qTechFee = 0;
 /*     */   public static final int qSecurityFee = 0;
 /*     */   public static final int qComprehensiveFee = 330;
-/*     */   public static final int qInternationalInsFee = 725;
-/*     */   public static final int qFallOrientation = 220;
-/*     */   public static final int qWinSprOrientation = 50;
-/*     */   public static final int qTotalTuitionAndFeesDomestic = 11406;
-/*     */   public static final int qTotalTuitionAndFeesInternational = 12131;
-/*     */   public static final int qTotalTuitionAndFeesDomesticFrFall = 11626;
-/*     */   public static final int qTotalTuitionAndFeesDomesticFrWinSpr = 11456;
-/*     */   public static final int qTotalTuitionAndFeesInternationalFrFall = 12351;
-/*     */   public static final int qTotalTuitionAndFeesInternationalFrWinSpr = 12181;
-/*     */   public static final int yTuition = 33228;
-/*     */   public static final int yRoomAndBoard = 8790;
+/*     */   public static final int qInternationalInsFee = 725;//TBD
+/*     */   public static final int qFallOrientation = 220;//TBD
+/*     */   public static final int qWinSprOrientation = 50;//TBD
+/*     */   public static final int qTotalTuitionAndFeesDomestic = 11970;//11406
+/*     */   public static final int qTotalTuitionAndFeesInternational = 12131;//TBD
+/*     */   public static final int qTotalTuitionAndFeesDomesticFrFall = 11626;//TBD
+/*     */   public static final int qTotalTuitionAndFeesDomesticFrWinSpr = 11456;//TBD
+/*     */   public static final int qTotalTuitionAndFeesInternationalFrFall = 12351;//TBD
+/*     */   public static final int qTotalTuitionAndFeesInternationalFrWinSpr = 12181;//TBD
+/*     */   public static final int yTuition = 35910;//33228
+/*     */   public static final int yRoomAndBoard = 9240;//8790;
 /*     */   public static final int yHealth = 0;
 /*     */   public static final int ySaFee = 0;
 /*     */   public static final int yRecFee = 0;
 /*     */   public static final int yTechFee = 0;
 /*     */   public static final int ySecurityFee = 0;
-/*     */   public static final int yInternationalInsFee = 2900;
+/*     */   public static final int yInternationalInsFee = 2900;//TBD
 /*     */   public static final int yFrOrientation = 220;
-/*     */   public static final int yTotalTuitionAndFeesDomestic = 34218;
-/*     */   public static final int yTotalTuitionAndFeesInternational = 37118;
-/*     */   public static final int yTotalTuitionAndFeesDomesticFr = 34438;
-/*     */   public static final int yTotalTuitionAndFeesInternationalFr = 37338;
+/*     */   public static final int yTotalTuitionAndFeesDomestic = 35910;//34218;
+/*     */   public static final int yTotalTuitionAndFeesInternational = 37118;//TBD
+/*     */   public static final int yTotalTuitionAndFeesDomesticFr =36130 ;//34438
+/*     */   public static final int yTotalTuitionAndFeesInternationalFr = 37338;//TBD
 /*     */   public static final int yExtraCostCommunity = 16565;
 /*     */   public static final int yExtraCostDorm = 17258;
-/*     */   public static final int qCoaCommunity = 16927;
-/*     */   public static final int qCoaDorm = 17158;
-/*     */   public static final int qCoaCommunityFr = 16927;
-/*     */   public static final int qCoaDormFr = 17158;
-/*  86 */   public static final int yCoaCommunity = Math.max(62462, 62464);// Math.max(50781, 50783);
-/*  87 */   public static final int yCoaDorm = Math.max(53534, 53536);//old Math.max(51474, 51476)
+/*     */   public static final int qCoaCommunity =  20821;//17158; 
+/*     */   public static final int qCoaDorm =17845;//16927
+/*     */   public static final int qCoaCommunityFr =  20821;//17158;
+/*     */   public static final int qCoaDormFr =  17845;//16927;
+/*  86 */   public static final int yCoaCommunity = Math.max(62463, 62465);// Math.max(50781, 50783);
+/*  87 */   public static final int yCoaDorm = Math.max(53535, 53537);//old Math.max(51474, 51476)
 /*     */   
 /*  89 */   public static final int yCoaCommunityFr = yCoaCommunity + 220;
 /*  90 */   public static final int yCoaDormFr = yCoaDorm + 220; // old values yCoaDorm + 220 
 /*     */ 
 /*     */ 
 /*     */   
-/*  94 */   public static final int yCoaCommunityIntl = yCoaCommunity + 2900;
-/*  95 */   public static final int yCoaDormIntl = yCoaDorm + 2900;
+/*  94 */   public static final int yCoaCommunityIntl = yCoaCommunity + 2900;//TBD
+/*  95 */   public static final int yCoaDormIntl = yCoaDorm + 2900;//TBD
 /*     */ 
 /*     */   
-/*  98 */   public static final int yCoaCommunityFrIntl = yCoaCommunityFr + 2900;
-/*  99 */   public static final int yCoaDormFrIntl = yCoaDormFr + 2900;
+/*  98 */   public static final int yCoaCommunityFrIntl = yCoaCommunityFr + 2900;//TBD
+/*  99 */   public static final int yCoaDormFrIntl = yCoaDormFr + 2900;//TBD
 /*     */   
-/*     */   public static final int pellBase = 6345;
+/*     */   public static final int pellBase = 7395;//6345;
 /*     */   
-/*     */   public static final int pellCOAbase = 6195;
+/*     */   public static final int pellCOAbase = 6656;//6195;
 /*     */   
-/*     */   public static final int pellCOAtop = 999999;
+/*     */   public static final int pellCOAtop = 7395;//999999;
 /*     */   
-/*     */   public static final int aCalGrant = 9084;
+/*     */   public static final int aCalGrant = 9920 ;//9084;
 /*     */   
 /*     */   public static final int aCalGrantMinGPA = 3;
 /*     */   
-/*     */   public static final int aCalGrantAssetCeilingInd = 39200;
+/*     */   public static final int aCalGrantAssetCeilingInd = 46200;
 /*     */   
-/*     */   public static final int aCalGrantAssetCeilingIndSingle = 39200;
+/*     */   public static final int aCalGrantAssetCeilingIndSingle = 46000;
 /*     */   
-/*     */   public static final int aCalGrantAssetCeilingIndMarried = 39200;
+/*     */   public static final int aCalGrantAssetCeilingIndMarried = 46000;
 /*     */   
-/*     */   public static final int aCalGrantAssetCeilingOther = 82400;
+/*     */   public static final int aCalGrantAssetCeilingOther = 97200;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily1 = 39000;
+/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily1 = 46000;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily2 = 95700;
+/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily2 = 112900;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily3 = 98000;
+/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily3 = 115600;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily4 = 106500;
+/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily4 = 125600;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily5 = 114100;
+/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily5 = 134600;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily6 = 123100;
+/*     */   public static final int aCalGrantIncomeCeilingIndSingleFamily6 = 145200;
 /*     */   
 /*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily1 = 0;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily2 = 44700;
+/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily2 = 46000;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily3 = 98000;
+/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily3 = 115600;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily4 = 106500;
+/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily4 = 125600;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily5 = 114100;
+/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily5 = 134600;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily6 = 123100;
+/*     */   public static final int aCalGrantIncomeCeilingIndMarriedFamily6 = 145200;
 /*     */   
 /*     */   public static final int aCalGrantIncomeCeilingOtherFamily1 = 0;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingOtherFamily2 = 95700;
+/*     */   public static final int aCalGrantIncomeCeilingOtherFamily2 = 112900;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingOtherFamily3 = 98000;
+/*     */   public static final int aCalGrantIncomeCeilingOtherFamily3 = 115600;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingOtherFamily4 = 106500;
+/*     */   public static final int aCalGrantIncomeCeilingOtherFamily4 = 125600;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingOtherFamily5 = 114100;
+/*     */   public static final int aCalGrantIncomeCeilingOtherFamily5 = 134600;
 /*     */   
-/*     */   public static final int aCalGrantIncomeCeilingOtherFamily6 = 123100;
+/*     */   public static final int aCalGrantIncomeCeilingOtherFamily6 = 145200;
 /*     */   
-/*     */   public static final int bCalGrantFr = 1672;
+/*     */   public static final int bCalGrantFr = 1648;
 /*     */   
-/*     */   public static final int bCalGrantFr2 = 1672;
+/*     */   public static final int bCalGrantFr2 = 1648;
 /*     */   
-/*     */   public static final int bCalGrantSoJrSr = 10756;
+/*     */   public static final int bCalGrantSoJrSr = 10868;
 /*     */   
 /*     */   public static final int bCalGrantMaxGPA = 3;
 /*     */   
 /*     */   public static final int bCalGrantMinGPA = 2;
 /*     */   
-/*     */   public static final int bCalGrantAssetCeilingIndSingle = 39200;
+/*     */   public static final int bCalGrantAssetCeilingIndSingle = 46200;
 /*     */   
-/*     */   public static final int bCalGrantAssetCeilingIndMarried = 39200;
+/*     */   public static final int bCalGrantAssetCeilingIndMarried = 46200;
 /*     */   
-/*     */   public static final int bCalGrantAssetCeilingOther = 82400;
+/*     */   public static final int bCalGrantAssetCeilingOther = 97200;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily1 = 39000;
+/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily1 = 46000;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily2 = 44700;
+/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily2 = 52700;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily3 = 50300;
+/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily3 = 59400;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily4 = 56000;
+/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily4 = 66000;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily5 = 62600;
+/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily5 = 73900;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily6 = 67600;
+/*     */   public static final int bCalGrantIncomeCeilingIndSingleFamily6 = 79700;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily1 = 0;
+/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily1 = 52700;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily2 = 44700;
+/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily2 = 52700;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily3 = 50300;
+/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily3 = 59400;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily4 = 56000;
+/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily4 = 66000;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily5 = 62600;
+/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily5 = 73900;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily6 = 67600;
+/*     */   public static final int bCalGrantIncomeCeilingIndMarriedFamily6 = 79700;
 /*     */   
 /*     */   public static final int bCalGrantIncomeCeilingOtherFamily1 = 0;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingOtherFamily2 = 44700;
+/*     */   public static final int bCalGrantIncomeCeilingOtherFamily2 = 52700;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingOtherFamily3 = 50300;
+/*     */   public static final int bCalGrantIncomeCeilingOtherFamily3 = 59400;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingOtherFamily4 = 56000;
+/*     */   public static final int bCalGrantIncomeCeilingOtherFamily4 = 66000;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingOtherFamily5 = 62600;
+/*     */   public static final int bCalGrantIncomeCeilingOtherFamily5 = 73900;
 /*     */   
-/*     */   public static final int bCalGrantIncomeCeilingOtherFamily6 = 67600;
+/*     */   public static final int bCalGrantIncomeCeilingOtherFamily6 = 79700;// stop till pell grant and then proceed
 /*     */   
 /*     */   public static final int standardFseogEfcSub1000 = 1350;
 /*     */   
@@ -305,6 +305,13 @@
 /* 305 */   public static final BigDecimal nationalMeritMS = new BigDecimal("0.5");
 /* 306 */   public static final BigDecimal nationalMeritMF = new BigDecimal(1);
 /*     */   
+           //Fr means freshMan Gpa is Gpa 2De74 means 2.74
+            public static final int Lsu4yRenewableFrGpa2_2De74=3100;
+           public static final int Lsu4yRenewableFrGpa2De75_3De24=6100;
+           public static final int Lsu4yRenewableFrGpa3De25_3De49=7100;
+           public static final int Lsu4yRenewableFrGpa3De50_3De74=8200;
+            public static final int Lsu4yRenewableFrGpa3De75_4=10200;
+           
 /*     */   public static final int subDirectLoanMaxFr = 3500;
 /*     */   
 /*     */   public static final int subDirectLoanMaxFr2 = 3500;
@@ -347,6 +354,30 @@
 /*     */   
 /*     */   public static final int fwsSub12001 = 2500;
 /*     */   public static final int fwsSub100000 = 3000;
+
+           public static final int lsuNeedGrant=1000;
+           
+           public static final int lsuAchievementInit=10200;
+           
+           public static final int _subDirectFr_F2=3500;
+           
+           public static final int _subDirectSO=4500;
+           
+           public static final int _subDirectSr=5500;
+           
+           public static final int _unsubDirectFr_F2_independent=9500;
+           
+           public static final int _unsubDirectSO_independent=10500;
+           
+           public static final int _unsubDirectSr_independent=12500;
+           
+           public static final int _unsubDirectFr_F2_dependent=5500;
+           
+           public static final int _unsubDirectSO_dependent=6500;
+           
+           public static final int _unsubDirectSr_dependent=7500;
+           
+           
 /* 350 */   public static final BigDecimal yearInAdvanceDiscount = new BigDecimal("0.07");
 /*     */ 
 /*     */   

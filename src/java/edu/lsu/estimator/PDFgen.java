@@ -11,6 +11,7 @@
 /*     */ import edu.lsu.estimator.PackValues;
 /*     */ import edu.lsu.estimator.Print;
 /*     */ import edu.lsu.estimator.Student;
+import edu.lsu.estimator.Constants;
 /*     */ import java.awt.Color;
 /*     */ import java.io.File;
 /*     */ import java.io.FileInputStream;
@@ -84,7 +85,11 @@
 /*  84 */     if (separator.equals("/")) {
 /*  85 */       return "/var/estimator-files/" + this.fisy + separator;
 /*     */     }
+if(Constants.pdfGenPathDev.equalsIgnoreCase("windows"))
+{
 /*  87 */     return "c:\\" + this.fisy + separator;
+}
+return "";
 /*     */   }
 /*     */ 
 /*     */   
@@ -513,141 +518,7 @@
 /* 513 */         str = calc.showFaidAmt();
 /* 514 */         pdf.setTotAidWoWork(Integer.valueOf(ref.convertCurrencyStrToInt(str)));
 /* 515 */         setLineContent(form, line++, "Total Financial Aid", null, calc.showMaxAidAmt());
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */         
+        
 /* 651 */         str = calc.showTuitionFees();
 /*     */         
 /* 653 */         form.setField("lsu_tuition_fees", str);

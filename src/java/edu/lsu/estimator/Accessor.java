@@ -368,9 +368,10 @@
  /*     */ @TransactionAttribute(TransactionAttributeType.REQUIRED)
     /*     */ public void triggerTmpidPrt() {
         
-//        /* 356 */ this.em.createNativeQuery(
-//                " update prints set prt_id= RTRIM(char(counselor_id))||'.'||RTRIM(char(client_id))||'.'||RTRIM(char(PRT_NUM)) where prt_id='tmpid'")
-//                .executeUpdate();
+        //" update prints set prt_id= RTRIM(char(counselor_id))||'.'||RTRIM(char(client_id))||'.'||RTRIM(char(PRT_NUM)) where prt_id='tmpid'" 
+       /* 356 */ this.em.createNativeQuery(
+                " update prints set prt_id= ((counselor_id))||'.'||((client_id))||'.'||((PRT_NUM)) where prt_id='tmpid'" )
+               .executeUpdate();
         /*     */ }
 
     /*     */

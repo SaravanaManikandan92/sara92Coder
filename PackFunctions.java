@@ -26,6 +26,7 @@ import static edu.lsu.estimator.PackValues.*;
  * @author kwang
  */
 //@SessionScoped
+//Old one not to use this 
 @Dependent
 public class PackFunctions implements Serializable{
     private static final long serialVersionUID = 1L;
