@@ -132,7 +132,7 @@
     /*  130 */    private HashMap<String, String> studtypesMap = new HashMap<>();
     /*      */
  /*  132 */    private List<Fund> funds = new ArrayList<>();
-    /*  133 */    private Integer[] funds_alone = new Integer[]{Integer.valueOf(119), Integer.valueOf(122), Integer.valueOf(123), Integer.valueOf(120), Integer.valueOf(124), Integer.valueOf(121)};
+    /*  133 */    private Integer[] funds_alone = new Integer[]{Integer.valueOf(125), Integer.valueOf(122), Integer.valueOf(123), Integer.valueOf(120), Integer.valueOf(124), Integer.valueOf(121)};
     /*  134 */    private int alone_funds_amt = this.funds_alone.length;
     /*  135 */    private int total_funds_amt = 9;
     /*      */

@@ -108,7 +108,7 @@ public class AppReference {
     private HashMap<String, String> studtypesMap = new HashMap<>();
     
     private List<Fund> funds = new ArrayList<Fund>();
-    private Integer[] funds_alone = {119, 122, 123, 120, 124, 121};
+    private Integer[] funds_alone = {125, 122, 123, 120, 124, 121};
     private int alone_funds_amt = funds_alone.length;
     private int total_funds_amt = 9;
     private List<SelectItem> a_funds;

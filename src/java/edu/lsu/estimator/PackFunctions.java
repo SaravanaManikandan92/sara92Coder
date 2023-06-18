@@ -1358,16 +1358,18 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
     /*      */
  /*      */
  /*      */ public final int getLsu4yRenewable() {
+     
+     //converting this function to FreshMan and FreshMan transfer
         /* 1341 */ int _4yrenewable = 0;
         /* 1342 */ boolean zerogpa_ind = this.std.getStudentPGpa() !=null ? this.std.getStudentPGpa().equals(BigDecimal.ZERO):false;
         /* 1343 */ String _gpa = String.format("%3.2f", new Object[]{this.std.getStudentPGpa()});
         /*      */
+ /*      */    boolean student_freshMan_transfer= this.std.getStd_transfer_ind()==1?true:false;
  /*      */
  /*      */
  /*      */
  /*      */
- /*      */
- /* 1350 */ if (this.SAVE_STUDENT_U_ACADEMIC!=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("FR") && zerogpa_ind) {
+ /* 1350 */ if (this.SAVE_STUDENT_U_ACADEMIC!=null && (this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("FR") || this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("F2")) && zerogpa_ind) {
             /* 1351 */ if (this.std.getStudentLIntlStud()!=null && this.std.getStudentLIntlStud().equalsIgnoreCase("YES")) {
                 /* 1352 */ _gpa = "2.75";//3.25
                 /*      */            }
@@ -1375,9 +1377,10 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
 //                /* 1354 */ _gpa = "2.75";
 //                /*      */            }
             /*      */        }
-        /* 1357 */ if (_gpa.compareTo("2.0") >= 0) /* 2.50     */
+        /* 1357 */ if (_gpa.compareTo("2.0") >= 0 && !student_freshMan_transfer ) /* 2.50     */
         {
-            /*      */
+           
+            
  /* 1360 */ if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
                 /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrGpa2_2De74;//2500;
                 /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
@@ -1392,6 +1395,29 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
                 /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrGpa3De75_4 ;//8500;//TBD
                 /*      */            }
             /*      */        }
+        else
+        {
+            if(this.SAVE_STUDENT_U_ACADEMIC !=null && student_freshMan_transfer)
+            {
+                 if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrTfGpa2_2De74;//2500;
+                /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa2De75_3De24;//3500;
+                /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De25_3De49;//4500;
+                /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De50_3De74;//6000;
+                /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De75_4;//7000;
+                /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrTfGpa3De75_4 ;//8500;//TBD
+                /*      */            }
+                
+            }
+        
+        }
+        
+        
         /* 1374 */ return _4yrenewable;
         /*      */    }
 
@@ -1494,7 +1520,66 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
  /*      */
  /*      */ public final int getPerkinsLoan() {
         int _perkins = 0;
+         String _gpa_ = String.format("%3.2f", new Object[]{this.std.getStudentPGpa()});
+        //use for loan to scholarships
+        // this.perkinsLoan
+       // if( std.getStudentAfFamilyContrib()<4996)
+        if(_gpa_.compareTo("2.75") >= 0 && _gpa_.compareTo("3.24") <= 0)
+       {
+           if(std.getStudentAfFamilyContrib()<12000){
+               if(this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
        
+      _perkins=1000;
+       } 
+               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
+               {
+                   _perkins=1500;
+               }
+      
+       }
+           else
+       {
+       
+           if(this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
+       
+      _perkins=1000;
+       } 
+               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
+               {
+                   _perkins=1500;
+               }
+       }
+       }
+        else if(_gpa_.compareTo("3.25") >= 0 && _gpa_.compareTo("4.0") <= 0)
+        {
+             if(std.getStudentAfFamilyContrib()<12000){
+               if(this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
+       
+      _perkins=2000;
+       } 
+               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
+               {
+                   _perkins=5000;
+               }
+      
+       }
+           else
+       {
+       
+           if(this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
+       
+      _perkins=1000;
+       } 
+               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
+               {
+                   _perkins=3000;
+               }
+       }
+            
+        }
+       
+       
+      
 return _perkins;
            }
 
@@ -3991,6 +4076,25 @@ _fws=4000;
         /*      */    }
 
     /*      */
+    
+     public String showLsuMeritTF() {
+          boolean student_freshMan_transfer= this.std.getStd_transfer_ind()==1?true:false;
+         if (student_freshMan_transfer) {
+             return this.fmt.format(this.lsu4yRenewable);
+         } else {
+             return "0";
+         }
+
+     }
+
+     public String showLsuMeritFR() {
+          boolean student_freshMan_transfer= this.std.getStd_transfer_ind()==1?true:false;
+         if (!student_freshMan_transfer) {
+             return this.fmt.format(this.lsu4yRenewable);
+         } else {
+             return "0";
+         }
+     }
  /*      */
  /*      */
  /*      */
@@ -4207,8 +4311,9 @@ _fws=4000;
         /* 3960 */ if (this.amtDue > 0) {
             /* 3961 */ this.yearInAdvanceOption = this.amtDue - (new BigDecimal(this.amtDue)).multiply(PackValues.yearInAdvanceDiscount).intValue();
             /* 3962 */ this.quarterInAdvanceOption = (this.amtDue - (new BigDecimal(this.amtDue)).multiply(PackValues.quarterInAdvanceDiscount).intValue()) / 3;
-            /* 3963 */ this.monthlyOption = (this.amtDue + 90) / 9;
-            /*      */        } else {
+            /* 3963 */ //this.monthlyOption = (this.amtDue + 90) / 9;
+            /*      */   this.monthlyOption = (this.amtDue + 135) / 9;     
+        } else {
             /* 3965 */ this.yearInAdvanceOption = 0;
             /* 3966 */ this.quarterInAdvanceOption = 0;
             /* 3967 */ this.monthlyOption = 0;

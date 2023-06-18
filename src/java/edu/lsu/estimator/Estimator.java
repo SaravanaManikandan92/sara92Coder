@@ -110,6 +110,7 @@
 /*      */   private int std_EA_PERCENT;
 /*      */   
 /*      */   private boolean std_intl;
+             private boolean std_tf;
 /*      */   
 /*      */   private boolean std_marry;
 /*      */   
@@ -187,6 +188,7 @@
 /*      */   
 /*      */   private boolean stdo_intl;
 /*      */   
+private boolean stdo_tf;
 /*      */   private boolean stdo_marry;
 /*      */   
 /*      */   private boolean stdo_sda;
@@ -274,6 +276,11 @@
 /*  274 */     this.std_intl = !(str == null || str.isEmpty() || str.trim().equalsIgnoreCase("no"));
 /*  275 */     this.stdo_intl = this.std_intl;
 /*      */     
+//add the TF 
+               int _i=this.stud.getStd_transfer_ind();
+               this.std_tf=_i==-1?false:true;
+               this.stdo_tf=this.std_tf;
+               
 /*  277 */     str = this.stud.getStudentMMarry();
 /*  278 */     this.std_marry = !(str == null || str.isEmpty() || str.trim().equalsIgnoreCase("Single") || str.trim().equalsIgnoreCase("No"));
 /*  279 */     this.stdo_marry = this.std_marry;
@@ -1769,6 +1776,8 @@ int value_max=(this.login.getCurrentUser()!=null && this.login.getCurrentUser().
 /* 1768 */       this.std_intl = this.stdo_intl;
 /* 1769 */       this.stud.setStudentLIntlStud(this.std_intl ? "yes" : "no");
 /*      */       
+                 this.std_tf=this.stdo_tf;
+                 this.stud.setStd_transfer_ind(this.std_tf?1:0);
 /* 1771 */       this.return_std_ind = this.stdo_return_ind;
 /* 1772 */       this.stud.setReturnStdInd(Integer.valueOf(this.return_std_ind ? 1 : 0));
 /*      */       
@@ -2641,6 +2650,7 @@ int value_max=(this.login.getCurrentUser()!=null && this.login.getCurrentUser().
 /* 2639 */     this.stdo_sda = this.std_sda;
 /* 2640 */     this.stud.setStudentNSda(this.std_sda ? "Yes" : "No");
 /* 2641 */     this.calc.refreshCalc(this.stud);
+//tf_Ch();
 /*      */   }
 /*      */   
 /*      */   public void indeptclicked(AjaxBehaviorEvent event) {
@@ -2655,7 +2665,18 @@ int value_max=(this.login.getCurrentUser()!=null && this.login.getCurrentUser().
 /* 2653 */     this.stdo_indept = this.std_indept;
 /*      */   }
 /*      */ 
-/*      */ 
+public void tf_Ch()
+{
+ this.stdo_tf=this.std_tf;
+               this.stud.setStd_transfer_ind(this.std_tf?1:0);
+}
+/*      */ public void stdtfchanged(AjaxBehaviorEvent event) {
+               this.stdo_tf=this.std_tf;
+               this.stud.setStd_transfer_ind(this.std_tf?1:0);
+/*      */     //this.stdo_academic = this.stud.getStudentUAcademic();
+/* 2469 */     this.calc.refreshCalc(this.stud);
+
+}
 /*      */   
 /*      */   public void stdintlchanged(AjaxBehaviorEvent event) {
 /* 2659 */     this.stdo_intl = this.std_intl;
@@ -2977,7 +2998,14 @@ int value_max=(this.login.getCurrentUser()!=null && this.login.getCurrentUser().
 /*      */   public boolean isStd_intl() {
 /* 2976 */     return this.std_intl;
 /*      */   }
-/*      */   
+public boolean isStd_tf() {
+/* 2976 */     return this.std_tf;
+/*      */   }
+/*      */   public void setStd_tf(boolean std_tf)
+{
+    this.std_tf = std_tf;
+/* 2981 */     this.stud.setStd_transfer_ind(this.std_tf?1:0);
+}
 /*      */   public void setStd_intl(boolean std_intl) {
 /* 2980 */     this.std_intl = std_intl;
 /* 2981 */     this.stud.setStudentLIntlStud(std_intl ? "yes" : "no");

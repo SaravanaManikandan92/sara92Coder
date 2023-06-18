@@ -19,16 +19,7 @@
             <table id="estimatebar" border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <th id="title" colspan="2">                        
-                        <!--
-                        <p:ajaxStatus> 
-                            <f:facet name="prestart"><h:outputText value="Starting..." /> </f:facet>
-                            <f:facet name="error"> <h:outputText value="Error" /></f:facet>
-                            <f:facet name="success"> <h:outputText value="Success" /></f:facet>
-                            <f:facet name="default"> <h:outputText value="Idle" /></f:facet>
-                            <f:facet name="start"> <h:outputText value="Please Wait" /></f:facet>
-                            <f:facet name="complete"> <h:outputText value="Done" /></f:facet> 
-                        </p:ajaxStatus>
-                        -->
+                     
                         <h:form id="pdfrm">
                             <table width="100%"><tr>
                                     <td align="left">
@@ -91,13 +82,7 @@
                 <tr class="#{estimator.sumrow()}">
                     <td class="item">Cal Grant B</td><td class="numb">#{estimator.calc.showCalGrantB()}</td> <!--<h:outputText value="#{estimator.stud.studentAbCalgrantB}"><f:convertNumber pattern="$#,###" /></h:outputText> -->
                 </tr><!-- faces-config.xml has default-local setting. type="currency" will gen '$0.00' -->
-                <!--<f:convertNumber  pattern = "patternFormat"  minIntegerDigits = "minDigits" 
-    maxIntegerDigits = "maxDigits" minFractionDigits = "minDigits" 
-    maxFractionDigits = "maxDigits" groupingUsed = "trueOrfalse" 
-    integerOnly = "trueOrfalse" type = "numberOrCurrencyOrPercent" 
-    currencyCode = "currencyCodeValue" currencySymbol = "currencySymbol" 
-    locale = "locale">
-</f:convertNumber>-->
+                
                 
                 <tr class="#{estimator.sumrow()}">
                     <td class="item">FSEOG</td><td class="numb">#{estimator.calc.showFseogAmt()}</td>
@@ -161,11 +146,16 @@
                 <tr class="#{estimator.sumrow()}">
                     <td class="item">La Sierra Achievement Award</td><td class="numb">#{estimator.calc.showLsuAchievementAmt()}</td>
                 </tr>
-                <tr class="#{estimator.sumrow()}">
+<!--                <tr class="#{estimator.sumrow()}">
                     <td class="item">La Sierra 4-year Renewable Scholarship</td><td class="numb">#{estimator.calc.showLsu4yRenewableAmt()}</td>
+                </tr>-->
+                 <tr class="#{estimator.sumrow()}">
+                    <td class="item">La Sierra Merit (FR)</td><td class="numb">#{estimator.calc.showLsuMeritFR()}</td>
                 </tr>
                 
-                
+                 <tr class="#{estimator.sumrow()}">
+                    <td class="item"> La Sierra Merit (TF)</td><td class="numb">#{estimator.calc.showLsuMeritTF()}</td>
+                </tr>
                 
                 <f:subview id="opt_award1" rendered="#{estimator.calc.getScholarship1Amt() gt 0 }">
                     <tr class="#{estimator.sumrow()}">
@@ -245,8 +235,12 @@
                     <tr class="#{estimator.sumrow(1)}">
                         <td class="item">Subsidized Direct Loan (borrow #{estimator.calc.showAmt( estimator.calc.getOrg_loan_amt_sub() )})</td><td class="numb">#{estimator.in_subloan eq true or estimator.stud.studentApSubLoans eq 'yes'? estimator.calc.showSubdirectAmt() : 'excluded'}</td>
                     </tr>
-                    <tr class="#{estimator.sumrow()}">
+<!--                    <tr class="#{estimator.sumrow()}">
                         <td class="item">Perkins Loan (borrow #{estimator.calc.showAmt( estimator.calc.getOrg_loan_amt_perkins() )})</td><td class="numb">#{estimator.calc.showPerkinLoanAmt()}</td>
+                    </tr>-->
+<!--                    La Sierra Loan-to-Scholarship-->
+<tr class="#{estimator.sumrow()}">
+                        <td class="item">La Sierra Loan-to-Scholarship (borrow #{estimator.calc.showAmt( estimator.calc.getOrg_loan_amt_perkins() )})</td><td class="numb">#{estimator.calc.showAmt( estimator.calc.getOrg_loan_amt_perkins() )}</td>
                     </tr>
                     <tr class="#{estimator.sumrow()}">
                         <td class="item">Unsubsidized Direct Loan (borrow #{estimator.calc.showAmt( estimator.calc.getOrg_loan_amt_unsub() )})</td><td class="numb">#{estimator.in_unsubloan eq true or estimator.stud.studentAqUnsubLoans eq 'yes'? estimator.calc.showUnsubdirectAmt() : 'excluded'}</td>
@@ -313,7 +307,7 @@
                     <th  colspan="2">Payment Options</th><!-- ===================================================================================== -->
                 </tr>
                 <tr class="#{estimator.sumrow(1)}">
-                    <td class="item">Year in Advance option <font size="smaller">(7% off)</font></td><td class="numb">#{estimator.calc.initAndShowYIA()}</td>
+                    <td class="item">Year in Advance option <font size="smaller">(5% off)</font></td><td class="numb">#{estimator.calc.initAndShowYIA()}</td>
                 </tr>
                 <f:subview id="cj_quarter_in_adv" rendered="#{estimator.stud.studentUAcademic ne 'CJ'}">
                 <tr class="#{estimator.sumrow()}">
@@ -321,7 +315,7 @@
                 </tr>
                 </f:subview>
                 <tr class="#{estimator.sumrow()}">
-                    <td class="item">Monthly option <font size="smaller">($90 annual fee included)</font></td><td class="numb">#{estimator.calc.showMonthlyOption()}</td>
+                    <td class="item">Monthly option <font size="smaller">($135 annual fee included)</font></td><td class="numb">#{estimator.calc.showMonthlyOption()}</td>
                 </tr>
                 <!--tr><td colspan="2">&nbsp;</td></tr-->
             </table>
@@ -336,31 +330,7 @@
                 //$("input.myClass[type=checkbox]") $("input.myClass:checkbox")   $(".blah\\.blah\\.blah")    $(".a.b") and $(".a, .b")  $(".class2") and $("[class=class2]") 
                 function adjustHeight(){ 
                 $("ul.ui-tabs-nav").css("height", "41px");
-  /*              
-                $("ul.ui-tabs-nav").css({"border-bottom":"1px solid #3352A4"});
-                $("ul.ui-tabs-nav").css({"padding-bottom":"3px"});
 
-                $("div.ui-tabs-panel").css({"padding-left":"5px"});
-                $("div.ui-tabs-panel").css({"padding-top":"10px"}); 
-                
-               
-                $("ul.ui-tabs-nav li.ui-state-default a").css({"margin-bottom":"0px"});
-                
-                $("ul.ui-tabs-nav li.ui-state-active").css({"margin-bottom":"10px"});
-                $("ul.ui-tabs-nav li.ui-state-active a").css({"margin-bottom":"2px"});
-                $("ul.ui-tabs-nav li.ui-tabs-selected").css({"margin-bottom":"10px"});
-               
-                $("ul.ui-tabs-nav li.ui-tabs-selected a").css({"margin-bottom":"2px"});
- */               
-               // do_sync_ss();
-                
-                    //$("div.ui-tabs-panel.ui-widget-content.ui-corner-bottom  table > tr").css({"margin-bottom":"5px"});
-                    //adjust div length, since the content div is not high enough to hold the ptab div sometimes
-                                        
-                    //to bind js onfocus() func to primefaces inputmask fields
-                   // $("input.ui-inputmask").onfocus=function () {this.select();}
-                    //$("input.ui-inputmask").on("click", function(event){ this.select();} );
-          //          $("input.ui-inputmask").bind("focus", function(event){  this.select(); this.doubleclick();  });
                 }
                 
                 function delayResizeHeight( mode){
@@ -393,15 +363,7 @@
     var former_hl;
     
     function bindEventx() {
-        /*
-        var _1 = document.getElementById("main_body");
-        if (_1) {
-            removeClassName(_1, "no_guidelines");
-            var _2 = getElementsByClassName(document, "*", "guidelines");
-            if (_1.offsetWidth <= 450 || _2 == "") {
-                addClassName(_1, "no_guidelines", true);
-            }
-        }*/
+        
         elements = getElementsByClassName(document, "*", "element");
         for (i = 0; i < elements.length; i++) {
             if (elements[i].type == "checkbox" ||  elements[i].type == "radio" || elements[i].type == "file") {
@@ -413,15 +375,7 @@
                 elements[i].onblur = function () {removeClassName(getSpecParentNode(this, 'tbody'), "highlighted");};
             }
         }
-        /*
-        var _3 = navigator.userAgent.toLowerCase();        
-        var _4 = document.getElementsByTagName("body");
-        if (_3.indexOf("safari") + 1) {
-            addClassName(_4[0], "safari", true);
-        }
-        if (_3.indexOf("firefox") + 1) {
-            addClassName(_4[0], "firefox", true);
-        }*/
+      
     }
 
 
@@ -518,17 +472,7 @@
     function popup(){
         var popind = document.getElementById("auth-sv-ptab-popind");
         if (popind ){
-            /*
-            var fid  = document.getElementById("auth-sv-ptab-std_lsuid");
-            var ffn  = document.getElementById("auth-sv-ptab-std_fname");
-            var fln  = document.getElementById("auth-sv-ptab-std_lname");
-            var fdob = document.getElementById("auth-sv-ptab-std_dob");
-            var fnow = document.activeElement;
-            if(  fnow && fnow!=fid && fnow !=ffn && fnow!=fln && fnow!=fdob && fnow!=popind){
-                popind.style.visibility="hidden";//style.display="none";
-                auto.hide(); 
-            }else 
-            */
+ 
             
             if(popind.value=="0"){
                 popind.style.visibility="hidden";//style.display="none";
@@ -536,23 +480,7 @@
             }else{                
                 auto.show(); 
                 popind.style.visibility="visible";//style.display="block";
-          //      auto.focus();
-          //      auto.select();
-                //$('#auto').keydown(
-                /*
-                auto.keydown(function(e) { 
-                    var keyCode = e.keyCode || e.which; 
-                    if (keyCode == 9) { 
-                        auto.hide();
-                    } 
-                });
-                */
-               /*
-                if(auto.addEventListener ) {
-                    auto.addEventListener('keydown',this.keyHandler,false);
-                } else if(auto.attachEvent ) {
-                    auto.attachEvent('onkeydown',this.keyHandler);  
-                } */                
+                 
             }
         }               
     }
@@ -569,20 +497,7 @@
         auto.hide(); //or dialog.hide();        
     }
     function popdown3(popind){ /*
-        var keynum;
-        //var keychar
-        //var numcheck
-        alert("popdown3() with event "+ e==null? "null":"not null");
-        if(window.event){ // IE
-            keynum = e.keyCode;
-            alert("ms "+keynum);
-        }else if(e.which){ // Netscape/Firefox/Opera
-            keynum = e.which;
-            alert("non-ms "+keynum);
-        }else{
-            alert("unknow browser");
-        }
-        //keychar = String.fromCharCode(keynum)
+      
         
         if( keynum ==9){ */
             var ind = popind;//document.getElementById("auth-sv-ptab-popind");
@@ -915,45 +830,7 @@ $myForm.find(':input:disabled').prop('disabled',false)
             if( obj_nc){
                 $(obj_nc).prop("checked", ss_nc);
             }
-            /*
-            var obj_cat1 = $("input#auth-sv-ptab-std_cat1");
-            var obj_cat2 = $("input#auth-sv-ptab-std_cat2");
-            var obj_cat3 = $("input#auth-sv-ptab-std_cat3");
-            var obj_cat4 = $("input#auth-sv-ptab-std_cat4");
-            var obj_cat5 = $("input#auth-sv-ptab-std_cat5");
-            if(obj_cat1 && obj_cat2 && obj_cat3 && obj_cat4 && obj_cat5){  
-                
-                $(obj_cat1).prop("checked", false);
-                $(obj_cat2).prop("checked", false);
-                $(obj_cat3).prop("checked", false);
-                $(obj_cat4).prop("checked", false);
-                $(obj_cat5).prop("checked", false);
-                switch(ss_academic){
-                    case "FR": $(obj_cat1).prop("checked", true); break;
-                    case "F2": $(obj_cat2).prop("checked", true); break;
-                    case "SO": $(obj_cat3).prop("checked", true); break;
-                    case "JR": $(obj_cat4).prop("checked", true); break;    
-                    case "SR": $(obj_cat5).prop("checked", true); break;    
-                    default:break;
-                }
-            }*/
-            
-            /*
-                    //to use jquery delay, need utilize queue                    
-                    $("#main_content").delay(3000).queue(function( n ) {
-                            $(this).load("/pre_config/function.php?type="+type+"piz&count=1", successCallback )
-                                .dequeue();
-                        });
-                    */
-            /*var vals = [];
-            if(obj_merit){
-                $("input[name='auth-sv-ptab-std_merit']:checked").each(function(){vals.push($(this).val());});
-            //while(ss_merit!=null && vals.join(",")!=ss_merit){
-                    setTimeout( function() { $(obj_merit).val([ss_merit]); }, 500 );//$(obj_merit).delay(500).val([ss_merit]); //or setTimeout( function() { dothingswithsleep( 1 ); }, 1000 );
-                    vals = [];
-                    $("input[name='auth-sv-ptab-std_merit']:checked").each(function(){vals.push($(this).val());});
-                //}            
-            }*/
+           
          }            
          
         if(ss_ptab==2){
@@ -1106,33 +983,22 @@ $myForm.find(':input:disabled').prop('disabled',false)
                     <!-- in 3.0M2 onTabShow is a after event callback, but in 3.0M3, it is a before event -->
                     <!-- PF3.1  onTabChange=onclick onTabShow=inact_tab_became_active_to_be_shown-->
 <p:tabView  id="ptab" activeIndex="#{estimator.tab_index}" dynamic="true" cache="false">  <!--   onTabShow="delayResizeHeight(1);" onTabChange="adjustHeight();" BEFORE AJAX EVENT  effect="blind" effectDuration="normal"-->
-                   <!-- <p:ajax event="tabChange" listener="#{estimator.tabChanged}" update="@all"  />
-                   <p:ajax> onTabShow="resize_height();" onTabChange="resize_height();"-->
-                    <!-- all==whole page includes load(), so no need of onsuccess="adjustHeight" -->
-                          <!--PF2.2  tabChangeListener="#{estimator.tabChanged}" onTabChangeUpdate="@this" -->                    
-                    <!--
-                    <p:ajax event="tabChange" update="@this" oncomplete="adjustHeight();" /> update="ptab"-->
+                 
                     <p:ajax event="tabChange"  listener="#{estimator.tabChanged}"  oncomplete="sync_ss(xhr, status, args);" /> 
                     
                         
             <p:tab title="Personal" id="t1"  >  
                 <table  border="0" cellpadding="0" cellspacing="0" width="100%" >
                     <tr><td>La Sierra ID<br/>
-<p:inputText id="std_lsuid" value="#{estimator.stud.studentALsuid}" maxlength="6" style="width:97%;" label="Personal #{msg['layer']} La Sierra ID"  size="10" tabindex="1" >
-    <!-- onkeyup="jsf.ajax.request(this,event,{execute:'@this', render:'sidebar2'});return false;"  w/o error, but no refreshing-->
-    <!--<f:ajax event="change" execute="@this" render="-auth-bar" /> -->
+<p:inputText id="std_lsuid" value="#{estimator.stud.studentALsuid}" maxlength="7" style="width:97%;" label="Personal #{msg['layer']} La Sierra ID"  size="10" tabindex="1" >
+ 
     <p:ajax event="blur" process="@this" update="popind pop @this -auth-sv-msgs" listener="#{estimator.chgedid}" oncomplete="popup();" />
 </p:inputText> 
                         </td>
                         <td colspan="2" style="vertical-align:middle; text-align: center;" >
                             <fieldset title="Gender" style="width:97%; border:1px solid #666666;  padding:0px; margin-left: 20px;"> <!--"border-left: 0px; "  -->
                                 <legend align="left" style="border:1px solid #666666; padding:0px 2px 0px 2px;background-color:#EAECEE; margin-left:10px;" >Gender</legend> <!-- margin:0px 0px 0px -9px; -->                                           
-                                <!--<h:selectOneRadio id="std_sex" value="#{estimator.std_sex}" style="margin:0px 0px 0px 0px; padding:0px 2px 2px 50px; vertical-align: top;  border-left:1px solid #666666;" layout="lineDirection" tabindex="2"  >
-                                    <f:selectItem itemLabel="Female &nbsp;&nbsp;&nbsp;" itemValue="F" />
-                                    <f:selectItem itemLabel="Male &nbsp;&nbsp;&nbsp;" itemValue="M" />
-                                    <f:selectItem itemLabel="Unknown or N/A" itemValue="N" />
-                                    <f:ajax event="change" execute="@this" render="-auth-bar std_sex2 std_sex3" listener="#{estimator.chgsex}" />
-                                </h:selectOneRadio>-->
+                                
                                 <h:selectBooleanCheckbox id="std_sex1" value="#{estimator.std_sex1}" tabindex="2">
                                     <f:ajax event="change" execute="@this" render="-auth-bar std_sex2 std_sex3" listener="#{estimator.chgsex1}" />
                                 </h:selectBooleanCheckbox><h:outputLabel for="std_sex1" value="Female &nbsp;&nbsp;&nbsp;"/>
@@ -1322,6 +1188,15 @@ $myForm.find(':input:disabled').prop('disabled',false)
                             </h:selectBooleanCheckbox>
                                 <h:outputLabel for="std_sda" value="Seventh-day Adventist"/></td>
                     </tr>
+
+                           <tr>
+                               <td colspan="3"><h:selectBooleanCheckbox  id="std_tf" value="#{estimator.std_tf}" tabindex="21">
+                                <f:ajax event="change" execute="@this" render="-auth-bar"  listener="#{estimator.stdtfchanged}" />
+                            </h:selectBooleanCheckbox>
+                            <h:outputLabel for="std_tf" value="Starting/started at La Sierra as a transfer student"/></td>                                    
+                    </tr>
+                           
+                  
                     <tr>
                         <td colspan="3"><h:selectBooleanCheckbox  id="std_indept" value="#{estimator.std_indept}" disabled="#{estimator.std_indepts.size() gt 0}"   tabindex="22"> 
                                 <f:ajax event="click" execute="@this" render="-auth-bar"   listener="#{estimator.indeptclicked}" />
@@ -1446,25 +1321,12 @@ $myForm.find(':input:disabled').prop('disabled',false)
                                 </tr>
                                 <tr>
                                     <td colspan="3">
-                                        <p:fieldset id="stdcats" legend="Academic Level"  style="width:97%;  "><!--
-                                            <p:selectOneRadio id="std_grade"  value="#{estimator.stud.studentUAcademic}" layout="pageDirection" >
-                                                <f:selectItem itemLabel="Will be a 1st year Student (Freshman)" itemValue="FR"  itemDisabled="false" />  
-                                                <f:selectItem itemLabel="Will be a continuing Freshman (has completed between 12 and 44 hours)" itemValue="F2"  itemDisabled="false" />  
-                                                <f:selectItem itemLabel="Will be a Sophomore" itemValue="SO"  itemDisabled="false"  />
-                                                <f:selectItem itemLabel="Will be a Junior" itemValue="JR"  itemDisabled="false"  />  
-                                                <f:selectItem itemLabel="Will be a Senior" itemValue="SR"  itemDisabled="false"  /> 
-                                                
-                                                <f:selectItem itemLabel="Will be an undergrad who has previously completed a Bachelor's degree (coming soon)" itemValue="PB"  itemDisabled="true" /> 
-                                                <f:selectItem itemLabel="Will be a MBA student (coming soon)" itemValue="MBA"   itemDisabled="true" />  
-                                                <f:selectItem itemLabel="Will be a Graduate Student (coming soon)" itemValue="GR" itemDisabled="true" /> 
-                                                <f:selectItem itemLabel="Will be part of the Criminal Justice Program (coming soon)"  itemDisabled="true" itemValue="CJ"  /> 
-                                                <f:selectItem itemLabel="Will be part of the English as a Second Language (ESL) Program (coming soon)" itemValue="ESL" itemDisabled="#{true}"   />                                                
-                                                <f:ajax event="change" execute="@this" render="-auth-bar" listener="#{estimator.academiclevel_changed}"/>
-                                            </p:selectOneRadio> font-size:smaller;-->
+                                        <p:fieldset id="stdcats" legend="Academic Level"  style="width:97%;  ">
                                             <div style="font-size:0.9em; line-height: 1.2em; font-weight:ligher;"> 
                                             <h:selectOneRadio id="std_grade"  value="#{estimator.stud.studentUAcademic}" layout="pageDirection" >
                                                 <f:selectItem itemLabel="Will be a 1st year Student (Freshman)" itemValue="FR"  itemDisabled="false" />  
-                                                <f:selectItem itemLabel="Will be a continuing Freshman (has completed between 12 and 44 hours)" itemValue="F2"  itemDisabled="false" />  
+                                                    <f:selectItem itemLabel="Will be a continuing Freshman (has completed between 12 and 44 hours)" itemValue="F2"  itemDisabled="false" />  
+                                                
                                                 <f:selectItem itemLabel="Will be a Sophomore" itemValue="SO"  itemDisabled="false"  />
                                                 <f:selectItem itemLabel="Will be a Junior" itemValue="JR"  itemDisabled="false"  />  
                                                 <f:selectItem itemLabel="Will be a Senior" itemValue="SR"  itemDisabled="false"  /> 
@@ -1478,62 +1340,7 @@ $myForm.find(':input:disabled').prop('disabled',false)
                                                 <p:ajax event="change" process="@this" update="-auth-bar" listener="#{estimator.academiclevel_changed}" oncomplete="resize_height();"/>
                                             </h:selectOneRadio>
                                             </div>
-                                            <!--
-                                            <div style="font-size:0.9em; line-height: 1.2em;">                                                 
-                                            <div>
-                                            <h:selectBooleanCheckbox id="std_cat1" value="#{estimator.std_cat1}" >
-                                               <p:ajax event="change" process="@this" update="-auth-bar @this std_cat2 std_cat3 std_cat4 std_cat5"   listener="#{estimator.studcat1changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat1" value="Will be a 1st year Student (Freshman)"/>
-                                            </div>
-                                            <div> 
-                                            <h:selectBooleanCheckbox id="std_cat2" value="#{estimator.std_cat2}" >
-                                               <p:ajax event="change" process="@this" update="-auth-bar @this std_cat1 std_cat3 std_cat4 std_cat5"   listener="#{estimator.studcat2changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat2" value="Will be a continuing Freshman (has completed between 12 and 44 hours)"/>
-                                            </div>
-                                            <div> 
-                                            <h:selectBooleanCheckbox id="std_cat3" value="#{estimator.std_cat3}" >
-                                               <p:ajax event="change" process="@this" update="-auth-bar @this std_cat2 std_cat1 std_cat4 std_cat5"   listener="#{estimator.studcat3changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat3" value="Will be a Sophomore"/>
-                                            </div>
-                                            <div> 
-                                            <h:selectBooleanCheckbox id="std_cat4" value="#{estimator.std_cat4}" >
-                                               <p:ajax event="change" process="@this" update="-auth-bar @this std_cat2 std_cat3 std_cat1 std_cat5"   listener="#{estimator.studcat4changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat4" value="Will be a Junior"/>
-                                            </div>
-                                            <div> 
-                                            <h:selectBooleanCheckbox id="std_cat5" value="#{estimator.std_cat5}" >
-                                               <p:ajax event="change" process="@this" update="-auth-bar @this std_cat2 std_cat3 std_cat4 std_cat1"   listener="#{estimator.studcat5changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat5" value="Will be a Senior"/>
-                                            </div>
-                                            
-                                            
-                                            <div class="disable"> 
-                                            <h:selectBooleanCheckbox id="std_cat6" value="#{estimator.std_cat6}"  disabled="true" >
-                                               <p:ajax event="change" process="@this" update="-auth-bar stdcats"   listener="#{estimator.studcat6changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat6" value="Will be an undergrad who has previously completed a Bachelor's degree (coming soon)"/>
-                                            </div>
-                                            <div class="disable">
-                                            <h:selectBooleanCheckbox id="std_cat7" value="#{estimator.std_cat7}"  disabled="true">
-                                               <p:ajax event="change" process="@this" update="-auth-bar stdcats"   listener="#{estimator.studcat7changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat7" value="Will be a MBA student (coming soon)"/>
-                                            </div>
-                                            <div class="disable">
-                                            <h:selectBooleanCheckbox id="std_cat8" value="#{estimator.std_cat8}"  disabled="true">
-                                               <p:ajax event="change" process="@this" update="-auth-bar stdcats"   listener="#{estimator.studcat8changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat8" value="Will be a Graduate Student (coming soon)"/>
-                                            </div>
-                                            <div class="disable">
-                                            <h:selectBooleanCheckbox id="std_cat9" value="#{estimator.std_cat9}"  disabled="true">
-                                               <p:ajax event="change" process="@this" update="-auth-bar stdcats"   listener="#{estimator.studcat9changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat9" value="Will be part of the Criminal Justice Program (coming soon)"/>
-                                            </div>
-                                            <div class="disable">
-                                            <h:selectBooleanCheckbox id="std_cat10" value="#{estimator.std_cat10}"  disabled="true">
-                                               <p:ajax event="change" process="@this" update="-auth-bar stdcats"   listener="#{estimator.studcat10changed}"  oncomplete="resize_height();" />
-                                            </h:selectBooleanCheckbox><h:outputLabel for="std_cat10" value="Will be part of the English as a Second Language (ESL) Program (coming soon)"/>                                            
-                                            </div>
-                                            </div>
-                                            -->
+                                         
                                         </p:fieldset> 
                                     </td>
                                 </tr>
@@ -1681,24 +1488,7 @@ $myForm.find(':input:disabled').prop('disabled',false)
                        <p:tab title="Institutional" id="t4">                              
                            <table id="holder4" border="0" cellpadding="0" cellspacing="0" width="100%"  >    <!-- currencySymbol="$" type="currency" pattern="$#,###" -->                             
                                <tbody style="display:#{estimator.ifshowscholar(1)};" id="scholar1" class="holder #{estimator.sumrow(1)}" >
-                               <!--
-                               <tr>
-                                   <td width="90%"><label for="auth-sv-ptab-scholarship1">Scholarship #1, including Matching and Endowment:</label><br/>
-                                       <p:inputText id="scholarship1" readonly="true" value="#{estimator.stud.studentAsScholarship1Name}" style="width:99%;"  onfocus="setSpecParentNode(this);"  /> </td>
-                                   <td><label for="auth-sv-ptab-ship1amt">Amount:</label><br/>
-                                       <p:inputText  id="ship1amt"  value="#{estimator.stud.studentAuScholarship1Amt}" style="width:100%" label="Institutional #{msg['layer']} #{msg['EstimateForm.institute.scholarship1amt.label']}"  onfocus="setSpecParentNode(this);" >
-                                            <f:ajax event="change" execute="@this" render="-auth-bar  @this -auth-sv-msgs ship1note"   listener="#{estimator.lsuawardamtchanged1}" />
-                                        <f:convertNumber integerOnly="true" minFractionDigits="0" pattern="#,###" />
-                                        </p:inputText>                                       
-                                    </td>
-                                </tr>
-                                   <tr><td colspan="2" ><label for="auth-sv-ptab-ship1note" >Notes:</label><br/>
-                                           <p:inputText id="ship1note"  value="#{estimator.stud.studentAtScholarship1Note}" style="width:100%" onfocus="setSpecParentNode(this);"  maxlength="250" >
-                                               <f:ajax  event="change" execute="@this" render="-auth-bar" listener="#{estimator.lsuawardnoteschanged1}" />
-                                           </p:inputText>
-                                       </td>
-                                   </tr>   
-                                -->
+                           
                                 <tr>
                                     <td width="92%"><label for="auth-sv-ptab-ship1note">#{estimator.stud.studentAsScholarship1Name}<font size="-1"><i>#{estimator.fund1extra}</i></font></label><br/>
                                         <p:inputText id="ship1note"  value="#{estimator.stud.studentAtScholarship1Note}" style="width:99%" onfocus="setSpecParentNode(this);"  maxlength="250" readonly="true" disabled="#{ref.fundMaxOutIndById(estimator.stud.fund1id) lt 0 ? 'true': 'flase'}">
@@ -1994,7 +1784,7 @@ $myForm.find(':input:disabled').prop('disabled',false)
                     
                     <!--
                             <p:tab title="Save" id="t6" >
-                                <h:commandButton id="save" value="Save Student Info"  actionListener="#{estimator.savestudinfo}"  > -->
+                                <h:commandButton id="save" value="Save Student Info"  actionListener="#{estimator.savest udinfo}"  > -->
                                    <!-- <p:ajax event="click" process="@form" update="-auth-sv-msgs" listener="#{estimator.savestudinfo}" /> -->
                                     <!--<f:ajax event="click" execute="@form" render="-auth-sv-msgs" listener="#{estimator.savestudinfo}" /> -->
                            <!--     </h:commandButton>                                
@@ -2015,41 +1805,3 @@ $myForm.find(':input:disabled').prop('disabled',false)
 </ui:composition>
 
 <!-- xmlns:o="http://openfaces.org/" -->
-
-<!--
-<h:form prependId="false" id="formNav">
-                   <h:commandLink  value="tab 1">
-                        <f:param name="tabIndex" value="1" />
-                       <f:ajax event="click" render="contentForm" listener="#{tabBB.handleTabChange}"/>
-                    </h:commandLink>
-                   <h:commandLink  value="tab 2">
-                        <f:param name="tabIndex" value="2" />
-                       <f:ajax event="click" render="contentForm" listener="#{tabBB.handleTabChange}"/>
-                   </h:commandLink>
-                   <h:commandLink  value="tab 3">
-                        <f:param name="tabIndex" value="3" />
-                       <f:ajax event="click" render="contentForm" listener="#{tabBB.handleTabChange}"/>
-                   </h:commandLink>
-                    <h:form prependId="false" id="contentForm">
-                        <div id="tabContent">
-                            <p:outputPanel id="tab1" rendered="#{tabBB.tabIndex == 1}">
-                                <h3>Tab 1 Content</h3>
-                                ...
-                            </p:outputPanel>
-                            <p:outputPanel id="tab2" rendered="#{tabBB.tabIndex == 2}">
-                                <h3>Tab 2 Content</h3>
-                                ...
-                            </p:outputPanel>
-
-                            <p:outputPanel id="tab3" rendered="#{tabBB.tabIndex == 3}">
-                                <h3>Tab 3 Content</h3>
-                                 ...
-                            </p:outputPanel>
-                      </div>
-                </h:form>                    
-                </h:form>-->
-
-<!--selectedIndex="0" tabPlacement="left" tabStyle="" selectedTabStyle="" tabGapWidth=""-->
-                 <!--<o:tabbedPane  id="otab" tabAlignment="topOrLeft" loadingMode="server" rendered="true">
-                    <o:subPanel caption="tab1">                         
-                -->
