@@ -17,8 +17,7 @@
 
                 <f:subview id="valid" rendered="#{ref.clientid gt 0 and ref.sys_blk_ind le 0 and ref.sys_cfg_ind gt 0 and ref.sys_usr_ind gt 0}" >
                     <p:layout fullPage="true">
-
-
+             
                         <div class="loginCenter">
                             <p:layoutUnit position="center"  style="position:relative;margin:10px 0px 20px 5px; width: 50% important;background-color:white">
 
@@ -177,7 +176,9 @@
                                                                                 </p:panel>
                                                                                 <p:poll interval="2" update="status"  autoStart="true" /> -->
                                         <div id="masterServerDetails">
-                                        <!--    <p:messages id="message" globalOnly="true" layout="table" styleClass="messages" rendered="true" >  value="#{ref.master_up_ind}" action="#{messageManagedBean.setMessage(ref.master_up_ind gt 0)}" update="message"   -->
+<!--                                           <p:messages id="message" globalOnly="true" layout="table" styleClass="messages" rendered="true" >  value="#{ref.master_up_ind}" action="#{messageManagedBean.setMessage(ref.master_up_ind gt 0)}" update="message"> </p:messages>-->
+                                        <p:messages id="message" globalOnly="true" autoUpdate="true"  redisplay="false"    />   
+                                          
                                             <p style="font-size:  x-small;
                                                text-align: center;
                                                position: relative;">  <span> Master server "#{ref.seed.mastername}" is #{ref.master_up_ind gt 0? 'up':'not reachable at present'} </span> | <span> Authentication server "#{ref.seed.ldapserver}" is #{ref.ldap_up_ind gt 0? 'up':'not reachable. Will try your last success password'} |</span> <span>Estimator #{ref.seed.clientid gt 0? ref.getVerStr() :"needs initialization"}</span>  </p>
@@ -186,8 +187,10 @@
                                                position: relative;"> <span>Checking and refreshing server status every #{ref.seed eq null ? 0 : ref.seed.pollInterval} minutes</span></p>
 
 
-<!--        <span action="#{messageManagedBean.doSomeAction(ref.seed.mastername,ref.master_up_ind gt 0,'Master')}" update="message"></span>-->
-                                            <!--    </p:messages>-->
+<!--      <span  action="#{messageManagedBean.doSomeAction(ref.seed.mastername,ref.master_up_ind gt 0,'Master')}" >
+          <p:messages for="MessageId" autoUpdate="true"   />
+      </span>-->
+                                            
                                         </div>
 
                                     </div>
@@ -208,7 +211,10 @@
                         $(window).load(function () {
 
                             var obj = $("#loginview-bv-valid-username")[0];//document.getElementById(id) returns raw DOM obj, while $(id)  jQuery object that wraps the DOM object and provides jQuery methods
-                            obj.focus();
+        if(obj)
+        {
+            obj.focus()
+        }
                         });
                         $(document).ready(function () {
                             $("#loginview-bv-valid-uname").tooltip({position: "center right", opacity: 0.7, effect: "fade", offset: [0, 0], delay: 0, predelay: 0});

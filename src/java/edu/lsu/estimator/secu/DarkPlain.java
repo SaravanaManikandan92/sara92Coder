@@ -141,13 +141,11 @@ import edu.lsu.estimator.Counselor;
         /*     */
  /*     */
  /*     */
+ /*     *
  /*     */
  /*     */
  /*     */
- /*     */
- /*     */
- /*     */
- /* 143 */ env.put("java.naming.security.principal", "cn=" + who.trim() + ((user.getStdInd().intValue() == 0) ? ",ou=employee," : ",ou=student,") + "ou=people,dc=lasierra,dc=edu");
+ /* 143 */ env.put("java.naming.security.principal", "cn=" + who.trim() + ((user.getStdInd()==null ||  user.getStdInd().intValue() == 0) ? ",ou=employee," : ",ou=student,") + "ou=people,dc=lasierra,dc=edu");
         /* 144 */ env.put("java.naming.security.credentials", token);
         /*     */
  /*     */

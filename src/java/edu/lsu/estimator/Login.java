@@ -167,71 +167,68 @@
             /*     */        }
         /*     */
  /*     */
-// /* 149 */ if (this.ref.pingLdap() > 0) {
-//            /* 150 */ if (this.darkPlain == null) {
-//                /* 151 */ log.info("login() can not authenticate user %s since ldap program is not ready.", new Object[]{this.credentials.getUsername()});
-//                /* 152 */ FacesMessage msg = this.ref.facesMessageByKey(FacesMessage.SEVERITY_ERROR, "LoginForm.NoAuthSrc");
-//                /*     */
-// /*     */
-// /* 155 */ this.facesContext.addMessage(null, msg);
-//                /* 156 */ return null;
-//                /*     */            }
-//            /*     */
-// /*     */ try {
-//                /* 160 */ auth = this.darkPlain.authLDAPS(this.credentials.getUsername(), this.credentials.getPassword(), found);
-//                /* 161 */            } catch (Exception ste) {
-//                /* 162 */ auth = 0;
-//                /*     */
-// /* 164 */ FacesMessage msg = new FacesMessage();
-//                /* 165 */ msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-//                /* 166 */ msg.setDetail(ste.getMessage());
-//                /* 167 */ msg.setSummary(ste.getMessage());
-//                /*     */
-// /*     */
-// /*     */
-// /* 171 */ this.facesContext.addMessage(null, msg);
-//                /* 172 */ return null;
-//                /*     */            }
-//            /* 174 */ log.info("login() got LDAP auth code == %d", new Object[]{Integer.valueOf(auth)});
-//            /*     */
-// /* 176 */ if (auth == 1) {
-//                /* 177 */ log.info("@@@ login() tried to update/save shadow for identified user %s", new Object[]{this.credentials.getUsername()});
-//                /*     */
-// /* 179 */ String hashPwd = this.ref.getCipher().hashString(this.credentials.getPassword());
-//                /* 180 */ found.setShadow(hashPwd);
-//                /*     */
-// /* 182 */ String str = this.accessor.updateCounselorPwd(found);
-//                /* 183 */ log.info("@@@ login() tried to update/save shadow, msg=%s @@@@@@@@@@@@@@", new Object[]{str});
-//                /* 184 */ this.ref.reloadSeed();
-//                /*     */            }
-//            /*     */
-// /*     */        } /*     */ else {
-//            /*     */
-// /* 190 */ log.info("@@@ login() can not authenticate user %s with remote server since ldap server is not up. will try local source", new Object[]{this.credentials.getUsername()});
-//            /* 191 */ String shadow = found.getShadow();
-//            /*     */
-// /* 193 */ if (!this.ref.isEmp(shadow)) {
-//                /*     */
-// /*     */
-// /* 196 */ auth = this.ref.getCipher().hashString(this.credentials.getPassword()).equals(shadow) ? 1 : 0;
-//                /* 197 */ log.info("@@@ login() comp user %s local shadow and pwd digest, result=%d", new Object[]{this.credentials.getUsername(), Integer.valueOf(auth)});
-//                /*     */
-// /*     */
-// /*     */
-// /* 201 */ if (auth == 0) {
-//                    /* 202 */ FacesMessage msg = this.ref.facesMessageByKey(FacesMessage.SEVERITY_ERROR, "LoginForm.UseLocalShadowAndNoMatch");
-//                    /* 203 */ this.facesContext.addMessage(null, msg);
-//                    /* 204 */ auth = -1;
-//                    /*     */                }
-//                /*     */            } else {
-//                /* 207 */ log.info("@@@ login() can not authenticate user %s since local source has no shadow", new Object[]{this.credentials.getUsername()});
-//                /* 208 */ auth = 0;
-//                /*     */            }
-//            /*     */        }
-        /*     */
+ /* 149 */ if (this.ref.pingLdap() > 0) {
+           /* 150 */ if (this.darkPlain == null) {
+                /* 151 */ log.info("login() can not authenticate user %s since ldap program is not ready.", new Object[]{this.credentials.getUsername()});
+                /* 152 */ FacesMessage msg = this.ref.facesMessageByKey(FacesMessage.SEVERITY_ERROR, "LoginForm.NoAuthSrc");
+                /*     */
+ /*     */
+ /* 155 */ this.facesContext.addMessage(null, msg);
+                /* 156 */ return null;
+                /*     */            }
+            /*     */
+ /*     */ try {
+                /* 160 */ auth=this.darkPlain.authLDAPS(this.credentials.getUsername(), this.credentials.getPassword(), found); //auth = 1;
+                /* 161 */            } catch (Exception ste) {
+                /* 162 */ auth = 0;
+                /*     */
+ /* 164 */ FacesMessage msg = new FacesMessage();
+                /* 165 */ msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+                /* 166 */ msg.setDetail(ste.getMessage());
+                /* 167 */ msg.setSummary(ste.getMessage());
+                /*     */
  /*     */
  /*     */
-        auth = 1;
+ /* 171 */ this.facesContext.addMessage(null, msg);
+                /* 172 */ return null;
+                /*     */            }
+            /* 174 */ log.info("login() got LDAP auth code == %d", new Object[]{Integer.valueOf(auth)});
+            /*     */
+ /* 176 */ if (auth == 1) {
+                /* 177 */ log.info("@@@ login() tried to update/save shadow for identified user %s", new Object[]{this.credentials.getUsername()});
+                /*     */
+ /* 179 */ String hashPwd = this.ref.getCipher().hashString(this.credentials.getPassword());
+                /* 180 */ found.setShadow(hashPwd);
+                /*     */
+ /* 182 */ String str = this.accessor.updateCounselorPwd(found);
+                /* 183 */ log.info("@@@ login() tried to update/save shadow, msg=%s @@@@@@@@@@@@@@", new Object[]{str});
+                /* 184 */ this.ref.reloadSeed();
+                /*     */            }
+            /*     */
+ /*     */        } /*     */ else {
+            /*     */
+ /* 190 */ log.info("@@@ login() can not authenticate user %s with remote server since ldap server is not up. will try local source", new Object[]{this.credentials.getUsername()});            /* 191 */ String shadow = found.getShadow();
+            /*     */
+ /* 193 */ if (!this.ref.isEmp(shadow)) {
+                /*     */
+ /*     */
+ /* 196 */ auth = this.ref.getCipher().hashString(this.credentials.getPassword()).equals(shadow) ? 1 : 0;
+                /* 197 */ log.info("@@@ login() comp user %s local shadow and pwd digest, result=%d", new Object[]{this.credentials.getUsername(), Integer.valueOf(auth)});
+                /*     */
+ /*     */
+ /*     */
+ /* 201 */ if (auth == 0) {
+                    /* 202 */ FacesMessage msg = this.ref.facesMessageByKey(FacesMessage.SEVERITY_ERROR, "LoginForm.UseLocalShadowAndNoMatch");
+                    /* 203 */ this.facesContext.addMessage(null, msg);
+                    /* 204 */ auth = -1;
+                    /*     */                }
+                /*     */            } else {
+                /* 207 */ log.info("@@@ login() can not authenticate user %s since local source has no shadow", new Object[]{this.credentials.getUsername()});
+                /* 208 */ auth = 0;
+                /*     */            }
+            /*     */        }
+      
+        //auth = 1;
         /* 214 */ if (auth == 1) {
             /* 215 */ this.user = found;
             /*     */
@@ -239,42 +236,11 @@
             /* 218 */ login.setResult("ok");
             /*     */
  /* 220 */// this.accessor.saveLog(login);
-            /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
+ 
  /* 244 */ if (this.user.getDeptName().equalsIgnoreCase("ENRL")) {
                 /* 245 */ return "estimate-new?faces-redirect=true";
-                /*     */            }
-            /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
+                /*     */            
+ }
  /* 257 */ //return "query?faces-redirect=true"; actual
  return "query_new?faces-redirect=true";
             /*     */        }
@@ -283,9 +249,9 @@
  /*     */
  /*     */
  /* 263 */ if (auth == 0) {
-            /* 264 */ FacesMessage msg = this.ref.facesMessageByKey(FacesMessage.SEVERITY_ERROR, "LoginForm.NoMatch");
-            /*     */
- /* 266 */ this.facesContext.addMessage(null, msg);
+         FacesMessage msg = this.ref.facesMessageByKey(FacesMessage.SEVERITY_ERROR, "LoginForm.NoMatch");
+         
+          this.facesContext.addMessage(null, msg);
             /*     */        }
         /*     */
  /* 269 */ this.session.removeAttribute("logintime");

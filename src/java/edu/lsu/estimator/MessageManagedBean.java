@@ -36,19 +36,19 @@ public class MessageManagedBean {
 	public String doSomeAction(String text,String condition,String serverType){
 		if(this.message!=null && this.message.equals("false") ){
                     if(serverType.equalsIgnoreCase("Master"))
-                    {FacesContext.getCurrentInstance().addMessage(null, 
+                    {FacesContext.getCurrentInstance().addMessage("MessageId", 
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "<i>Error Message Displayed</i>","<i>Error Message Displayed</i>"));		
                     }
                     else 
                     {
-                        FacesContext.getCurrentInstance().addMessage(null, 
+                        FacesContext.getCurrentInstance().addMessage("MessageId", 
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "<i>Error Message Displayed</i>","<i>Error Message Displayed</i>"));	
                     }
                 }	
                 else
                 {
                     if(serverType.equalsIgnoreCase("Master")){
-                     FacesContext.getCurrentInstance().addMessage(null, 
+                     FacesContext.getCurrentInstance().addMessage("MessageId", 
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "<i>Master is up</i>","Master is up"));	
                     }
                    
