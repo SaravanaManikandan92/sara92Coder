@@ -1498,7 +1498,7 @@
         /* 1308 */ String hostname = "host";
         /*      */ try {
             /* 1310 */ hostname = InetAddress.getLocalHost().getHostName();
-            /* 1311 */        } catch (Exception exception) {
+            /* 1311 */    } catch (Exception exception) {
         }
         /* 1312 */ return sb.append(System.getProperty("user.name")).append('@').append(hostname).append('/')
                 /* 1313 */.append(System.getProperty("os.name")).append('/').append(System.getProperty("os.arch")).append('/').append(System.getProperty("os.version")).toString();

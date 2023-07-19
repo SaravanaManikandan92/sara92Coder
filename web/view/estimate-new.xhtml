@@ -1491,12 +1491,12 @@ $myForm.find(':input:disabled').prop('disabled',false)
                            
                                 <tr>
                                     <td width="92%"><label for="auth-sv-ptab-ship1note">#{estimator.stud.studentAsScholarship1Name}<font size="-1"><i>#{estimator.fund1extra}</i></font></label><br/>
-                                        <p:inputText id="ship1note"  value="#{estimator.stud.studentAtScholarship1Note}" style="width:99%" onfocus="setSpecParentNode(this);"  maxlength="250" readonly="true" disabled="#{ref.fundMaxOutIndById(estimator.stud.fund1id) lt 0 ? 'true': 'flase'}">
+                                        <p:inputText id="ship1note"  value="#{estimator.stud.studentAtScholarship1Note}" style="width:99%" onfocus="setSpecParentNode(this);"  maxlength="250" readonly="false" disabled="#{ref.fundMaxOutIndById(estimator.stud.fund1id) lt 0 ? 'true': 'false'}">
                                             <f:ajax event="change" execute="@this" render="@this" listener="#{estimator.lsuawardnoteschanged1}" />
                                         </p:inputText>
                                     </td>
                                     <td><label for="auth-sv-ptab-ship1amt">Amount:</label><br/>
-                                        <p:inputText  id="ship1amt"  value="#{estimator.stud.studentAuScholarship1Amt}" style="width:99%" label="Institutional #{msg['layer']} #{msg['EstimateForm.institute.scholarship1amt.label']}"   readonly="true" disabled="#{ref.fundMaxOutIndById(estimator.stud.fund1id) lt 0 ? 'true': 'flase'}" onfocus="setSpecParentNode(this);" >
+                                        <p:inputText  id="ship1amt"  value="#{estimator.stud.studentAuScholarship1Amt}" style="width:99%" label="Institutional #{msg['layer']} #{msg['EstimateForm.institute.scholarship1amt.label']}"   readonly="false" disabled="#{ref.fundMaxOutIndById(estimator.stud.fund1id) lt 0 ? 'true': 'false'}" onfocus="setSpecParentNode(this);" >
                                             <p:ajax event="change" process="@this" update="-auth-bar  @this -auth-sv-msgs"   listener="#{estimator.lsuawardamtchanged1}"   oncomplete="resize_height();"/>
                                             
                                         <f:convertNumber integerOnly="true" minFractionDigits="0" pattern="#,###" />

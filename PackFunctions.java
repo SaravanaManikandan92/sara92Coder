@@ -1804,7 +1804,7 @@ std.getStudentPGpa().setScale(2, RoundingMode.HALF_UP).toString(); //String is f
 
            
             if( use_need_ind>0 && (    calGrantA  > 0 || calGrantB  > 1551 )){ //what is the magic number 1551????
-                     _lsuLimit = getTuitionAndFees() - getFallOrientationFee() + 1000; //what is the magic number 1000 ???
+                     _lsuLimit = getTuitionAndFees() - getFallOrientationFee() ;//+ 1000; //what is the magic number 1000 ???
             }else{
                      _lsuLimit = getTuitionAndFees() - getFallOrientationFee();
             }
