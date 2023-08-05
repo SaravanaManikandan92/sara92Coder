@@ -229,7 +229,7 @@
             /*     */        }
       
         //auth = 1;
-        /* 214 */ if (auth == 1 || auth==0) {
+        /* 214 */ if (auth == 1 ) { //LDAP enable Sarav
             /* 215 */ this.user = found;
             /*     */
  /* 217 */ this.session.setAttribute("logintime", this.ref.getSimpleFmtStrNow());
