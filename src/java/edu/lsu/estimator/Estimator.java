@@ -715,7 +715,7 @@ private boolean stdo_tf;
 /*  708 */     log.info("==================toEmail()   button clicked ...........................");
 /*  709 */     String ln = this.stud.getStudentBLastname();
 /*  710 */     String fn = this.stud.getStudentCFirstname();
-/*      */     
+/*      */     String recid=this.stud.getRecid();
 /*  712 */     String dob = this.stud.getStudentDDob();
 /*  713 */     String phone = this.stud.getStudentFPhone();
 /*  714 */     String msg = chkStudBasicInfo(new Integer[0]);
@@ -729,10 +729,16 @@ private boolean stdo_tf;
 /*      */     }
 /*      */     
 /*  724 */     this.stud.setStudentUserName(compUserName(this.stud.getStudentALsuid(), ln, fn, dob));
-/*  725 */     msg = saveStud(1, new int[0]);
+/*  725 */   // if(!recid.equals("tmpid"))
+ msg = saveStud(1, new int[0]);
+ if(recid.equals("tmpid") && msg.contains("Transaction aborted"))
+  {
+  msg="Error: Student data exists already.";;
+  }    
+
 /*      */ 
 /*      */     
-/*  728 */     if (msg == null || msg.isEmpty()) {
+/*  728 */     if ((msg == null || msg.isEmpty())) {
 /*  729 */       FacesMessage guimsg = this.ref.facesMessageByKey(FacesMessage.SEVERITY_INFO, "EstimateForm.DataSaved");
 /*  730 */       if (this.facesContext != null) this.facesContext.addMessage(null, guimsg); 
 /*  731 */       this.stud.setStudentNumb((Integer)null);
@@ -1224,7 +1230,7 @@ private boolean stdo_tf;
 /*      */     
 /* 1218 */     String ln = this.stud.getStudentBLastname();
 /* 1219 */     String fn = this.stud.getStudentCFirstname();
-/*      */     
+/*      */     String recid=this.stud.getRecid();
 /* 1221 */     String dob = this.stud.getStudentDDob();
 /* 1222 */     String phone = this.stud.getStudentFPhone();
 /* 1223 */     String msg = chkStudBasicInfo(new Integer[0]);
@@ -1247,10 +1253,18 @@ private boolean stdo_tf;
 /*      */ 
 /*      */     
 /* 1242 */     this.stud.setStudentUserName(compUserName(this.stud.getStudentALsuid(), ln, fn, dob));
-/* 1243 */     msg = saveStud(1, new int[0]);
+  /* 1243 */   // 
+  msg = saveStud(1, new int[0]);
+  if(recid.equals("tmpid") && msg.contains("Transaction aborted"))
+  {
+  msg="Error: Student data exists already.";    
+  }
+  
+  
+  
 /*      */     
 /* 1245 */     log.info("==================toPDF() stud saving: %s ........", new Object[] { msg });
-/* 1246 */     if (msg == null || msg.isEmpty()) {
+/* 1246 */     if ((msg == null || msg.isEmpty())) {
 /* 1247 */       FacesMessage guimsg = this.ref.facesMessageByKey(FacesMessage.SEVERITY_INFO, "EstimateForm.DataSaved");
 /* 1248 */       if (this.facesContext != null) this.facesContext.addMessage(null, guimsg); 
 /* 1249 */       this.stud.setStudentNumb((Integer)null);
