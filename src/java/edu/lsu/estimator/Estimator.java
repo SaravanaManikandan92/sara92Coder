@@ -1417,7 +1417,7 @@ private boolean stdo_tf;
 /* 1396 */       this.stud.setStudentAtScholarship1Note("");
 /*      */     } 
 /*      */     
-/* 1399 */     if (this.stud.getStudentAxScholarship2Amt().intValue() > 0) {
+/* 1399 */     if (this.stud.getStudentAxScholarship2Amt()!=null && this.stud.getStudentAxScholarship2Amt().intValue() > 0) {
 /* 1400 */       if (this.ref.fundNotesReqById(this.stud.getFund2id().intValue()) > 0 && (
 /* 1401 */         this.stud.getStudentAwScholarship2Note() == null || this.stud.getStudentAwScholarship2Note().trim().isEmpty())) {
 /* 1402 */         msg = "Notes for Scholarship '" + this.stud.getStudentAvScholarship2Name() + "' is Required.";
@@ -1458,7 +1458,7 @@ private boolean stdo_tf;
 /* 1437 */       this.stud.setStudentAwScholarship2Note("");
 /*      */     } 
 /*      */     
-/* 1440 */     if (this.stud.getStudentBaScholarship3Amt().intValue() > 0) {
+/* 1440 */     if (this.stud.getStudentBaScholarship3Amt()!=null && this.stud.getStudentBaScholarship3Amt().intValue() > 0) {
 /* 1441 */       if (this.ref.fundNotesReqById(this.stud.getFund3id().intValue()) > 0 && (
 /* 1442 */         this.stud.getStudentAzScholarship3Note() == null || this.stud.getStudentAzScholarship3Note().trim().isEmpty())) {
 /* 1443 */         msg = "Notes for Scholarship '" + this.stud.getStudentAyScholarship3Name() + "' is Required.";
@@ -1473,7 +1473,7 @@ private boolean stdo_tf;
 /* 1452 */       this.stud.setStudentAzScholarship3Note("");
 /*      */     } 
 /*      */     
-/* 1455 */     if (this.stud.getStudentBdScholarship4Amt().intValue() > 0) {
+/* 1455 */     if (this.stud.getStudentBdScholarship4Amt()!=null && this.stud.getStudentBdScholarship4Amt().intValue() > 0) {
 /* 1456 */       if (this.ref.fundNotesReqById(this.stud.getFund4id().intValue()) > 0 && (
 /* 1457 */         this.stud.getStudentBcScholarship4Note() == null || this.stud.getStudentBcScholarship4Note().trim().isEmpty())) {
 /* 1458 */         msg = "Notes for Scholarship '" + this.stud.getStudentBbScholarship4Name() + "' is Required.";
@@ -1488,7 +1488,7 @@ private boolean stdo_tf;
 /* 1467 */       this.stud.setStudentBcScholarship4Note("");
 /*      */     } 
 /*      */     
-/* 1470 */     if (this.stud.getStudentBgScholarship5Amt().intValue() > 0) {
+/* 1470 */     if (this.stud.getStudentBgScholarship5Amt()!=null && this.stud.getStudentBgScholarship5Amt().intValue() > 0) {
 /* 1471 */       if (this.ref.fundNotesReqById(this.stud.getFund5id().intValue()) > 0 && (
 /* 1472 */         this.stud.getStudentBfScholarship5Note() == null || this.stud.getStudentBfScholarship5Note().trim().isEmpty())) {
 /* 1473 */         msg = "Notes for Scholarship '" + this.stud.getStudentBeScholarship5Name() + "' is Required.";
@@ -1503,7 +1503,7 @@ private boolean stdo_tf;
 /* 1482 */       this.stud.setStudentBfScholarship5Note("");
 /*      */     } 
 /*      */     
-/* 1485 */     if (this.stud.getStudentBjScholarship6Amt().intValue() > 0) {
+/* 1485 */     if (this.stud.getStudentBjScholarship6Amt()!=null && this.stud.getStudentBjScholarship6Amt().intValue() > 0) {
 /* 1486 */       if (this.ref.fundNotesReqById(this.stud.getFund6id().intValue()) > 0 && (
 /* 1487 */         this.stud.getStudentBiScholarship6Note() == null || this.stud.getStudentBiScholarship6Note().trim().isEmpty())) {
 /* 1488 */         msg = "Notes for Scholarship '" + this.stud.getStudentBhScholarship6Name() + "' is Required.";
@@ -1521,7 +1521,7 @@ private boolean stdo_tf;
 /*      */ 
 /*      */     
 /* 1502 */     int fundid = 0;
-/* 1503 */     if (this.stud.getStudentBmScholarship7Amt().intValue() > 0) {
+/* 1503 */     if (this.stud.getStudentBmScholarship7Amt() !=null && this.stud.getStudentBmScholarship7Amt().intValue() > 0) {
 /* 1504 */       fundid = (this.stud.getFund7id() == null) ? 0 : this.stud.getFund7id().intValue();
 /* 1505 */       if (fundid != this.stdo_fundid7.intValue()) {
 /* 1506 */         this.stud.setFund7id(this.stdo_fundid7);
@@ -1585,7 +1585,7 @@ private boolean stdo_tf;
 /*      */ 
 /*      */ 
 /*      */     
-/* 1567 */     if (this.stud.getStudentBpScholarship8Amt().intValue() > 0) {
+/* 1567 */     if (this.stud.getStudentBpScholarship8Amt() !=null && this.stud.getStudentBpScholarship8Amt().intValue() > 0) {
 /* 1568 */       fundid = (this.stud.getFund8id() == null) ? 0 : this.stud.getFund8id().intValue();
 /* 1569 */       if (fundid != this.stdo_fundid8.intValue()) {
 /* 1570 */         this.stud.setFund8id(this.stdo_fundid8);
@@ -1643,7 +1643,7 @@ private boolean stdo_tf;
 /*      */     } 
 /*      */ 
 /*      */     
-/* 1625 */     if (this.stud.getStudentBsScholarship9Amt().intValue() > 0) {
+/* 1625 */     if (this.stud.getStudentBsScholarship9Amt()!=null && this.stud.getStudentBsScholarship9Amt().intValue() > 0) {
 /* 1626 */       fundid = (this.stud.getFund9id() == null) ? 0 : this.stud.getFund9id().intValue();
 /* 1627 */       if (fundid != this.stdo_fundid9.intValue()) {
 /* 1628 */         this.stud.setFund9id(this.stdo_fundid9);
