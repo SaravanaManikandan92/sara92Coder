@@ -63,6 +63,8 @@
     /*      */ AppReference ref;
     @Inject
     /*      */ Accessor accessor;
+    @Inject 
+        InfoState info_;
     /*      */    @Inject
     /*      */ Login login;
     /*      */    @PersistenceContext(unitName = "estimator")
@@ -793,6 +795,12 @@
  /*      */
  /*      */
  /*  736 */ this.showSyncMsg = "sync is done. scheduled next run.";
+            
+        info_.sumUp();// org.jboss.weld.context.ContextNotActiveException: WELD-001303 No active contexts for scope type javax.enterprise.context.SessionScoped
+                 
+        //info.newStudsOfUser
+        //info.sumUp();
+ 
             /*      */
  /*      */
  /*      */
