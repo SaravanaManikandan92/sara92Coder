@@ -1984,8 +1984,8 @@
         } else {
             nextStudNos = Integer.parseInt(this.stud.getStudentNumb().toString());
         }
-
-        /*      */ /*      */ String real_rec_id = this.stud.getCounselorId() + "." + this.stud.getClientId() + "." + nextStudNos;
+              nextStudNos++;
+        /*      */ /*      */ String real_rec_id = this.stud.getCounselorId() + "." + this.stud.getClientId() + "." + nextStudNos++;
         //this.stud.setRecid("tmpid");
 /* 1840 */ this.stud.setRecid(real_rec_id);
         /* 1840 */ this.stud.setLostTime(0L);
@@ -2103,6 +2103,7 @@
             /* 1953 */ msg = "Error: " + e.getMessage();
             /* 1954 */ e.printStackTrace();
             /*      */        }
+ //have success msg thrown here 
         /* 1956 */ return msg;
         /*      */    }
 
@@ -2511,6 +2512,10 @@
                 /*      */
  /* 2408 */ if (msg == null || msg.isEmpty()) {
                     /* 2409 */ log.info("==================savestudinfo() save print rec: pass");
+                     FacesMessage guimsg_ = this.ref.facesMessageByStr(FacesMessage.SEVERITY_INFO, "EstimateForm.DatSavedPrinted");
+            /* 2419 */ if (this.facesContext != null) {
+                this.facesContext.addMessage(null, guimsg_);
+            }
                     /*      */                } else {
                     /* 2411 */ log.info("==================savestudinfo() save print rec: fail. msg=%s", new Object[]{msg});
                     /*      */                }
