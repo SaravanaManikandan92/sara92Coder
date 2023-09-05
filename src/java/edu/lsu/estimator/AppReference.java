@@ -80,7 +80,8 @@
     /*      */
  /*   79 */    private static final Logger log = LoggerFactory.getLogger();
     /*   80 */ private String PUNAME = "estimator";
-    /*      */@PersistenceContext(unitName = "estimator")
+    /*      */
+    @PersistenceContext(unitName = "estimator")
     /*      */ private EntityManager em;
     /*   83 */    private int clientid = -1;
     /*   84 */    private String clientverions = "1.1.1";
@@ -382,9 +383,9 @@
                 /*  369 */ this.sys_blk_ind = 1;
                 /*      */            }
             /*      */
- /*  372 */ if (isEmp(this.seed.getMasterurl()) || isEmp(this.seed.getMastername()) 
-         || isEmp(this.seed.getMasterport()) || isEmp(this.seed.getLdapserver()) || isEmp(this.seed.getLdapsurl()) 
-         || this.seed.getLdapport() == null) {
+ /*  372 */ if (isEmp(this.seed.getMasterurl()) || isEmp(this.seed.getMastername())
+                    || isEmp(this.seed.getMasterport()) || isEmp(this.seed.getLdapserver()) || isEmp(this.seed.getLdapsurl())
+                    || this.seed.getLdapport() == null) {
                 /*  373 */ this.sys_cfg_ind = 0;
                 /*  374 */ this.sys_cfg_msg += "Can not get configuration data about remote server. The system is not ready for use.<br/>";
                 /*      */            } else {
@@ -406,11 +407,11 @@
             /*      */        }
         /*      */
  /*      */
-            
+
  /*  394 */ this.users = this.em.createNamedQuery("Counselor.findByStatus").setParameter("status", 1).getResultList();
         /*      */
-        log.info("rrrrrrrrrrrrrrrrrrrr ref reloadseed,but seed is null &&&&&&&&&&&&&&&&&&&&&& "+this.users.size());
- /*  396 */ if (this.clientid > 0 && (this.users == null || this.users.size() == 0)) {
+        log.info("rrrrrrrrrrrrrrrrrrrr ref reloadseed,but seed is null &&&&&&&&&&&&&&&&&&&&&& " + this.users.size());
+        /*  396 */ if (this.clientid > 0 && (this.users == null || this.users.size() == 0)) {
             /*  397 */ this.sys_usr_ind = 1;
             /*  398 */ this.sys_usr_msg += "System has no defined users, so is not ready for use.<br/>";
             /*      */        }
@@ -1498,7 +1499,7 @@
         /* 1308 */ String hostname = "host";
         /*      */ try {
             /* 1310 */ hostname = InetAddress.getLocalHost().getHostName();
-            /* 1311 */    } catch (Exception exception) {
+            /* 1311 */        } catch (Exception exception) {
         }
         /* 1312 */ return sb.append(System.getProperty("user.name")).append('@').append(hostname).append('/')
                 /* 1313 */.append(System.getProperty("os.name")).append('/').append(System.getProperty("os.arch")).append('/').append(System.getProperty("os.version")).toString();

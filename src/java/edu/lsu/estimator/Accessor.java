@@ -193,9 +193,12 @@
  /*     */ @TransactionAttribute(TransactionAttributeType.REQUIRED)
     /*     */ public String updateStudInfo(Student stud) {
         /* 189 */ String msg = "";
+
         /* 190 */ FacesContext context = FacesContext.getCurrentInstance();
         /*     */ try {
+
             /* 192 */ this.em.merge(stud);
+
             /* 193 */ this.em.flush();
             /* 194 */ Counselor me = (Counselor) context.getApplication().evaluateExpressionGet(context,
                     "#{login.currentUser}", Object.class);
@@ -252,6 +255,39 @@
         /* 243 */ return msg;
         /*     */ }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    /*     */ public String updatePrint(Print pdf, Print pdf_) {
+        /* 248 */ String msg = "";
+        /*     */
+ /*     */
+ /*     */
+ /*     */
+ /*     */
+ /*     */
+ /*     */ try {
+            /* 256 */ this.em.createNativeQuery("update  prints set prt_id=? where prt_id=?")
+                    /* 257 */.setParameter(1, pdf_.getPrtId())
+                    .setParameter(2, pdf.getPrtId())
+                    /* 258 */.executeUpdate();
+            /*     */
+ /*     */
+ /*     */
+ /*     */
+ /*     */
+ /*     */
+ /*     */ } /* 266 */ catch (ConstraintViolationException ve) {
+            /* 267 */ for (ConstraintViolation cv : ve.getConstraintViolations()) {
+                /* 268 */ System.out.println("###updateStudPrtTimes### Path: " + cv.getPropertyPath().toString()
+                        + " ########### FAILED: " + cv.getMessage());
+                /*     */ }
+            /* 270 */ msg = ve.toString();
+            /* 271 */ } catch (Exception e) {
+            /* 272 */ e.printStackTrace();
+            /* 273 */ msg = e.getMessage();
+            /*     */ }
+        /* 275 */ return msg;
+        /*     */ }
+
     /*     */
  /*     */ @TransactionAttribute(TransactionAttributeType.REQUIRED)
     /*     */ public String updateStudPrtTimes(Student stud) {
@@ -263,7 +299,7 @@
  /*     */
  /*     */
  /*     */ try {
-            /* 256 */ this.em.createNativeQuery("update student set prt_times=prt_times+1 where recid=?")
+            /* 256 */ this.em.createNativeQuery("upsert  student set prt_times=prt_times+1 where recid=?")
                     /* 257 */.setParameter(1, stud.getRecid())/* 258 */.executeUpdate();
             /*     */
  /*     */
@@ -367,11 +403,12 @@
     /*     */
  /*     */ @TransactionAttribute(TransactionAttributeType.REQUIRED)
     /*     */ public void triggerTmpidPrt() {
-        
+
+
         //" update prints set prt_id= RTRIM(char(counselor_id))||'.'||RTRIM(char(client_id))||'.'||RTRIM(char(PRT_NUM)) where prt_id='tmpid'" 
-       /* 356 */ this.em.createNativeQuery(
-                " update prints set prt_id= ((counselor_id))||'.'||((client_id))||'.'||((PRT_NUM)) where prt_id='tmpid'" )
-               .executeUpdate();
+        /* 356 */ this.em.createNativeQuery(
+                " update prints set prt_id= ((counselor_id))||'.'||((client_id))||'.'||((PRT_NUM)) where prt_id='tmpid'")
+                .executeUpdate();
         /*     */ }
 
     /*     */

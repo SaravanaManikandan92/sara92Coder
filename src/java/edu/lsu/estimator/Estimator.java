@@ -56,6 +56,7 @@
 /*      */ import org.primefaces.context.RequestContext;
 /*      */ import org.primefaces.event.SelectEvent;
 /*      */ import org.primefaces.event.TabChangeEvent;
+import org.apache.commons.beanutils.BeanUtils;
 
 /*      */
  /*      */
@@ -689,22 +690,8 @@
         /*      */
  /*      */
  /*  637 */ Validator validator = factory.getValidator();
-        /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*  653 */ String[] prop_names = {"studentALsuid", "studentBLastname", "studentCFirstname", "studentDDob", "studentFPhone", "studentEEmail", "studentIState", "studentJZip"};
+
+        /*  653 */ String[] prop_names = {"studentALsuid", "studentBLastname", "studentCFirstname", "studentDDob", "studentFPhone", "studentEEmail", "studentIState", "studentJZip"};
         /*  654 */ String[] uic_ids = {"std_lsuid", "std_ln", "std_fn", "std_dob", "std_phone", "std_email", "std_state", "std_zip", "std_gpa"};
         /*      */
  /*      */
@@ -1066,107 +1053,10 @@
             /*  988 */ email.setTLS(true);
             /*      */
  /*  990 */ log.info("==================toEmail() tries to send email ...........................");
-            /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /* 1003 */ email.send();
-            /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /* 1091 */ log.info("==================toEmail() sent email ...........................");
+
+            /* 1003 */ email.send();
+
+            /* 1091 */ log.info("==================toEmail() sent email ...........................");
             /* 1092 */ msg = "sent estimate file '" + pdfname + "' to server " + smtpServer + " targetting " + emailbox + " (the email server may bounce or reject the email if recipient email box does not exist or is invalid/inactive or reaches capacity limit)";
             /* 1093 */        } catch (Exception ex) {
             /* 1094 */ log.info("...toEmail() meets EmailException:", ex);
@@ -1359,9 +1249,10 @@
                 /* 1263 */ log.info("==================toPDF() gen pdf: pass");
                 /* 1264 */ String pdfname = msg;
                 /*      */
- /* 1266 */ msg = savePrint(prt, 1, new Integer[0]);
-                /*      */
- /* 1268 */ if (msg == null || msg.isEmpty()) {
+                //dont have tmpid here 
+                /* 1266 */ msg = savePrint(prt, 1, new Integer[0]);
+                /*      *///
+                /* 1268 */ if (msg == null || msg.isEmpty()) {
                     /* 1269 */ log.info("==================toPDF() save print rec: pass");
                     /*      */
  /* 1271 */ msg = pdf.downloadPDF(pdfname);
@@ -1369,9 +1260,10 @@
  /* 1273 */ if (msg != null && !msg.isEmpty()) {
                         /* 1274 */ log.info("==================toPDF() download pdf: %s ........", new Object[]{msg});
                         /*      */                    }
+
                     /*      */
- /*      */
- /* 1278 */ msg = this.accessor.updateStudPrtTimes(this.stud);
+                    //
+                    /* 1278 */// msg = this.accessor.updateStudPrtTimes(this.stud);
                     /* 1279 */ if (msg != null && !msg.isEmpty()) {
                         /* 1280 */ log.info("==================toPDF() failed to update stud obj %s with msg: %s", new Object[]{this.stud.getRecid(), msg});
                         /*      */                    }
@@ -1413,8 +1305,8 @@
  /* 1305 */ boolean pu = (p.length > 0);
         /*      */
  /* 1307 */ pdf.setPrtNum(null);
-        /*      */
- /* 1309 */ pdf.setFisy(Integer.valueOf(this.stud.getStudentFisy()));
+        /*      *///
+        /* 1309 */ pdf.setFisy(Integer.valueOf(this.stud.getStudentFisy()));
         /*      */
  /*      */
  /* 1312 */ pdf.setFisyPrt(this.ref.getFaid_year());
@@ -1441,16 +1333,34 @@
         pdf.setPrtTz(this.ref.getTzSN());
         /*      */
  /*      */
- /* 1335 */ pdf.setPrtId("tmpid");
+        //it should not be tmpid 
+
+        /* 1335 */ //pdf.setPrtId("tmpid");
         /* 1336 */ log.info("vvvvvvvvvvvvvvvvvvvvvvvvvvv  to be saved print has stud recid=%s, counselorid=%d, mode=%d", new Object[]{pdf.getRecid(), pdf.getCounselorId(), Integer.valueOf(mode)});
         /*      */
  /*      */
- /* 1339 */ msg = this.accessor.savePrt(pdf);
-        /*      */
- /* 1341 */ if (msg == null || msg.isEmpty()) {
-            /* 1342 */ int seq = this.info.getNowPrtNumbInQueue().intValue();
-            /* 1343 */ pdf.setPrtNum(Integer.valueOf(seq));
-            /* 1344 */ pdf.setPrtId(this.info.getPrintPrtid(pdf.getCounselorId(), Integer.valueOf(pdf.getClientId()), pdf.getPrtNum()));
+ /* 1339 */
+        Print pdf_ = null;
+        int seq = this.info.getNowPrtNumbInQueue().intValue();
+        /* 1343 */ pdf.setPrtNum(Integer.valueOf(seq));
+        String real_prt_id_ = pdf.getCounselorId() + "." + pdf.getClientId() + "." + seq;
+
+        pdf_ = (Print) this.em.find(Print.class, real_prt_id_);
+
+        if (pdf_ == null) {
+
+            /* 1344 */ pdf.setPrtId(real_prt_id_);
+            msg = this.accessor.savePrt(pdf);
+            /*      */
+        } else {
+
+            /* 1344 */ pdf.setPrtId(real_prt_id_);
+            msg = this.accessor.updatePrint(pdf, pdf_);
+        }
+        /* 1341 */ if (msg == null || msg.isEmpty()) {
+            /* 1342 */// int seq = this.info.getNowPrtNumbInQueue().intValue();
+            /* 1343 */ //pdf.setPrtNum(Integer.valueOf(seq));
+            /* 1344 */ //pdf.setPrtId(this.info.getPrintPrtid(pdf.getCounselorId(), Integer.valueOf(pdf.getClientId()), pdf.getPrtNum()));
             /*      */        }
         /*      */
  /*      */
@@ -1978,16 +1888,7 @@
         /* 1837 */ this.stud.setClientId(Integer.valueOf(this.ref.getClientid()));
         /* 1838 */     //this.stud.setRecid("tmpid");
         int seq_ = this.info.getNowStudNumbInQueue().intValue();
-        int nextStudNos = 0;
-        if (this.stud.getStudentNumb() == null) {
-            nextStudNos = seq_;
-        } else {
-            nextStudNos = Integer.parseInt(this.stud.getStudentNumb().toString());
-        }
-              nextStudNos++;
-        /*      */ /*      */ String real_rec_id = this.stud.getCounselorId() + "." + this.stud.getClientId() + "." + nextStudNos++;
-        //this.stud.setRecid("tmpid");
-/* 1840 */ this.stud.setRecid(real_rec_id);
+
         /* 1840 */ this.stud.setLostTime(0L);
         /* 1841 */ this.stud.setLostToLocal(null);
         /* 1842 */ this.stud.setLostToMaster(null);
@@ -2058,52 +1959,59 @@
         /*      */
  /*      */
  /*      */ try {
+            // we have to check this.stud should be greater than this.modStud
+
             /* 1910 */ if (pu) {
-                /* 1911 */ msg = this.accessor.saveStudInfo(this.stud, this.modStud, matches, tz, new Integer[]{Integer.valueOf(1)});
+                //int nextStudNos_=seq_;
+                String real_rec_id_ = this.stud.getCounselorId() + "." + this.stud.getClientId() + "." + seq_;
+
+                if (this.stud.getRecid() == null && this.modStud == null) {/* 1911 */
+                    //save the data 
+                    this.stud.setRecid(real_rec_id_);
+                    msg = this.accessor.saveStudInfo(this.stud, this.modStud, matches, tz, new Integer[]{Integer.valueOf(1)});
+                } else {
+                    //update the data here thats it
+                    this.stud.setLostToLocal(this.stud.getRecid());
+                    this.stud.setStudentNumb(Integer.valueOf(this.stud.getRecid().split("\\.")[2]));
+                    this.accessor.updateStudInfo(this.stud);
+                }
                 /*      */            } else {
-                /* 1913 */ msg = this.accessor.saveStudInfo(this.stud, this.modStud, matches, tz, new Integer[0]);
-                /*      */            }
+                String real_rec_id_ = this.stud.getCounselorId() + "." + this.stud.getClientId() + "." + seq_;
+
+                if (this.stud.getRecid() == null && this.modStud == null) {
+                    this.stud.setRecid(real_rec_id_);
+                    msg = this.accessor.saveStudInfo(this.stud, this.modStud, matches, tz, new Integer[0]);
+                } else {
+                    //update the data here thats it
+                    this.stud.setLostToLocal(this.stud.getRecid());
+
+                    if (this.modStud != null) {
+
+                        updateModStudent();
+                        this.modStud.setStudentNumb(Integer.valueOf(this.stud.getRecid().split("\\.")[2]));
+                        this.accessor.updateStudInfo(this.modStud);
+
+                    } else {
+                        this.stud.setStudentNumb(Integer.valueOf(this.stud.getRecid().split("\\.")[2]));
+                        this.accessor.updateStudInfo(this.stud);
+                    }
+                }
+                /* 1913 */
+ /*      */            }
             /*      */
  /* 1916 */ if (!msg.isEmpty()) {
                 /* 1917 */ log.info("????????? error when saving matches and mod info: %s", new Object[]{msg});
                 /* 1918 */ return msg;
                 /*      */            }
-            /*      */
- /* 1921 */ int seq = this.info.getNowStudNumbInQueue().intValue();
-            /* 1922 */ this.stud.setStudentNumb(Integer.valueOf(seq));
-            /* 1923 */ this.stud.setRecid(this.info.getStudRecid(this.stud.getCounselorId(), this.stud.getClientId(), this.stud.getStudentNumb()));
-            /*      */
- /*      */
- /* 1926 */ this.stud = (Student) this.em.find(Student.class, this.stud.getRecid());
-            /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /* 1934 */ if (pu) {
-                /* 1935 */ this.accessor.markOldDupStud(this.stud, this.ref.getTzSN(), new Integer[]{Integer.valueOf(1)});
-                /*      */            } else {
-                /* 1937 */ this.accessor.markOldDupStud(this.stud, this.ref.getTzSN(), new Integer[0]);
-                /*      */            }
-            /* 1939 */ if (this.modStud != null) {
-                /* 1940 */ this.modStud.setLostToLocal(this.stud.getRecid());
-                /* 1941 */ this.accessor.updateStudInfo(this.modStud);
-                /*      */
- /*      */
- /*      */
- /*      */
- /*      */            }
-            /*      */
- /*      */
- /*      */
- /*      */
- /*      */        } /* 1952 */ catch (Exception e) {
+
+            /*      */        } /* 1952 */ catch (Exception e) {
             /* 1953 */ msg = "Error: " + e.getMessage();
+            if (e.getMessage() == null) {
+
+            }
             /* 1954 */ e.printStackTrace();
             /*      */        }
- //have success msg thrown here 
+        //have success msg thrown here 
         /* 1956 */ return msg;
         /*      */    }
 
@@ -2224,95 +2132,7 @@
  /*      */            }
             /*      */        }
         /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
+
  /* 2145 */ if (flag > 0) {
             /* 2146 */ msg = "student identity data is not valid or complete";
             /*      */        } else {
@@ -2465,6 +2285,13 @@
  /* 2283 */ return msg;
         /*      */    }
 
+    public void updateModStudent() {
+        try {
+            BeanUtils.copyProperties(this.modStud, this.stud);
+        } catch (Exception ex) {
+        }
+    }
+
     /*      */ public void savestudinfo(ActionEvent event) {
         /* 2290 */ String ln = this.stud.getStudentBLastname();
         /* 2291 */ String fn = this.stud.getStudentCFirstname();
@@ -2512,10 +2339,7 @@
                 /*      */
  /* 2408 */ if (msg == null || msg.isEmpty()) {
                     /* 2409 */ log.info("==================savestudinfo() save print rec: pass");
-                     FacesMessage guimsg_ = this.ref.facesMessageByStr(FacesMessage.SEVERITY_INFO, "EstimateForm.DatSavedPrinted");
-            /* 2419 */ if (this.facesContext != null) {
-                this.facesContext.addMessage(null, guimsg_);
-            }
+
                     /*      */                } else {
                     /* 2411 */ log.info("==================savestudinfo() save print rec: fail. msg=%s", new Object[]{msg});
                     /*      */                }
