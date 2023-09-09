@@ -163,7 +163,9 @@
     @NamedQuery(name = "Student.findByLostTime", query = "SELECT s FROM Student s WHERE s.lostTime = :lostTime"),
     @NamedQuery(name = "Student.findByLostToMaster", query = "SELECT s FROM Student s WHERE s.lostToMaster = :lostToMaster"),
     @NamedQuery(name = "Student.findByLostToLocal", query = "SELECT s FROM Student s WHERE s.lostToLocal = :lostToLocal"),
+    @NamedQuery(name = "Student.findStudNumb", query = "Select s.studentNumb from Student s "),
     @NamedQuery(name = "Student.findByPrtTimes", query = "SELECT s FROM Student s WHERE s.prtTimes >0")})
+
 /*      */ public class Student
         /*      */ implements Serializable /*      */ {
 
@@ -916,7 +918,7 @@
         /*  971 */ this.ncStdInd = Integer.valueOf(0);
         /*      */
  /*      */
- /*  974 */ this.studentFisy = 2012;
+ /*  974 */ this.studentFisy = 2023;
         /*  975 */ setStudentUserName("|||");
         /*  976 */ setStudentPassword("password");
         /*  977 */ setStudentBwProgress(Integer.valueOf(5));

@@ -197,7 +197,7 @@
         /* 190 */ FacesContext context = FacesContext.getCurrentInstance();
         /*     */ try {
 
-            /* 192 */ this.em.merge(stud);
+            /* 192 */ this.em.persist(stud);
 
             /* 193 */ this.em.flush();
             /* 194 */ Counselor me = (Counselor) context.getApplication().evaluateExpressionGet(context,
@@ -205,28 +205,44 @@
             /* 195 */ Logs log = new Logs(new Date(), "ESTIMATE", "UPDATESTUD", me.getUsername(), "SAVED");
             /* 196 */ log.setResult("ok");
             /* 197 */ this.em.persist(log);
+
             /*     */ } /* 199 */ catch (ConstraintViolationException ve) {
             /*     */
  /* 201 */ for (ConstraintViolation cv : ve.getConstraintViolations()) {
                 /* 202 */ System.out.println("###updateStudInfo### Path: " + cv.getPropertyPath().toString()
                         + " ########### FAILED: " + cv.getMessage());
                 /*     */ }
-            /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /*     */
- /* 213 */ msg = ve.toString();
+
+            /* 213 */ msg = ve.toString();
             /*     */ }
         /* 215 */ return msg;
         /*     */ }
 
     /*     */
- /*     */ @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    /*     */ public String updateStudentPickUpInd(String oldRecId) {
+        /* 248 */ String msg = "";
+
+        /*     */ try {
+            this.em.createNativeQuery(
+                    "update student set pickup_ind=0 where  recid=?  ")
+                    .setParameter(1, oldRecId)/* 170 */
+                    .executeUpdate();
+            this.em.flush();
+            /*     */ } /* 266 */ catch (ConstraintViolationException ve) {
+            /* 267 */ for (ConstraintViolation cv : ve.getConstraintViolations()) {
+                /* 268 */ System.out.println("###updateStudPrtTimes### Path: " + cv.getPropertyPath().toString()
+                        + " ########### FAILED: " + cv.getMessage());
+                /*     */ }
+            /* 270 */ msg = ve.toString();
+            /* 271 */ } catch (Exception e) {
+            /* 272 */ e.printStackTrace();
+            /* 273 */ msg = e.getMessage();
+            /*     */ }
+        /* 275 */ return msg;
+        /*     */ }
+
+    /*     */ @TransactionAttribute(TransactionAttributeType.REQUIRED)
     /*     */ public void saveLog(Logs log) {
         /* 220 */ this.em = this.ref.wtfClosedEntityManagerFactory(this.em, null);
         /*     */ try {

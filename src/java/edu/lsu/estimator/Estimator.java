@@ -19,6 +19,7 @@
 /*      */ import java.net.MalformedURLException;
 /*      */ import java.net.URL;
 /*      */ import java.util.ArrayList;
+import java.util.Collections;
 /*      */ import java.util.Date;
 /*      */ import java.util.HashMap;
 /*      */ import java.util.Iterator;
@@ -1249,6 +1250,7 @@ import org.apache.commons.beanutils.BeanUtils;
                 /* 1263 */ log.info("==================toPDF() gen pdf: pass");
                 /* 1264 */ String pdfname = msg;
                 /*      */
+
                 //dont have tmpid here 
                 /* 1266 */ msg = savePrint(prt, 1, new Integer[0]);
                 /*      *///
@@ -1342,10 +1344,12 @@ import org.apache.commons.beanutils.BeanUtils;
  /* 1339 */
         Print pdf_ = null;
         int seq = this.info.getNowPrtNumbInQueue().intValue();
-        /* 1343 */ pdf.setPrtNum(Integer.valueOf(seq));
-        String real_prt_id_ = pdf.getCounselorId() + "." + pdf.getClientId() + "." + seq;
+        /* 1343 */
 
-        pdf_ = (Print) this.em.find(Print.class, real_prt_id_);
+        String real_prt_id_ = this.stud.getRecid();// pdf.getCounselorId() + "." + pdf.getClientId() + "." + seq;
+        int prntNumb = Integer.valueOf(real_prt_id_.split("\\.")[2]) + 1;
+        pdf.setPrtNum(Integer.valueOf(prntNumb));
+        pdf_ = (Print) this.em.find(Print.class, this.stud.getRecid());
 
         if (pdf_ == null) {
 
@@ -1888,7 +1892,13 @@ import org.apache.commons.beanutils.BeanUtils;
         /* 1837 */ this.stud.setClientId(Integer.valueOf(this.ref.getClientid()));
         /* 1838 */     //this.stud.setRecid("tmpid");
         int seq_ = this.info.getNowStudNumbInQueue().intValue();
-
+        List<Integer> seqList = this.em.createNamedQuery("Student.findStudNumb").getResultList();//this.info.getNowStudNumbInQueue().intValue();this.em.createNamedQuery("");
+        if (seqList != null && !seqList.isEmpty()) {
+            Collections.sort(seqList, Collections.reverseOrder());
+            seq_ = seqList.get(0);
+            seq_ = seq_ + 1;
+        }
+        int nextStudentNumber = seq_ + 1;
         /* 1840 */ this.stud.setLostTime(0L);
         /* 1841 */ this.stud.setLostToLocal(null);
         /* 1842 */ this.stud.setLostToMaster(null);
@@ -1959,42 +1969,59 @@ import org.apache.commons.beanutils.BeanUtils;
         /*      */
  /*      */
  /*      */ try {
+
             // we have to check this.stud should be greater than this.modStud
 
             /* 1910 */ if (pu) {
                 //int nextStudNos_=seq_;
                 String real_rec_id_ = this.stud.getCounselorId() + "." + this.stud.getClientId() + "." + seq_;
-
+                String old_rec_id = this.stud.getRecid();
                 if (this.stud.getRecid() == null && this.modStud == null) {/* 1911 */
                     //save the data 
+                    this.stud.setStudentNumb(nextStudentNumber);
                     this.stud.setRecid(real_rec_id_);
                     msg = this.accessor.saveStudInfo(this.stud, this.modStud, matches, tz, new Integer[]{Integer.valueOf(1)});
                 } else {
                     //update the data here thats it
                     this.stud.setLostToLocal(this.stud.getRecid());
-                    this.stud.setStudentNumb(Integer.valueOf(this.stud.getRecid().split("\\.")[2]));
+                    this.stud.setRecid(real_rec_id_);
+                    this.stud.setStudentNumb(nextStudentNumber);
                     this.accessor.updateStudInfo(this.stud);
                 }
                 /*      */            } else {
                 String real_rec_id_ = this.stud.getCounselorId() + "." + this.stud.getClientId() + "." + seq_;
-
-                if (this.stud.getRecid() == null && this.modStud == null) {
+                String old_rec_id = this.stud.getRecid();
+                if ((this.stud.getRecid() == null || this.stud.getRecid().equalsIgnoreCase("tmpid"))) {
                     this.stud.setRecid(real_rec_id_);
+                    this.stud.setStudentNumb(nextStudentNumber);
                     msg = this.accessor.saveStudInfo(this.stud, this.modStud, matches, tz, new Integer[0]);
                 } else {
                     //update the data here thats it
                     this.stud.setLostToLocal(this.stud.getRecid());
 
+                    if (old_rec_id.equalsIgnoreCase(real_rec_id_) || (this.stud.getRecid() != null && Integer.valueOf(this.stud.getRecid().split("\\.")[2]) >= Integer.valueOf(real_rec_id_.split("\\.")[2]))) {
+
+                        seq_ = Integer.valueOf(this.stud.getRecid().split("\\.")[2]) + 1;
+                        real_rec_id_ = this.stud.getCounselorId() + "." + this.stud.getClientId() + "." + seq_;
+                    }
+
                     if (this.modStud != null) {
 
                         updateModStudent();
-                        this.modStud.setStudentNumb(Integer.valueOf(this.stud.getRecid().split("\\.")[2]));
+
+                        this.modStud.setRecid(real_rec_id_);
+                        this.stud.setRecid(real_rec_id_);
+                        this.stud.setStudentNumb(nextStudentNumber);
+                        this.modStud.setStudentNumb(nextStudentNumber);
                         this.accessor.updateStudInfo(this.modStud);
 
                     } else {
-                        this.stud.setStudentNumb(Integer.valueOf(this.stud.getRecid().split("\\.")[2]));
+
+                        this.stud.setStudentNumb(nextStudentNumber);
+                        this.stud.setRecid(real_rec_id_);
                         this.accessor.updateStudInfo(this.stud);
                     }
+                    this.accessor.updateStudentPickUpInd(old_rec_id);
                 }
                 /* 1913 */
  /*      */            }
@@ -2011,6 +2038,7 @@ import org.apache.commons.beanutils.BeanUtils;
             }
             /* 1954 */ e.printStackTrace();
             /*      */        }
+
         //have success msg thrown here 
         /* 1956 */ return msg;
         /*      */    }
