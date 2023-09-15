@@ -14,12 +14,13 @@
 /*      */ import edu.lsu.estimator.Querier;
 /*      */ import edu.lsu.estimator.QueryStudModel;
 /*      */ import edu.lsu.estimator.Student;
+           import java.io.File;
 /*      */ import java.io.Serializable;
 /*      */ import java.math.BigDecimal;
 /*      */ import java.net.MalformedURLException;
 /*      */ import java.net.URL;
 /*      */ import java.util.ArrayList;
-import java.util.Collections;
+           import java.util.Collections;
 /*      */ import java.util.Date;
 /*      */ import java.util.HashMap;
 /*      */ import java.util.Iterator;
@@ -851,7 +852,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
     /*      */
  /*      */ private String sendEmailLASU(String pdffolder, String pdfname, String emailbox, String receiverName) {
-        /*  789 */ String smtpServer = "smtp.lasierra.edu";
+        /*  789 */ String smtpServer = "smtp.gmail.com";
         /*  790 */ int smtpPort = 465;
         /*  791 */ String senderBox = "enroll@lasierra.edu";
         /*  792 */ String senderName = "La Sierra University Enrollment Services Office";
@@ -884,17 +885,19 @@ import org.apache.commons.beanutils.BeanUtils;
  /*      */
  /*  820 */ log.info("==================toEmail()  will embed image from network ...........................");
             /*      */
- /*      */
+ /*      */File img =null;
  /*  823 */ URL url = null;
             /*      */ try {
-                /*  825 */ url = new URL("http://vhost1.lasierra.edu/live/logo_2c.gif");
-                /*  826 */            } catch (MalformedURLException ex) {
+                         String img_=new PDFgen().getEstimaterLogoPath();
+                            img = new File(img_);
+                /*  825 */ //url = new URL("http://vhost1.lasierra.edu/live/logo_2c.gif");
+                /*  826 */            } catch (Exception ex) {
                 /*  827 */ log.info("...toEmail() meets MalformedURLException:", ex);
                 /*  828 */ msg = ex.getMessage();
                 /*  829 */ return msg;
                 /*      */            }
             /*      */
- /*  832 */ String cid = email.embed(url, "La Sierra University logo");
+ /*  832 */ String cid = email.embed(img, "La Sierra University logo");
             /*      */
  /*  834 */ log.info("==================toEmail()   will set message ...........................");
             /*  835 */ StringBuilder sbHtml = new StringBuilder(512);
@@ -907,7 +910,7 @@ import org.apache.commons.beanutils.BeanUtils;
             /*  842 */ sbHtml.append("Attached is the estimate file in PDF format. <br/>You may need a <a href='http://get.adobe.com/reader/'>reader software</a> to view its content.\n");
             /*  843 */ sbText.append("Attached is the estimate file in PDF format. \nTo view its content, you may need a reader software, which you can download free from 'http://get.adobe.com/reader/'.\n");
             /*      */
- /*  845 */ sbHtml.append("<br/><br/><br/>  <img src='cid:").append(cid).append("' alt='La Sierra University' /></body></html>");
+ /*  845 */ // sbHtml.append("<br/><br/><br/>  <img src='cid:").append(cid).append("' alt='La Sierra University' /></body></html>");
             /*  846 */ sbText.append("\n\nLa Sierra University");
             /*      */
  /*      */
@@ -1007,7 +1010,7 @@ import org.apache.commons.beanutils.BeanUtils;
                 /*  941 */ return msg;
                 /*      */            }
             /*      */
- /*  944 */ String cid = email.embed(url, "La Sierra University logo");
+ /*  944 */// String cid = email.embed(url, "La Sierra University logo");
             /*      */
  /*  946 */ log.info("==================toEmail()   will set message ...........................");
             /*  947 */ StringBuilder sbHtml = new StringBuilder(512);
@@ -1020,7 +1023,7 @@ import org.apache.commons.beanutils.BeanUtils;
             /*  954 */ sbHtml.append("Attached is the estimate file in PDF format. <br/>You may need a <a href='http://get.adobe.com/reader/'>reader software</a> to view its content.\n");
             /*  955 */ sbText.append("Attached is the estimate file in PDF format. \nTo view its content, you may need a reader software, which you can download free from 'http://get.adobe.com/reader/'.\n");
             /*      */
- /*  957 */ sbHtml.append("<br/><br/><br/>  <img src='cid:").append(cid).append("' alt='La Sierra University' /></body></html>");
+ /*  957 */// sbHtml.append("<br/><br/><br/>  <img src='cid:").append(cid).append("' alt='La Sierra University' /></body></html>");
             /*  958 */ sbText.append("\n\nLa Sierra University");
             /*      */
  /*      */

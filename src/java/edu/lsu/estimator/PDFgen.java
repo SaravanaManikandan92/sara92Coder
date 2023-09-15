@@ -74,6 +74,23 @@ public class PDFgen
         return "";
     }
 
+    public String getEstimaterLogoPath()
+    {
+        String osName = System.getProperty("os.name");
+        String unix="/opt/glassfish3/glassfish/domains/domain1/applications/estimator/web/resources/img/estimator_banner.png";
+      
+      if(!osName.contains("Windows")) {
+            /*  85 */ return unix;
+        }
+       if(osName.contains("Windows"))
+       {
+          return "D:\\Projects\\latest_builds\\sept13\\web\\resources\\img\\estimator_banner.png";
+       }
+    return "";
+    
+    
+    }
+    
     public String getPdfRoot() {
         /*  92 */ String seperator = System.getProperty("file.separator");
         /*  93 */ return getPdfRoot2(seperator);
