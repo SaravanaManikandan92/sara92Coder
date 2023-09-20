@@ -364,7 +364,7 @@
         /*      */
  /*      */
  /*      */
- /*  362 */ this.scholarship_amt_1 = 0;
+ /*  362 */ this.scholarship_amt_1 = this.std.getStudentAuScholarship1Amt()!=null ? this.std.getStudentAuScholarship1Amt().intValue() :this.scholarship_amt_1 ;
         /*  363 */ this.scholarship_amt_2 = this.std.getStudentAxScholarship2Amt()!=null ? this.std.getStudentAxScholarship2Amt().intValue() :this.scholarship_amt_2 ;
         /*      */
  /*  365 */ this.scholarship_amt_7 = this.std.getStudentBmScholarship7Amt() !=null ? this.std.getStudentBmScholarship7Amt().intValue(): this.scholarship_amt_7 ;
