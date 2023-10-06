@@ -1523,18 +1523,22 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
  /*      */ public final int getPerkinsLoan() {
         int _perkins = 0;
          String _gpa_ = String.format("%3.2f", new Object[]{this.std.getStudentPGpa()});
+        float _f_gpa_= Float.parseFloat(_gpa_);
         //use for loan to scholarships
         // this.perkinsLoan
        // if( std.getStudentAfFamilyContrib()<4996)
           int is_Transfer_Std=  std.getStd_transfer_ind();
-        if(_gpa_.compareTo("2.75") >= 0 && _gpa_.compareTo("3.24") <= 0)
+          
+         if( is_Transfer_Std==0) {
+        if(_f_gpa_>= 2.75 && _f_gpa_<= 3.24)
        {
-           if(std.getStudentAfFamilyContrib()<12000){
+           if(std.getStudentAfFamilyContrib()<= 12000){
                if(this.SAVE_STUDENT_U_ACADEMIC !=null && is_Transfer_Std==0 &&  this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
        
       _perkins=1000;
        } 
-               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
+               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) 
+                       || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
                {
                    _perkins=1500;
                }
@@ -1553,14 +1557,15 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
                }
        }
        }
-        else if(_gpa_.compareTo("3.25") >= 0 && _gpa_.compareTo("4.0") <= 0)
+        else if(_f_gpa_>= 3.75 && _f_gpa_<= 4)
         {
-             if(std.getStudentAfFamilyContrib()<12000){
+             if(std.getStudentAfFamilyContrib()<=12000){
                if(this.SAVE_STUDENT_U_ACADEMIC !=null && is_Transfer_Std==0 &&  this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
        
       _perkins=2000;
        } 
-               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
+               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) 
+                       || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
                {
                    _perkins=5000;
                }
@@ -1573,13 +1578,68 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
        
       _perkins=1000;
        } 
-               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
+               else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) 
+                       || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
                {
                    _perkins=3000;
                }
        }
             
         }
+        
+ }
+         else
+         {
+         if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) 
+                       || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
+         
+         {
+           if(std.getStudentAfFamilyContrib()<= 12000){
+               
+               if(_f_gpa_>= 2 && _f_gpa_<= 2.74)
+               {
+               _perkins=1500;
+               
+               }
+               else if(_f_gpa_>= 2.4 && _f_gpa_<= 3.49)
+               {
+               _perkins=2000;
+               }
+               else if(_f_gpa_>= 3.5 && _f_gpa_<=3.74)
+               {
+               _perkins=2500;
+               }
+                else if(_f_gpa_>= 3.75 && _f_gpa_<= 4) 
+               {
+                 _perkins=1500;
+               }
+           
+           }
+           else
+           {
+                if(_f_gpa_>= 2 && _f_gpa_<= 2.74)
+               {
+               _perkins=0;
+               
+               }
+                else if(_f_gpa_>= 2.4 && _f_gpa_<= 3.49)
+               {
+               _perkins=1500;
+               }
+               else if(_f_gpa_>= 3.5 && _f_gpa_<=3.74)
+               {
+               _perkins=2000;
+               }
+                 else if(_f_gpa_>= 3.75 && _f_gpa_<= 4) 
+               {
+                 _perkins=1000;
+               }
+           
+           }
+         
+         
+         }
+         }
        
        
       
