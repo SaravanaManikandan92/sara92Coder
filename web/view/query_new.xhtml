@@ -586,11 +586,17 @@
                                         <h:outputText value="Non-La Sierra EA:"   styleClass="listTH" />  
                                         <h:outputText value="#{querier.selectedStud.studentAgNonlsuAllowrance gt 0 ? 'Yes':'No'}"   /> 
 
-                                        <h:outputText value="Has EFC quote:"   styleClass="listTH" />  
+<!--                                        <h:outputText value="Has EFC quote:"   styleClass="listTH" />  
                                         <h:outputText value="#{querier.selectedStud.indEfc}"  />                 
                                         <h:outputText value="EFC Amount:"   styleClass="listTH" />  
+                                        <h:outputText value="#{ref.showAmt( querier.selectedStud.studentAfFamilyContrib)}"   /> -->
+
+                                        <h:outputText value="Has SAI quote:"   styleClass="listTH" />  
+                                        <h:outputText value="#{querier.selectedStud.indEfc}"  />                 
+                                        <h:outputText value="SAI Amount:"   styleClass="listTH" />  
                                         <h:outputText value="#{ref.showAmt( querier.selectedStud.studentAfFamilyContrib)}"   /> 
 
+                                        
                                         <h:outputText value="Family Size:"   styleClass="listTH" />  
                                         <h:outputText value="#{querier.selectedStud.studentAcFamilySize}"  />                 
                                         <h:outputText value="Family Income:"   styleClass="listTH" />  

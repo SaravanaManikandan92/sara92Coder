@@ -302,7 +302,7 @@
     /*      */    @NotNull
     /*      */ private Integer studentAcFamilySize;
     /*      */    @Column(name = "STUDENT_AF_FAMILY_CONTRIB")
-    /*      */    @Range(min = 0L, max = 99999L)
+    /*      */    @Range(min = -1500L, max = 999999L)
     /*      */    @NotNull
     /*      */ private Integer studentAfFamilyContrib;
     /*      */    @Column(name = "STUDENT_AG_NONLSU_ALLOWRANCE")
@@ -858,7 +858,7 @@
         /*      */
  /*  918 */ this.studentVFamily = "";
         /*  919 */ this.studentAcFamilySize = Integer.valueOf(1);
-        /*  920 */ this.studentAfFamilyContrib = Integer.valueOf(99999);
+        /*  920 */ this.studentAfFamilyContrib = Integer.valueOf(999999);
         /*  921 */ this.studentAdFamilyIncome = Integer.valueOf(0);
         /*  922 */ this.studentAeFamilyAsset = Integer.valueOf(0);
         /*      */

@@ -61,8 +61,9 @@
                     <td class="item">+Additional Expenses</td><td class="numb">#{estimator.calc.showAddlExpense()}</td>
                 </tr>
                 <tr class="#{estimator.sumrow()}">
-                    <td class="item">-Expected Family Contribution (EFC)</td><td class="numb">#{estimator.calc.showEFC()}</td>
-                </tr><!-- <h:outputText value="#{estimator.std_intl eq true? 0: estimator.stud.studentAfFamilyContrib}"><f:convertNumber pattern="$#,###" /></h:outputText> -->
+<!--                    <td class="item">-Expected Family Contribution (EFC)</td><td class="numb">#{estimator.calc.showEFC()}</td>-->
+                     <td class="item">-Student Aid Index (SAI)</td><td class="numb">#{estimator.calc.showEFC()}</td>
+                </tr>
                 <tr>
                     <td class="item">&nbsp;</td><td class="tot">#{estimator.calc.showNeedAmt()}</td>
                 </tr>
@@ -1391,8 +1392,10 @@ $myForm.find(':input:disabled').prop('disabled',false)
                                                 <tr><td><h:selectBooleanCheckbox id="std_efc" value="#{estimator.std_efc}" >
                                                             <!--<f:ajax event="change"  execute="@this" render="-auth-bar  efc_amt std_fafsa  std_intl" listener="#{estimator.efc_indchanged}"/>-->
                                                             <p:ajax event="change"  process="@this efc_amt" update="-auth-bar  efc_amt std_fafsa  std_intl"  listener="#{estimator.efc_indchanged}"   oncomplete="chg_efc_ind();" /> <!-- chg_efc_ind(); -->
-                                                        </h:selectBooleanCheckbox><h:outputLabel for="std_efc" value="Received EFC or EFC quote"/></td>
-                                                    <td><p:inputText disabled="#{estimator.std_efc eq true? 'false':'true'}"   id="efc_amt" value="#{estimator.stud.studentAfFamilyContrib}" size="5"  style="text-align:right" label="Financial #{msg['layer']} #{msg['EstimateForm.financial.efcamt.label']} ">
+<!--                                                        </h:selectBooleanCheckbox><h:outputLabel for="std_efc" value="Received EFC or EFC quote"/></td>-->
+                                                    </h:selectBooleanCheckbox><h:outputLabel for="std_efc" value="Received SAI or SAI quote"/></td>
+                                                    <td><p:inputText disabled="#{estimator.std_efc eq true? 'false':'true'}"   id="efc_amt" value="#{estimator.stud.studentAfFamilyContrib}" size="5"  
+                                                                     style="text-align:right" label="Financial #{msg['layer']} #{msg['EstimateForm.financial.efcamt.label']} ">
                                                             <p:ajax event="change" process="@this" update="-auth-bar @this std_efc -auth-sv-msgs" listener="#{estimator.efc_amtchanged}"   oncomplete="resize_height();" />
                                                              <f:convertNumber integerOnly="true" minFractionDigits="0" pattern="#,###" />
                                                         </p:inputText>Amount</td>

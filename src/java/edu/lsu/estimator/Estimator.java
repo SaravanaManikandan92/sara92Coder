@@ -3562,6 +3562,10 @@ import org.apache.commons.beanutils.BeanUtils;
             this.std_efc = true;
         }
         /* 3574 */ this.stud.setIndEfc(this.std_efc ? "Yes" : "No");
+                  if(this.stud.getStudentAfFamilyContrib()<0)
+                  {
+                  this.stud.setStudentAfFamilyContrib(0);
+                  }
         /* 3575 */ this.calc.refreshCalc(this.stud);
         /*      */    }
 
