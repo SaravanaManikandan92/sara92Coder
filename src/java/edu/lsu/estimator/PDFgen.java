@@ -334,7 +334,8 @@ public class PDFgen
                 /* 365 */ amt = ref.convertCurrencyStrToInt(str);
                 /* 366 */ pdf.setRenew4y(Integer.valueOf(amt));
                 /* 367 */ if (amt > 0) {
-                    setLineContent(form, line++, "La Sierra 4-year Renewable Scholarship", str, null);
+                   // setLineContent(form, line++, "La Sierra 4-year Renewable Scholarship", str, null);
+                     setLineContent(form, line++, "La Sierra Merit Scholarship", str, null);
                 }
                 /* 368 */ subtot += pdf.getRenew4y().intValue();
 
