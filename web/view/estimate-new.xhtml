@@ -272,7 +272,8 @@
                     <td class="item">Tuition &amp; Fees</td><td class="numb">#{estimator.calc.showTuitionFees()}</td>
                 </tr>
                 <tr class="#{estimator.sumrow()}">
-                    <td class="item">+Room &amp; Board</td><td class="numb">#{estimator.calc.initAndShowRoomBoardAmt()}</td>
+<!--                    <td class="item">+Room &amp; Board</td><td class="numb">#{estimator.calc.initAndShowRoomBoardAmt()}</td>-->
+                    <td class="item">+Room &amp; Meal Plan</td><td class="numb">#{estimator.calc.initAndShowRoomBoardAmt()}</td>
                 </tr>
                 <tr class="#{estimator.sumrow()}">
                     <td class="item">-Financial Aid <font size="smaller">#{estimator.calc.showFaidExtDesc()}</font></td><td class="numb">#{estimator.calc.showFaidAmt()}</td>
@@ -1359,11 +1360,18 @@ $myForm.find(':input:disabled').prop('disabled',false)
                                                         </h:selectBooleanCheckbox> <h:outputLabel for="std_fafsa" value="FAFSA Eligible"/></td>
                                                     <td></td>
                                                 </tr>
-                                                <tr><td><h:selectBooleanCheckbox id="std_calgrant" value="#{estimator.std_calgrant}" disabled="#{estimator.std_intl eq true}">
+                                                 <!-- Pell Eligible -->
+                                                   <tr><td><h:selectBooleanCheckbox id="std_pellGrant" value="#{estimator.std_pellGrant}">
+                                                          <p:ajax event="change" process="@this" update="-auth-bar std_intl std_calgrant" listener="#{estimator.std_pellgrantchanged}"/>
+                                                        </h:selectBooleanCheckbox> <h:outputLabel for="std_pellGrant" value="Pell Grant Eligible"/></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr><td><h:selectBooleanCheckbox id="std_calgrant" value="#{estimator.std_calgrant}" disabled="#{estimator.std_intl eq true  or  estimator.std_pellGrant eq false or estimator.std_pellGrant_value eq 0 }" >
                                                           <p:ajax event="change" process="@this" update="-auth-bar std_intl calgrantab_adjust std_calgranta std_calgrantb" listener="#{estimator.std_calgrantchanged}"/>
                                                         </h:selectBooleanCheckbox> <h:outputLabel for="std_calgrant" value="Cal Grant Eligible"/></td>
                                                     <td></td>
                                                 </tr>
+                                               
                                                 
                                                 <tr><td><h:selectBooleanCheckbox id="std_ealsu" value="#{estimator.std_ealsu}">
                                                             <p:ajax event="change" process="@this" update="-auth-bar ealsu_perc -auth-sv-msgs"  listener="#{estimator.ealsuchanged}"   oncomplete="chg_ealsu_ind();" /> <!--resize_height();"  /> -->
@@ -1396,7 +1404,7 @@ $myForm.find(':input:disabled').prop('disabled',false)
                                                     </h:selectBooleanCheckbox><h:outputLabel for="std_efc" value="Received SAI or SAI quote"/></td>
                                                     <td><p:inputText disabled="#{estimator.std_efc eq true? 'false':'true'}"   id="efc_amt" value="#{estimator.stud.studentAfFamilyContrib}" size="5"  
                                                                      style="text-align:right" label="Financial #{msg['layer']} #{msg['EstimateForm.financial.efcamt.label']} ">
-                                                            <p:ajax event="change" process="@this" update="-auth-bar @this std_efc -auth-sv-msgs" listener="#{estimator.efc_amtchanged}"   oncomplete="resize_height();" />
+                                                            <p:ajax event="change" process="@this" update="-auth-bar std_pellGrant @this std_efc std_calgrant -auth-sv-msgs" listener="#{estimator.efc_amtchanged}"   oncomplete="resize_height();" />
                                                              <f:convertNumber integerOnly="true" minFractionDigits="0" pattern="#,###" />
                                                         </p:inputText>Amount</td>
                                                 </tr>

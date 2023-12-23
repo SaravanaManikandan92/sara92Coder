@@ -116,7 +116,7 @@ import org.apache.commons.beanutils.BeanUtils;
  /*      */    private int std_EA_PERCENT;
     /*      */
  /*      */    private boolean std_intl;
-    private boolean std_tf;
+               private boolean std_tf;
     /*      */
  /*      */    private boolean std_marry;
     /*      */
@@ -195,6 +195,12 @@ import org.apache.commons.beanutils.BeanUtils;
  /*      */    private boolean stdo_intl;
     /*      */
     private boolean stdo_tf;
+
+
+    private boolean std_pellGrant;
+
+    
+    private int std_pellGrant_value;
     /*      */    private boolean stdo_marry;
     /*      */
  /*      */    private boolean stdo_sda;
@@ -3509,6 +3515,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
     /*      */
  /*      */ public void std_calgrantchanged(AjaxBehaviorEvent event) {
+    
         /* 3526 */ if (this.std_calgrant == true) {
             /* 3527 */ this.std_intl = false;
             /* 3528 */ this.stud.setStudentLIntlStud(this.std_intl ? "Yes" : "No");
@@ -3523,10 +3530,22 @@ import org.apache.commons.beanutils.BeanUtils;
         /* 3537 */ this.stdo_calgrant = this.std_calgrant;
         /* 3538 */ this.stdo_adjust_calgrantamt_ind = this.adjust_calgrantamt_ind;
         /* 3539 */ this.stdo_intl = this.std_intl;
+     
         /*      */    }
 
     /*      */
  /*      */
+ 
+ 
+      public void std_pellgrantchanged(AjaxBehaviorEvent event) {
+        this.stud.setStudentFPellGrant(this.std_pellGrant ? "Yes" : "No");
+        /*      */     //this.stdo_academic = this.stud.getStudentUAcademic();
+/* 2469 */ this.calc.refreshCalc(this.stud);
+System.out.println("this.calc.getActor().getPellGrant() "+ this.calc.getActor().getPellGrant());
+           this.setStd_pellGrant_value(this.calc.getActor().getPellGrant());
+
+    }
+ 
  /*      */ public void efc_indchanged(AjaxBehaviorEvent event) {
         /* 3544 */ if (!this.std_efc) {
             /* 3545 */ this.stud.setStudentAfFamilyContrib(Integer.valueOf(99999));
@@ -3567,6 +3586,7 @@ import org.apache.commons.beanutils.BeanUtils;
                   this.stud.setStudentAfFamilyContrib(0);
                   }
         /* 3575 */ this.calc.refreshCalc(this.stud);
+        this.setStd_pellGrant_value(this.calc.getActor().getPellGrant());
         /*      */    }
 
     /*      */
@@ -5723,6 +5743,22 @@ import org.apache.commons.beanutils.BeanUtils;
  /*      */ private void setStudFAFSA(String str) {
         /* 5491 */ this.stud.setStudentXFafsa(str);
         /*      */    }
+ 
+     public boolean isStd_pellGrant() {
+        return std_pellGrant;
+    }
+
+    //pell_Grant
+    public void setStd_pellGrant(boolean std_pellGrant) {
+        this.std_pellGrant = std_pellGrant;
+    }
+    public int getStd_pellGrant_value() {
+        return std_pellGrant_value;
+    }
+
+    public void setStd_pellGrant_value(int std_pellGrant_value) {
+        this.std_pellGrant_value = std_pellGrant_value;
+    }
     /*      */ }
 
 

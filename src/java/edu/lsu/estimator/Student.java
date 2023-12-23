@@ -286,7 +286,12 @@
     /*      */    @Size(max = 3)
     /*      */    @Column(name = "STUDENT_Y_INDEPT")
     /*      */ private String studentYIndept;
-    /*      */    @Size(max = 3)
+                  @Size(max = 3)
+                  @Column(name = "STUDENT_F_PELLGRANT")
+                 private String studentFPellGrant;
+    /*      */
+
+ @Size(max = 3)
     /*      */    @Column(name = "STUDENT_Z_CALGRANT")
     /*      */ private String studentZCalgrant;
     /*      */    @Column(name = "STUDENT_AA_CALGRANT_A")
@@ -827,6 +832,7 @@
         /*  887 */ this.studentXFafsa = "no";
         /*  888 */ this.studentYIndept = "no";
         /*  889 */ this.studentZCalgrant = "no";
+                   this.studentFPellGrant="no";
         /*  890 */ this.studentAcFamilySize = Integer.valueOf(2);
         /*      */     //this.recid = "tmpid";
 //System.out.println("Rec id " + this.recid);
@@ -2558,6 +2564,14 @@
  /*      */ public void setStd_1st_freshmen(Integer std_1st_freshmen) {
         /* 2301 */ this.std_1st_freshmen = std_1st_freshmen;
         /*      */    }
+ 
+    public String getStudentFPellGrant() {
+        return studentFPellGrant;
+    }
+
+    public void setStudentFPellGrant(String studentFPellGrant) {
+        this.studentFPellGrant = studentFPellGrant;
+    }
     /*      */ }
 
 

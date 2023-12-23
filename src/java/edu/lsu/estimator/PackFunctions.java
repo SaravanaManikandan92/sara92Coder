@@ -76,6 +76,7 @@
     /*   72 */    private String SAVE_STUDENT_V_FAMILY = "";
     /*   73 */    private String SAVE_STUDENT_W_DORM = "No";
     /*   74 */    private String SAVE_STUDENT_X_FAFSA = "No";
+                  private String SAVE_STUDENT_F_PELLGRANT= "No";
     /*   75 */    private String SAVE_STUDENT_Y_INDEPT = "No";
     /*   76 */    private String SAVE_STUDENT_Z_CALGRANT = "No";
     /*   77 */    private String SAVE_STUDENT_AA_CALGRANT_A = "0";
@@ -280,7 +281,10 @@
     /*      */    private edu.lsu.estimator.PackFunctions actor;
 
     /*      */
- /*      */ public void resetValues() {
+ /*      */
+
+   
+public void resetValues() {
         /*  279 */ this.sdaAward = PackValues.sdaAwardInit;
         /*      */
  /*      */
@@ -451,6 +455,7 @@
         /*  443 */ this.SAVE_STUDENT_V_FAMILY = std.getStudentVFamily();
         /*  444 */ this.SAVE_STUDENT_W_DORM = std.getStudentWDorm();
         /*  445 */ this.SAVE_STUDENT_X_FAFSA = std.getStudentXFafsa()!=null?std.getStudentXFafsa().trim():this.SAVE_STUDENT_X_FAFSA;
+                   this.SAVE_STUDENT_F_PELLGRANT= std.getStudentFPellGrant() !=null? std.getStudentFPellGrant().trim():this.SAVE_STUDENT_F_PELLGRANT;
         /*  446 */ this.SAVE_STUDENT_Y_INDEPT = std.getStudentYIndept();
         /*  447 */ this.SAVE_STUDENT_Z_CALGRANT = std.getStudentZCalgrant();
         /*  448 */ this.SAVE_STUDENT_AA_CALGRANT_A = std.getStudentAaCalgrantA()!=null ? String.valueOf(std.getStudentAaCalgrantA()): this.SAVE_STUDENT_AA_CALGRANT_A;
@@ -596,7 +601,7 @@
  /*      */
  /*      */ public final int getRoomAndBoard() {
         /*  577 */ if (TRIM(this.SAVE_STUDENT_W_DORM).equalsIgnoreCase("Yes")) {
-            /*  578 */ return 8790;
+            /*  578 */ return 9600;//return 8790;
             /*      */        }
         /*  580 */ return 0;
         /*      */    }
@@ -761,14 +766,15 @@
  /*      */
  /*      */ public final int getPell() {
         /*  730 */ //return getPell2021();
-        return getPell2023();
+        return getPell2425();
         /*      */    }
 
     /*      */
  /*      */
- 
+ //Currently working on 2023 present
  private final int getPell2023()
  {
+     //have minimum and maximum imit here 
       int _pell = 0, _efcBase = 0, _pellBase = 0;
       int _coa = getCOA();
  /*  739 */ if (this.SAVE_STUDENT_X_FAFSA.equalsIgnoreCase("Yes") && _coa >= 6195 && _coa <= 999999) {
@@ -786,6 +792,33 @@
                 /*      */            }
             /*      */        }
         /*      */
+       
+        this.setActor(this.actor);
+         this.setPellGrant(_pell);
+ /*  754 */ return _pell;
+ }
+ 
+  private final int getPell2425()
+ {
+     //have minimum and maximum imit here 
+      int _pell = 0, _efcBase = 0, _pellBase = 0 ,pellMax_=PackValues.pellMax,pellMin_=PackValues.pellMin;
+      int _coa = getCOA();
+ /*  739 */ if (this.SAVE_STUDENT_F_PELLGRANT.equalsIgnoreCase("Yes") && this.SAVE_STUDENT_X_FAFSA.equalsIgnoreCase("Yes") && _coa >= 6195 && _coa <= 999999) {
+            /*  740 */ int _efc = getEFC();
+            /*  741 */ if (_efc <= 0 ) {
+                /*  742 */ _pell =pellMax_;// 6345;
+                /*  743 */            } else if (_efc >0) { //TBD
+                /*  744 */ _pell =Math.round((pellMax_-_efc)/5)*5;// 639;
+                 if(_pell<=0)
+        {
+            _pell=pellMin_;
+        }
+                /*  745 */            }  else {
+                           _pell=pellMin_;
+                /*      */            }
+            /*      */        }
+        /*      */
+       
  /*  754 */ return _pell;
  }
  
@@ -948,101 +981,108 @@
 
     /*      */
  /*      */
- /*      */ public final int getCalGrantA() {
-        /*  890 */ int _aCalGrantAmt = 0;
-        /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*  902 */ if (this.adjust_calgrant_amt_ind == true  && this.std.getStudentZCalgrant()!=null && this.std.getStudentZCalgrant().equalsIgnoreCase("yes")) {
-            return this.std.getStudentAaCalgrantA().intValue();
-        }
-        /*      */
-        //39200 >>> 46200 39000 46000 
-        //9084 >> 99209220 9358  95700>> 112900 98000>>$115,600 106500 > 125600  114100 > 134600 123100 > 145200
  /*      */ 
- /*  905 */ if (this.SAVE_STUDENT_Z_CALGRANT !=null && !this.SAVE_STUDENT_Z_CALGRANT.equalsIgnoreCase("Yes")) {
-            /*  906 */ _aCalGrantAmt = 0;
-            /*      */        } /*  908 */ else if (this.SAVE_STUDENT_Z_CALGRANT !=null && this.SAVE_STUDENT_Z_CALGRANT.equalsIgnoreCase("Yes") 
-                    &&  this.std.getStudentPGpa()!=null &&  this.std.getStudentPGpa().compareTo(new BigDecimal(3.0D)) >= 0 
-                    &&  this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() > 0) {
-            /*  909 */ if (getIndependentStatus()!=null && getIndependentStatus().equalsIgnoreCase("Independent") && this.std.getStudentAeFamilyAsset() !=null &&
-                    this.std.getStudentAeFamilyAsset().intValue() <= 46200) {
-                /*  910 */ if (MID(this.SAVE_STUDENT_M_MARRY, 1, 1) !=null && MID(this.SAVE_STUDENT_M_MARRY, 1, 1).equalsIgnoreCase("S")) {
-                    /*  911 */ if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() <= 1 && this.std.getStudentAdFamilyIncome() !=null 
-                            && this.std.getStudentAdFamilyIncome().intValue() <= 46000) {
-                        /*  912 */ _aCalGrantAmt = 9358;
-                        /*  913 */                    } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 2 &&
-                                this.std.getStudentAdFamilyIncome() !=null && this.std.getStudentAdFamilyIncome().intValue() <= 112900) {
-                        /*  914 */ _aCalGrantAmt = 9358;
-                        /*  915 */                    } else if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() == 3 
-                                && this.std.getStudentAdFamilyIncome() !=null && this.std.getStudentAdFamilyIncome().intValue() <= 115600) {
-                        /*  916 */ _aCalGrantAmt = 9358;
-                        /*  917 */                    } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 4 && this.std.getStudentAdFamilyIncome() !=null && this.std.getStudentAdFamilyIncome().intValue() <= 125600) {
-                        /*  918 */ _aCalGrantAmt = 9358;
-                        /*  919 */                    } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 5 && this.std.getStudentAdFamilyIncome() !=null && this.std.getStudentAdFamilyIncome().intValue() <= 134600) {
-                        /*  920 */ _aCalGrantAmt = 9358;
-                        /*  921 */                    } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() > 5 && this.std.getStudentAdFamilyIncome() !=null && this.std.getStudentAdFamilyIncome().intValue() <=  145200) {
-                        /*  922 */ _aCalGrantAmt = 9358;
-                        /*      */                    } else {
-                        /*  924 */ _aCalGrantAmt = 0;
-                        /*      */                    }
-                    /*      */
- /*  927 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 1 && this.std.getStudentAdFamilyIncome() !=null 
-         && this.std.getStudentAdFamilyIncome().intValue() <= 0) {
-                    /*  928 */ _aCalGrantAmt = 9358;
-                    /*  929 */                } else if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() == 2 
-                            && this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 46000) {
-                    /*  930 */ _aCalGrantAmt = 9358;
-                    /*  931 */                } else if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() == 3 
-                            && this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 115600) {
-                    /*  932 */ _aCalGrantAmt = 9358;
-                    /*  933 */                } else if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() == 4 
-                            && this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 125600) {
-                    /*  934 */ _aCalGrantAmt = 9358;
-                    /*  935 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 5 
-                            && this.std.getStudentAdFamilyIncome() !=null && this.std.getStudentAdFamilyIncome().intValue() <= 134600) {
-                    /*  936 */ _aCalGrantAmt = 9358;
-                    /*  937 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() > 5 
-                            &&  this.std.getStudentAdFamilyIncome()!=null &&  this.std.getStudentAdFamilyIncome().intValue() <= 145200) {
-                    /*  938 */ _aCalGrantAmt = 9358;
-                    /*      */                } else {
-                    /*  940 */ _aCalGrantAmt = 0;
-                    /*      */                }
-                /*      */
- /*  943 */            } else if (getIndependentStatus() !=null && getIndependentStatus().equalsIgnoreCase("Dependent") && this.std.getStudentAeFamilyAsset()!=null 
-         &&  this.std.getStudentAeFamilyAsset().intValue() <= 97200) {
-                /*  944 */ if (this.std.getStudentAcFamilySize().intValue() == 1 && this.std.getStudentAdFamilyIncome().intValue() <= 0) {
-                    /*  945 */ _aCalGrantAmt = 9358;
-                    /*  946 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 2 && this.std.getStudentAdFamilyIncome() !=null && this.std.getStudentAdFamilyIncome().intValue() <= 112900) {
-                    /*  947 */ _aCalGrantAmt = 9358;
-                    /*  948 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 3 && this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 115600) {
-                    /*  949 */ _aCalGrantAmt = 9358;
-                    /*  950 */                } else if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() == 4 && this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 125600) {
-                    /*  951 */ _aCalGrantAmt = 9358;
-                    /*  952 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 5 && this.std.getStudentAcFamilySize()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 134600) {
-                    /*  953 */ _aCalGrantAmt = 9358;
-                    /*  954 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() > 5 && this.std.getStudentAdFamilyIncome() !=null && this.std.getStudentAdFamilyIncome().intValue() <= 145200) {
-                    /*  955 */ _aCalGrantAmt = 9358;
-                    /*      */                } else {
-                    /*  957 */ _aCalGrantAmt = 0;
-                    /*      */                }
-                /*      */            } else {
-                /*  960 */ _aCalGrantAmt = 0;
-                /*      */            }
-            /*      */        } else {
-            /*  963 */ _aCalGrantAmt = 0;
-            /*      */        }
-        /*      */
+     public final int getCalGrantA() {
+         /*  890 */ int _aCalGrantAmt = 0;
+
+         /*  902 */ if (this.adjust_calgrant_amt_ind == true && this.std.getStudentZCalgrant() != null 
+                 && this.std.getStudentZCalgrant().equalsIgnoreCase("yes")) {
+             return this.std.getStudentAaCalgrantA().intValue();
+         }
+         /*      */
+         //39200 >>> 46200 39000 46000 
+         //9084 >> 99209220 9358  95700>> 112900 98000>>$115,600 106500 > 125600  114100 > 134600 123100 > 145200
+         /*      */
+ /*  905 */ if (this.SAVE_STUDENT_Z_CALGRANT != null && !this.SAVE_STUDENT_Z_CALGRANT.equalsIgnoreCase("Yes")) {
+             /*  906 */ _aCalGrantAmt = 0;
+             /*      */         } /*  908 */ else if (this.SAVE_STUDENT_Z_CALGRANT != null && this.SAVE_STUDENT_Z_CALGRANT.equalsIgnoreCase("Yes")
+                 && this.std.getStudentPGpa() != null && this.std.getStudentPGpa().compareTo(new BigDecimal(3.0D)) >= 0
+                 && this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() > 0) {
+
+             /*  909 */ if (getIndependentStatus() != null && getIndependentStatus().equalsIgnoreCase("Independent") 
+                     && this.std.getStudentAeFamilyAsset() != null
+                     && this.std.getStudentAeFamilyAsset().intValue() <= 48300) {
+
+                 /*  910 */ if (MID(this.SAVE_STUDENT_M_MARRY, 1, 1) != null 
+                         && MID(this.SAVE_STUDENT_M_MARRY, 1, 1).equalsIgnoreCase("S")) {
+                     /*  911 */ if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() <= 1 
+                             && this.std.getStudentAdFamilyIncome() != null
+                             && this.std.getStudentAdFamilyIncome().intValue() <= 48100) {
+                         /*  912 */ _aCalGrantAmt = 9358;
+                         /*  913 */                     } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 2
+                             && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 117900) {
+                         /*  914 */ _aCalGrantAmt = 9358;
+                         /*  915 */                     } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 3
+                             && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 120700) {
+                         /*  916 */ _aCalGrantAmt = 9358;
+                         /*  917 */                     } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 4 
+                                 && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 131200) {
+                         /*  918 */ _aCalGrantAmt = 9358;
+                         /*  919 */                     } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 5 
+                                 && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 140600) {
+                         /*  920 */ _aCalGrantAmt = 9358;
+                         /*  921 */                     } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() > 5
+                                 && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 151600) {
+                         /*  922 */ _aCalGrantAmt = 9358;
+                         /*      */                     } else {
+                         /*  924 */ _aCalGrantAmt = 0;
+                         /*      */                     }
+                     /*      */
+ /*  927 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 1 
+         && this.std.getStudentAdFamilyIncome() != null
+                         && this.std.getStudentAdFamilyIncome().intValue() <= 0) {
+                     /*  928 */ _aCalGrantAmt = 9358;
+                     /*  929 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 2
+                         && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 48100) {
+                     /*  930 */ _aCalGrantAmt = 9358;
+                     /*  931 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 3
+                         && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 120700) {
+                     /*  932 */ _aCalGrantAmt = 9358;
+                     /*  933 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 4
+                         && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 131200) {
+                     /*  934 */ _aCalGrantAmt = 9358;
+                     /*  935 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 5
+                         && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 140600) {
+                     /*  936 */ _aCalGrantAmt = 9358;
+                     /*  937 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() > 5
+                         && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 151600) {
+                     /*  938 */ _aCalGrantAmt = 9358;
+                     /*      */                 } else {
+                     /*  940 */ _aCalGrantAmt = 0;
+                     /*      */                 }
+                 /*      */
+ /*  943 */             } else if (getIndependentStatus() != null && getIndependentStatus().equalsIgnoreCase("Dependent") 
+         && this.std.getStudentAeFamilyAsset() != null
+                     && this.std.getStudentAeFamilyAsset().intValue() <= 101500) {
+                 /*  944 */ if (this.std.getStudentAcFamilySize().intValue() == 1 && this.std.getStudentAdFamilyIncome().intValue() <= 0) {
+                     /*  945 */ _aCalGrantAmt = 9358;
+                     /*  946 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 2 
+                             && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 117900) {
+                     /*  947 */ _aCalGrantAmt = 9358;
+                     /*  948 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 3 
+                             && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 120700) {
+                     /*  949 */ _aCalGrantAmt = 9358;
+                     /*  950 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 4 
+                             && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 131200) {
+                     /*  951 */ _aCalGrantAmt = 9358;
+                     /*  952 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() == 5 
+                             && this.std.getStudentAcFamilySize() != null && this.std.getStudentAdFamilyIncome().intValue() <= 140600) {
+                     /*  953 */ _aCalGrantAmt = 9358;
+                     /*  954 */                 } else if (this.std.getStudentAcFamilySize() != null && this.std.getStudentAcFamilySize().intValue() > 5 
+                             && this.std.getStudentAdFamilyIncome() != null && this.std.getStudentAdFamilyIncome().intValue() <= 151600) {
+                     /*  955 */ _aCalGrantAmt = 9358;
+                     /*      */                 } else {
+                     /*  957 */ _aCalGrantAmt = 0;
+                     /*      */                 }
+                 /*      */             } else {
+                 /*  960 */ _aCalGrantAmt = 0;
+                 /*      */             }
+             /*      */         } else {
+             /*  963 */ _aCalGrantAmt = 0;
+             /*      */         }
+         /*      */
  /*  966 */ return _aCalGrantAmt;
-        /*      */    }
+         /*      */     }
 
     /*      */
  /*      */
@@ -1074,85 +1114,85 @@
             /*  993 */ if (MID(this.SAVE_STUDENT_M_MARRY, 1, 1)!=null && MID(this.SAVE_STUDENT_M_MARRY, 1, 1).equalsIgnoreCase("S")) {
                 /*      */
                 //Independent ,Single
- /*  995 */ if (this.std.getStudentAeFamilyAsset()!=null && this.std.getStudentAeFamilyAsset().intValue() <= 46200) {
+ /*  995 */ if (this.std.getStudentAeFamilyAsset()!=null && this.std.getStudentAeFamilyAsset().intValue() <= 48300) {
                     /*  996 */ if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() <= 1) {
-                        /*  997 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 46000) {
+                        /*  997 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 48100) {
                             /*  998 */ _bCalGrantAmtAward = "Yes";
                             /*      */                        }
                         /* 1000 */                    } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 2) {
-                        /* 1001 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 52700) {
+                        /* 1001 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 55000) {
                             /* 1002 */ _bCalGrantAmtAward = "Yes";
                             /*      */                        }
                         /* 1004 */                    } else if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() == 3) {
-                        /* 1005 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 59400) {
+                        /* 1005 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 62000) {
                             /* 1006 */ _bCalGrantAmtAward = "Yes";
                             /*      */                        }
                         /* 1008 */                    } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 4) {
-                        /* 1009 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 66000) {
+                        /* 1009 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 69000) {
                             /* 1010 */ _bCalGrantAmtAward = "Yes";
                             /*      */                        }
                         /* 1012 */                    } else if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() == 5) {
-                        /* 1013 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 73900) {
+                        /* 1013 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 77100) {
                             /* 1014 */ _bCalGrantAmtAward = "Yes";
                             /*      */                        }
                         /* 1016 */                    } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() >= 6
-                            && /* 1017 */ this.std.getStudentAdFamilyIncome().intValue() <= 79700) {
+                            && /* 1017 */ this.std.getStudentAdFamilyIncome().intValue() <= 83300) {
                         /* 1018 */ _bCalGrantAmtAward = "Yes";
                         /*      */                    }
                     /*      */
  /*      */                }
-                /*      */            } /* 1023 */ else if (this.std.getStudentAeFamilyAsset()!=null && this.std.getStudentAeFamilyAsset().intValue() <= 46200) {
+                /*      */            } /* 1023 */ else if (this.std.getStudentAeFamilyAsset()!=null && this.std.getStudentAeFamilyAsset().intValue() <= 48300) {
                     //Independent Married
                 /* 1024 */ if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() <= 1) {
-                    /* 1025 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 52700) {
+                    /* 1025 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 55000) {
                         /* 1026 */ _bCalGrantAmtAward = "Yes";
                         /*      */                    }
                     /* 1028 */                } else if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() <= 2) {
-                    /* 1029 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 52700) {
+                    /* 1029 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 55000) {
                         /* 1030 */ _bCalGrantAmtAward = "Yes";
                         /*      */                    }
                     /* 1032 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() <= 3) {
-                    /* 1033 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 59400) {
+                    /* 1033 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 62000) {
                         /* 1034 */ _bCalGrantAmtAward = "Yes";
                         /*      */                    }
                     /* 1036 */                } else if (this.std.getStudentAcFamilySize()!=null && this.std.getStudentAcFamilySize().intValue() <= 4) {
-                    /* 1037 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 66000) {
+                    /* 1037 */ if (this.std.getStudentAdFamilyIncome()!=null && this.std.getStudentAdFamilyIncome().intValue() <= 69000) {
                         /* 1038 */ _bCalGrantAmtAward = "Yes";
                         /*      */                    }
                     /* 1040 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() <= 5) {
-                    /* 1041 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 73900) {
+                    /* 1041 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 77100) {
                         /* 1042 */ _bCalGrantAmtAward = "Yes";
                         /*      */                    }
                     /* 1044 */                } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() >= 6
-                        && /* 1045 */ this.std.getStudentAdFamilyIncome().intValue() <= 79700) {
+                        && /* 1045 */ this.std.getStudentAdFamilyIncome().intValue() <= 83300) {
                     /* 1046 */ _bCalGrantAmtAward = "Yes";
                     /*      */                }
                 /*      */
  /*      */            }
             /*      */
- /*      */        } /* 1052 */ else if (this.std.getStudentAeFamilyAsset() !=null && this.std.getStudentAeFamilyAsset().intValue() <= 97200) {
+ /*      */        } /* 1052 */ else if (this.std.getStudentAeFamilyAsset() !=null && this.std.getStudentAeFamilyAsset().intValue() <= 101500) {
             /* 1053 */ if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() <= 1) {
                 /* 1054 */ if (this.std.getStudentAdFamilyIncome() !=null && this.std.getStudentAdFamilyIncome().intValue() <= 0) {
                     /* 1055 */ _bCalGrantAmtAward = "Yes";
                     /*      */                }
                 /* 1057 */            } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 2) {
-                /* 1058 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 52700) {
+                /* 1058 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 55000) {
                     /* 1059 */ _bCalGrantAmtAward = "Yes";
                     /*      */                }
                 /* 1061 */            } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 3) {
-                /* 1062 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 59400) {
+                /* 1062 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 62000) {
                     /* 1063 */ _bCalGrantAmtAward = "Yes";
                     /*      */                }
                 /* 1065 */            } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 4) {
-                /* 1066 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 66000) {
+                /* 1066 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 69000) {
                     /* 1067 */ _bCalGrantAmtAward = "Yes";
                     /*      */                }
                 /* 1069 */            } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() == 5) {
-                /* 1070 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 73900) {
+                /* 1070 */ if (this.std.getStudentAdFamilyIncome().intValue() <= 77100) {
                     /* 1071 */ _bCalGrantAmtAward = "Yes";
                     /*      */                }
                 /* 1073 */            } else if (this.std.getStudentAcFamilySize() !=null && this.std.getStudentAcFamilySize().intValue() > 5
-                    && /* 1074 */ this.std.getStudentAdFamilyIncome().intValue() <= 79700) {
+                    && /* 1074 */ this.std.getStudentAdFamilyIncome().intValue() <= 83300) {
                 /* 1075 */ _bCalGrantAmtAward = "Yes";
                 /*      */            }
             /*      */        }
@@ -5034,6 +5074,14 @@ if (maxaid2 < maxaid1) {
  /*      */ public int getQuarterInAdvanceDiscountPerc() {
         /* 4592 */ return this.quarterInAdvanceDiscountPerc;
         /*      */    }
+ 
+  public PackFunctions getActor() {
+        return actor;
+    }
+
+    public void setActor(PackFunctions actor) {
+        this.actor = actor;
+    }
     /*      */ }
 
 

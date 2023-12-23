@@ -73,18 +73,18 @@
 /*     */   public static final int ySecurityFee = 0;
 /*     */   public static final int yInternationalInsFee = 2900;//TBD
 /*     */   public static final int yFrOrientation = 220;
-/*     */   public static final int yTotalTuitionAndFeesDomestic = 35910;//34218;
-/*     */   public static final int yTotalTuitionAndFeesInternational = 37118;//TBD
-/*     */   public static final int yTotalTuitionAndFeesDomesticFr =36130 ;//34438
-/*     */   public static final int yTotalTuitionAndFeesInternationalFr = 37338;//TBD
+/*     */   public static final int yTotalTuitionAndFeesDomestic = 37710;//35910;//34218;
+/*     */   public static final int yTotalTuitionAndFeesInternational = 41310;//37118;//TBD
+/*     */   public static final int yTotalTuitionAndFeesDomesticFr =37930;//36130 ;//34438
+/*     */   public static final int yTotalTuitionAndFeesInternationalFr = 41530;//37338;//TBD
 /*     */   public static final int yExtraCostCommunity = 16565;
 /*     */   public static final int yExtraCostDorm = 17258;
 /*     */   public static final int qCoaCommunity =  20821;//17158; 
 /*     */   public static final int qCoaDorm =17845;//16927
 /*     */   public static final int qCoaCommunityFr =  20821;//17158;
 /*     */   public static final int qCoaDormFr =  17845;//16927;
-/*  86 */   public static final int yCoaCommunity = Math.max(62463, 62465);// Math.max(50781, 50783);
-/*  87 */   public static final int yCoaDorm = Math.max(53535, 53537);//old Math.max(51474, 51476)
+/*  86 */   public static final int yCoaCommunity = Math.max(58252, 58254);//Math.max(62463, 62465);// Math.max(50781, 50783);
+/*  87 */   public static final int yCoaDorm = Math.max(56647, 56649);// Math.max(53535, 53537); //;//Math.max(53535, 53537);//old Math.max(51474, 51476)
 /*     */   
 /*  89 */   public static final int yCoaCommunityFr = yCoaCommunity + 220;
 /*  90 */   public static final int yCoaDormFr = yCoaDorm + 220; // old values yCoaDorm + 220 
@@ -105,6 +105,10 @@
 /*     */   public static final int pellCOAtop = 7395;//999999;
 /*     */   
 /*     */   public static final int aCalGrant = 9358 ;//9084;
+
+            public static final int pellMax=7395;
+           
+            public static final int pellMin=767;
 /*     */   
 /*     */   public static final int aCalGrantMinGPA = 3;
 /*     */   
