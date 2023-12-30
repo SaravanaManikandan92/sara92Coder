@@ -1230,19 +1230,34 @@ public void resetValues() {
  //0 to 1999
  /* 1124 */ if (this.SAVE_STUDENT_X_FAFSA !=null && !this.SAVE_STUDENT_X_FAFSA.equalsIgnoreCase("Yes")) {
             /* 1125 */ _fseogAmt = 0;
-            /*      */        } /* 1127 */ else if (getCalGrantB() > 1551 || getCalGrantA() > 1551 || getExternalAllowance() > 0 || getLsuAllowance() > 0 || getNationalMerit() > 0) {
+            /*      */        } /* 1127 */ else if (getCalGrantB() > 1551 || getCalGrantA() > 1551 || getExternalAllowance() > 0 || getLsuAllowance() > 0 
+                    || getNationalMerit() > 0) {
             /* 1128 */ _fseogAmt = 0;
-            /*      */        } /* 1130 */ else if (this.std.getStudentAfFamilyContrib() !=null && this.std.getStudentAfFamilyContrib().intValue() < 1000) {
+            /*      */        } /* 1130 */ 
+            
+             else if (this.std.getStudentAfFamilyContrib() !=null && this.std.getStudentAfFamilyContrib().intValue() <= 0) {
                        _fseogAmt = 1500;// _fseogAmt = 1350;
-            /* 1132 */        } else if (this.std.getStudentAfFamilyContrib() !=null && this.std.getStudentAfFamilyContrib().intValue() < 2000) {
-            /* 1133 */_fseogAmt = 1000;                 //_fseogAmt = 600;
-            /*      */        }
-            else if (this.std.getStudentAfFamilyContrib() !=null && this.std.getStudentAfFamilyContrib().intValue() >= 2000  && this.std.getStudentAfFamilyContrib().intValue()<= 6656 ) {
+            /* 1132 */        } 
+            else if (this.std.getStudentAfFamilyContrib() !=null && this.std.getStudentAfFamilyContrib().intValue() >= 1  
+                    && this.std.getStudentAfFamilyContrib().intValue()<= 6625 ) {
             /* 1133 */_fseogAmt = 750;                 //_fseogAmt = 600;
             /*      */        }
             else {
             /* 1135 */ _fseogAmt = 0;
             /*      */        }
+//            2023 data
+//            else if (this.std.getStudentAfFamilyContrib() !=null && this.std.getStudentAfFamilyContrib().intValue() < 1000) {
+//                       _fseogAmt = 1500;// _fseogAmt = 1350;
+//            /* 1132 */        } else if (this.std.getStudentAfFamilyContrib() !=null && this.std.getStudentAfFamilyContrib().intValue() < 2000) {
+//            /* 1133 */_fseogAmt = 1000;                 //_fseogAmt = 600;
+//            /*      */        }
+//            else if (this.std.getStudentAfFamilyContrib() !=null && this.std.getStudentAfFamilyContrib().intValue() >= 2000  
+//                    && this.std.getStudentAfFamilyContrib().intValue()<= 6656 ) {
+//            /* 1133 */_fseogAmt = 750;                 //_fseogAmt = 600;
+//            /*      */        }
+//            else {
+//            /* 1135 */ _fseogAmt = 0;
+//            /*      */        }
 
  /* 1160 */ return _fseogAmt;
         /*      */    }
@@ -1728,6 +1743,7 @@ return _perkins;
 //           _fws = 3000;
 //                        }
 //its always 4000 for 2023
+// it remains same for 2024 as well
 _fws=4000;
                    }
      
@@ -3793,7 +3809,9 @@ if (maxaid2 < maxaid1) {
  /*      */
  /*      */ public String initAndShowPellGrantAmt() {
         /* 3440 */ if (this.use_need_ind < 0) {
-            /* 3441 */ if ((this.std.getStudentAkNoncalGrant() !=null && this.std.getStudentAkNoncalGrant().intValue() > 0 )|| (this.std.getStudentZCalgrant() !=null && this.std.getAdjCalgrantInd() !=null && this.std.getStudentZCalgrant().equalsIgnoreCase("YES") && this.std.getAdjCalgrantInd().equalsIgnoreCase("YES") && this.std.getStudentAaCalgrantA() !=null && this.std.getStudentAbCalgrantB()!=null && this.std.getStudentAaCalgrantA().intValue() + this.std.getStudentAbCalgrantB().intValue() > 0)) {
+            /* 3441 */ if ((this.std.getStudentAkNoncalGrant() !=null && this.std.getStudentAkNoncalGrant().intValue() > 0 )
+                    || (this.std.getStudentZCalgrant() !=null && this.std.getAdjCalgrantInd() !=null 
+                    && this.std.getStudentZCalgrant().equalsIgnoreCase("YES") && this.std.getAdjCalgrantInd().equalsIgnoreCase("YES") && this.std.getStudentAaCalgrantA() !=null && this.std.getStudentAbCalgrantB()!=null && this.std.getStudentAaCalgrantA().intValue() + this.std.getStudentAbCalgrantB().intValue() > 0)) {
                 /* 3442 */ this.use_need_ind = 1;
                 /* 3443 */            } else if (this.pellGrant > 0 || this.calGrantA > 0 || this.calGrantB > 0 || this.fseogAmt > 0 || this.nonCaGrantAmt > 0 || 
                         this._nonCaGrantAmt > 0 || this.lsuNeedGrant > 0 || this.lasuGrantAmt > 0) {

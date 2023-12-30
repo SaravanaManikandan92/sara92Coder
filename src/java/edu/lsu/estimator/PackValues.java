@@ -310,18 +310,18 @@
 /* 306 */   public static final BigDecimal nationalMeritMF = new BigDecimal(1);
 /*     */   
            //Fr means freshMan Gpa is Gpa 2De74 means 2.74
-            public static final int Lsu4yRenewableFrGpa2_2De74=3100;
-           public static final int Lsu4yRenewableFrGpa2De75_3De24=6100;
-           public static final int Lsu4yRenewableFrGpa3De25_3De49=7100;
-           public static final int Lsu4yRenewableFrGpa3De50_3De74=8200;
-            public static final int Lsu4yRenewableFrGpa3De75_4=10200;
+            public static final int Lsu4yRenewableFrGpa2_2De74=3300;//3100;
+           public static final int Lsu4yRenewableFrGpa2De75_3De24=6400;// 6100;
+           public static final int Lsu4yRenewableFrGpa3De25_3De49=7500 ;//7100;
+           public static final int Lsu4yRenewableFrGpa3De50_3De74=8600;//8200;
+            public static final int Lsu4yRenewableFrGpa3De75_4=10700;//10200;
             
                 //FrTF means freshMan Gpa is Gpa 2De74 means 2.74
-            public static final int Lsu4yRenewableFrTfGpa2_2De74=3100;
-           public static final int Lsu4yRenewableFrTfGpa2De75_3De24=4100;
-           public static final int Lsu4yRenewableFrTfGpa3De25_3De49=5100;
-           public static final int Lsu4yRenewableFrTfGpa3De50_3De74=6100;
-            public static final int Lsu4yRenewableFrTfGpa3De75_4=7100;
+            public static final int Lsu4yRenewableFrTfGpa2_2De74=3300;//3100;
+           public static final int Lsu4yRenewableFrTfGpa2De75_3De24=4300;//4100;
+           public static final int Lsu4yRenewableFrTfGpa3De25_3De49=5400;//5100;
+           public static final int Lsu4yRenewableFrTfGpa3De50_3De74=6400;//6100;
+            public static final int Lsu4yRenewableFrTfGpa3De75_4=7500;//7100;
            
 /*     */   public static final int subDirectLoanMaxFr = 3500;
 /*     */   

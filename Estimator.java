@@ -116,6 +116,10 @@ public class Estimator implements Serializable { //collect all info, to cal/reca
     private boolean std_sex3 = true;
 
     private boolean std_calgrant;
+
+ //pell_Grant
+    private boolean std_pellGrant;
+    
     private boolean std_efc;
     private boolean std_ealsu;
     private boolean std_eanonlsu;
@@ -1999,7 +2003,7 @@ The openssl commands are very useful for debugging SSL problems. For instance, t
 
             if (modStud != null) {
                 modStud.setLostToLocal(stud.getRecid());
-                accessor.updateStudInfo(modStud);
+                //accessor.updateStudInfo(modStud);
             }
             /*
             sfund1amt = stud.getStudentAuScholarship1Amt();
@@ -3193,6 +3197,15 @@ INFO: [http-thread-pool-8080(4)] INFO edu.lsu.estimator.Estimator - ===grp #8=[ 
     public void setStd_calgrant(boolean std_calgrant) {
         this.std_calgrant = std_calgrant;
         stud.setStudentZCalgrant(std_calgrant ? "yes" : "no");
+    }
+    
+       public boolean isStd_pellGrant() {
+        return std_pellGrant;
+    }
+
+    //pell grnt
+    public void setStd_pellGrant(boolean std_pellGrant) {
+        this.std_pellGrant = std_pellGrant;
     }
 
     public boolean isStd_efc() {
