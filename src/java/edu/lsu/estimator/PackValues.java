@@ -83,7 +83,7 @@
 /*     */   public static final int qCoaDorm =17845;//16927
 /*     */   public static final int qCoaCommunityFr =  20821;//17158;
 /*     */   public static final int qCoaDormFr =  17845;//16927;
-/*  86 */   public static final int yCoaCommunity = Math.max(58252, 58254);//Math.max(62463, 62465);// Math.max(50781, 50783);
+/*  86 */   public static final int yCoaCommunity =  Math.max(58252, 58254);//Math.max(61852, 61854);//prev : Math.max(62463, 62465);// Math.max(50781, 50783);
 /*  87 */   public static final int yCoaDorm = Math.max(56647, 56649);// Math.max(53535, 53537); //;//Math.max(53535, 53537);//old Math.max(51474, 51476)
 /*     */   
 /*  89 */   public static final int yCoaCommunityFr = yCoaCommunity + 220;
@@ -91,12 +91,12 @@
 /*     */ 
 /*     */ 
 /*     */   
-/*  94 */   public static final int yCoaCommunityIntl = yCoaCommunity + 2900;//TBD
-/*  95 */   public static final int yCoaDormIntl = yCoaDorm + 2900;//TBD
+/*  94 */   public static final int yCoaCommunityIntl = yCoaCommunity + 3600;//TBD 2900
+/*  95 */   public static final int yCoaDormIntl = yCoaDorm + 3600;//TBD 2900
 /*     */ 
 /*     */   
-/*  98 */   public static final int yCoaCommunityFrIntl = yCoaCommunityFr + 2900;//TBD
-/*  99 */   public static final int yCoaDormFrIntl = yCoaDormFr + 2900;//TBD
+/*  98 */   public static final int yCoaCommunityFrIntl = yCoaCommunityFr + 3600;//TBD 2900
+/*  99 */   public static final int yCoaDormFrIntl = yCoaDormFr + 3600;//TBD 2900
 /*     */   
 /*     */   public static final int pellBase = 7395;//6345;
 /*     */   
