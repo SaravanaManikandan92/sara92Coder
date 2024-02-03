@@ -3581,7 +3581,7 @@ System.out.println("this.calc.getActor().getPellGrant() "+ this.calc.getActor().
             this.std_efc = true;
         }
         /* 3574 */ this.stud.setIndEfc(this.std_efc ? "Yes" : "No");
-                  if(this.stud.getStudentAfFamilyContrib()<0)
+                  if(this.stud.getStudentAfFamilyContrib()<-1500)
                   {
                   this.stud.setStudentAfFamilyContrib(0);
                   }

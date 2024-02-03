@@ -609,18 +609,13 @@ public void resetValues() {
     /*      */
  /*      */
  /*      */ public final int getEFC() {
-        /*  585 */ int _familyContrib = 0;
-        /*  586 */ if (this.SAVE_STUDENT_X_FAFSA.equalsIgnoreCase("Yes")) {
-            /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*  592 */ _familyContrib = Integer.parseInt(this.SAVE_STUDENT_AF_FAMILY_CONTRIB);
-            /*      */        } else {
-            /*  594 */ _familyContrib = 0;
-            /*      */        }
-        /*  596 */ return _familyContrib;
+        /*  585 */ int _familyContrib =Integer.parseInt(this.SAVE_STUDENT_AF_FAMILY_CONTRIB);
+                   
+        /*  586 */ if (this.SAVE_STUDENT_X_FAFSA.equalsIgnoreCase("Yes") &&  _familyContrib>0) {
+         
+ /*  592 */                 return _familyContrib;
+            /*      */        } 
+        /*  596 */ return 0;
         /*      */    }
 
     /*      */

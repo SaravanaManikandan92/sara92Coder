@@ -924,7 +924,7 @@
         /*  971 */ this.ncStdInd = Integer.valueOf(0);
         /*      */
  /*      */
- /*  974 */ this.studentFisy = 2023;
+ /*  974 */ this.studentFisy = 2024;//2023
         /*  975 */ setStudentUserName("|||");
         /*  976 */ setStudentPassword("password");
         /*  977 */ setStudentBwProgress(Integer.valueOf(5));

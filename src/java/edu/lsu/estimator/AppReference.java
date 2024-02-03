@@ -73,8 +73,8 @@
 /*      */ public class AppReference /*      */ {
 
     /*   73 */ private int test_ind = 0;
-    /*   74 */    private int fiscal_year = 2018;
-    /*   75 */    private String faid_year = "2013 ~ 2014";
+    /*   74 */    private int fiscal_year = 2024;
+    /*   75 */    private String faid_year = "2024 ~ 2025";
     /*   76 */    private String verString = "Version 3.0.0.0";
     /*   77 */    private NumberFormat fmtInt = new DecimalFormat("$#,###");
     /*      */
