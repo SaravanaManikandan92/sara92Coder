@@ -1585,12 +1585,12 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
            if(std.getStudentAfFamilyContrib()<= 12000){
                if(this.SAVE_STUDENT_U_ACADEMIC !=null && is_Transfer_Std==0 &&  this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
        
-      _perkins=1000;
+      _perkins=1300;
        } 
                else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) 
                        || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
                {
-                   _perkins=1500;
+                   _perkins=1300;
                }
       
        }
@@ -1599,25 +1599,25 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
        
            if(this.SAVE_STUDENT_U_ACADEMIC !=null && is_Transfer_Std==0 &&   this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
        
-      _perkins=1000;
+      _perkins=1300;
        } 
                else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
                {
-                   _perkins=1500;
+                   _perkins=1300;
                }
        }
        }
-        else if(_f_gpa_>= 3.75 && _f_gpa_<= 4)
+        else if(_f_gpa_>= 3.25 && _f_gpa_<= 4)
         {
              if(std.getStudentAfFamilyContrib()<=12000){
                if(this.SAVE_STUDENT_U_ACADEMIC !=null && is_Transfer_Std==0 &&  this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
        
-      _perkins=2000;
+      _perkins=4000;
        } 
                else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) 
                        || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
                {
-                   _perkins=5000;
+                   _perkins=4000;
                }
       
        }
@@ -1626,12 +1626,12 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
        
            if(this.SAVE_STUDENT_U_ACADEMIC !=null && is_Transfer_Std==0 &&  this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")){
        
-      _perkins=1000;
+      _perkins=2000;
        } 
                else if((this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) 
                        || (this.SAVE_STUDENT_U_ACADEMIC !=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) )
                {
-                   _perkins=3000;
+                   _perkins=2000;
                }
        }
             
