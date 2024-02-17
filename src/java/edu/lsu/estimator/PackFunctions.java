@@ -798,18 +798,18 @@ public void resetValues() {
      //have minimum and maximum imit here 
       int _pell = 0, _efcBase = 0, _pellBase = 0 ,pellMax_=PackValues.pellMax,pellMin_=PackValues.pellMin;
       int _coa = getCOA();
- /*  739 */ if (this.SAVE_STUDENT_F_PELLGRANT.equalsIgnoreCase("Yes") && this.SAVE_STUDENT_X_FAFSA.equalsIgnoreCase("Yes") && _coa >= 6195 && _coa <= 999999) {
+ /*  739 */ if (this.SAVE_STUDENT_F_PELLGRANT.equalsIgnoreCase("Yes") 
+         && this.SAVE_STUDENT_X_FAFSA.equalsIgnoreCase("Yes") 
+         && _coa >= 6195 && _coa <= 999999) {
             /*  740 */ int _efc = getEFC();
             /*  741 */ if (_efc <= 0 ) {
                 /*  742 */ _pell =pellMax_;// 6345;
-                /*  743 */            } else if (_efc >0) { //TBD
+                /*  743 */            } else if (_efc >0 && _efc<PackValues.pellSAILimit) { //TBD
                 /*  744 */ _pell =Math.round((pellMax_-_efc)/5)*5;// 639;
-                 if(_pell<=0)
-        {
-            _pell=pellMin_;
-        }
+               
                 /*  745 */            }  else {
-                           _pell=pellMin_;
+                         //  _pell=pellMin_;
+                            _pell=0;
                 /*      */            }
             /*      */        }
         /*      */
@@ -1375,7 +1375,8 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
         /*      */
  /* 1309 */ if (this.std.getStudentStudType()!=null && this.std.getStudentStudType().equalsIgnoreCase("UGFY") || _grd.equals("FR") || _grd.equals("F2") || _grd.equals("SO") || _grd.equals("JR") || _grd.equals("SR")) {
             /* 1310 */ int _efcAmt = this.std.getStudentAfFamilyContrib() !=null ? this.std.getStudentAfFamilyContrib().intValue() :0;
-            /* 1311 */ if (this.std.getIndEfc() !=null && this.std.getIndEfc().equalsIgnoreCase("Yes") && _efcAmt >= 0 && _efcAmt <= 12000) {
+            // if (this.std.getIndEfc() !=null && this.std.getIndEfc().equalsIgnoreCase("Yes") && _efcAmt >= 0 && _efcAmt <= 12000) {
+                if (this.std.getIndEfc() !=null && this.std.getIndEfc().equalsIgnoreCase("Yes") &&  _efcAmt <= 12000) {
                 /* 1312 */ //_needGrantAmt = 3000;
                  _needGrantAmt = PackValues.lsuNeedGrant;
                 /*      */            }
@@ -1401,8 +1402,12 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
             /*      */        }
         /*      */
  /*      */
- /* 1333 */ if (this.SAVE_STUDENT_U_ACADEMIC!=null && !this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("FR") || (this.std.getStudentQSat()!=null && this.std.getStudentQSat().intValue() < 1270 && this.std.getStudentRAct().intValue() < 29) || getNationalMerit() > 0) {
-            /* 1334 */ return _achieve;
+ /* 1333 */ if (this.SAVE_STUDENT_U_ACADEMIC!=null 
+         && !this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("FR") 
+         || (this.std.getStudentQSat()!=null 
+         && this.std.getStudentQSat().intValue() < 1270 
+         && this.std.getStudentRAct().intValue() < 29) || getNationalMerit() > 0) {
+                /* 1334 */ return _achieve;
             /*      */        }
         /* 1336 */ return this.lsuAchievementInit;
         /*      */    }

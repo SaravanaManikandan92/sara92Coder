@@ -106,9 +106,11 @@
 /*     */   
 /*     */   public static final int aCalGrant = 9358 ;//9084;
 
+            public static final int pellSAILimit=6656;
+            
             public static final int pellMax=7395;
            
-            public static final int pellMin=767;
+            public static final int pellMin=740;//767
 /*     */   
 /*     */   public static final int aCalGrantMinGPA = 3;
 /*     */   
@@ -368,7 +370,7 @@
 
            public static final int lsuNeedGrant=1000;
            
-           public static final int lsuAchievementInit=10200;
+           public static final int lsuAchievementInit=10700;//10200;
            
            public static final int _subDirectFr_F2=3500;
            
