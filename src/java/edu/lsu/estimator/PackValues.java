@@ -162,7 +162,9 @@
 /*     */   
 /*     */   public static final int bCalGrantFr2 = 1648;
 /*     */   
-/*     */   public static final int bCalGrantSoJrSr = 10868;
+/*     */   //public static final int bCalGrantSoJrSr = 10868;
+
+            public static final int bCalGrantSoJrSr = 11006;
 /*     */   
 /*     */   public static final int bCalGrantMaxGPA = 3;
 /*     */   

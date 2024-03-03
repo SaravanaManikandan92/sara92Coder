@@ -1197,17 +1197,17 @@ public void resetValues() {
  /*      */
  /* 1082 */ if (_bCalGrantAmtAward !=null && _bCalGrantAmtAward.equalsIgnoreCase("Yes")) {
             /* 1083 */ if (this.SAVE_STUDENT_U_ACADEMIC!=null && this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("FR")) {
-                /* 1084 */ _bCalGrantAmt = 1648;
+                /* 1084 */ _bCalGrantAmt = PackValues.bCalGrantFr;
                 /* 1085 */            } else if (this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("F2")) {
-                /* 1086 */ _bCalGrantAmt = 1648;
+                /* 1086 */ _bCalGrantAmt = PackValues.bCalGrantFr2;
                 /* 1087 */            } else if (this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SO")) {
-                /* 1088 */ _bCalGrantAmt = 10868;
+                /* 1088 */ _bCalGrantAmt = PackValues.bCalGrantSoJrSr;
                 /* 1089 */            } else if (this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("JR")) {
-                /* 1090 */ _bCalGrantAmt = 10868;
+                /* 1090 */ _bCalGrantAmt = PackValues.bCalGrantSoJrSr;
                 /* 1091 */            } else if (this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("SR")) {
-                /* 1092 */ _bCalGrantAmt = 10868;
+                /* 1092 */ _bCalGrantAmt = PackValues.bCalGrantSoJrSr;;
                 /* 1093 */            } else if (this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("S2")) {
-                /* 1094 */ _bCalGrantAmt = 10868;
+                /* 1094 */ _bCalGrantAmt = PackValues.bCalGrantSoJrSr;
                 /*      */            } else {
                 /* 1096 */ _bCalGrantAmt = 0;
                 /*      */            }
