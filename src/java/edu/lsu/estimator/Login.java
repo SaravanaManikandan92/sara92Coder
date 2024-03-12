@@ -255,7 +255,14 @@
          
           this.facesContext.addMessage(null, msg);
             /*     */        }
-        /*     */
+ 
+ /*     */
+ /* 263 */ if (auth < 0) {
+         FacesMessage msg = this.ref.facesMessageByKey(FacesMessage.SEVERITY_ERROR, "LoginForm.NoAuthSrc");
+         
+          this.facesContext.addMessage(null, msg);
+            /*     */        }
+ /*     */
  /* 269 */ this.session.removeAttribute("logintime");
         /* 270 */ login.setResult("failed");
         /* 271 */ this.accessor.saveLog(login);
