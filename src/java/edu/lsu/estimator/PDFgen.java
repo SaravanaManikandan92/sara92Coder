@@ -467,7 +467,7 @@ public class PDFgen
                         /* 476 */ amt = ref.convertCurrencyStrToInt(str);
                         /* 477 */ pdf.setPerkins(Integer.valueOf(amt));
                         /* 478 */ if (amt > 0) {
-                            setLineContent(form, line++, "Perkins Loan (borrow " + calc.showAmt(calc.getOrg_loan_amt_perkins()) + ")", str, null);
+                            setLineContent(form, line++, "Loan to Scholarship (borrow " + calc.showAmt(calc.getOrg_loan_amt_perkins()) + ")", str, null);
                         }
                         /* 479 */ subtot += pdf.getPerkins().intValue();
 
