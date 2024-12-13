@@ -73,26 +73,26 @@
 /*     */   public static final int ySecurityFee = 0;
 /*     */   public static final int yInternationalInsFee = 2900;//TBD
 /*     */   public static final int yFrOrientation = 220;
-/*     */   public static final int yTotalTuitionAndFeesDomestic = 37710;//35910;//34218;
-/*     */   public static final int yTotalTuitionAndFeesInternational = 41310;//37118;//TBD
-/*     */   public static final int yTotalTuitionAndFeesDomesticFr =37930;//36130 ;//34438
-/*     */   public static final int yTotalTuitionAndFeesInternationalFr = 41530;//37338;//TBD
+/*     */   public static final int yTotalTuitionAndFeesDomestic =38862; //37710-2024;//35910;//34218;
+/*     */   public static final int yTotalTuitionAndFeesInternational = 42862;//41310-2024;//37118;//TBD
+/*     */   public static final int yTotalTuitionAndFeesDomesticFr = 39082;//2024-37930;//36130 ;//34438
+/*     */   public static final int yTotalTuitionAndFeesInternationalFr = 43082;//2024-41530;//37338;//TBD
 /*     */   public static final int yExtraCostCommunity = 16565;
 /*     */   public static final int yExtraCostDorm = 17258;
 /*     */   public static final int qCoaCommunity =  20821;//17158; 
 /*     */   public static final int qCoaDorm =17845;//16927
 /*     */   public static final int qCoaCommunityFr =  20821;//17158;
 /*     */   public static final int qCoaDormFr =  17845;//16927;
-/*  86 */   public static final int yCoaCommunity =  Math.max(58252, 58254);//Math.max(61852, 61854);//prev : Math.max(62463, 62465);// Math.max(50781, 50783);
-/*  87 */   public static final int yCoaDorm = Math.max(56647, 56649);// Math.max(53535, 53537); //;//Math.max(53535, 53537);//old Math.max(51474, 51476)
+/*  86 */   public static final int yCoaCommunity = 59946;  // 2024- Math.max(58252, 58254);//Math.max(61852, 61854);//prev : Math.max(62463, 62465);// Math.max(50781, 50783);
+/*  87 */   public static final int yCoaDorm = 57853;// Math.max(53535, 53537); //;//Math.max(53535, 53537);//old Math.max(51474, 51476)
 /*     */   
 /*  89 */   public static final int yCoaCommunityFr = yCoaCommunity + 220;
 /*  90 */   public static final int yCoaDormFr = yCoaDorm + 220; // old values yCoaDorm + 220 
 /*     */ 
 /*     */ 
 /*     */   
-/*  94 */   public static final int yCoaCommunityIntl = yCoaCommunity + 3600;//TBD 2900
-/*  95 */   public static final int yCoaDormIntl = yCoaDorm + 3600;//TBD 2900
+/*  94 */   public static final int yCoaCommunityIntl = yCoaCommunity + 4000;//2024- 3600;//TBD 2900
+/*  95 */   public static final int yCoaDormIntl = yCoaDorm + 4000;//2024-3600;//TBD 2900
 /*     */ 
 /*     */   
 /*  98 */   public static final int yCoaCommunityFrIntl = yCoaCommunityFr + 3600;//TBD 2900
@@ -314,18 +314,18 @@
 /* 306 */   public static final BigDecimal nationalMeritMF = new BigDecimal(1);
 /*     */   
            //Fr means freshMan Gpa is Gpa 2De74 means 2.74
-            public static final int Lsu4yRenewableFrGpa2_2De74=3300;//3100;
-           public static final int Lsu4yRenewableFrGpa2De75_3De24=6400;// 6100;
-           public static final int Lsu4yRenewableFrGpa3De25_3De49=7500 ;//7100;
-           public static final int Lsu4yRenewableFrGpa3De50_3De74=8600;//8200;
-            public static final int Lsu4yRenewableFrGpa3De75_4=10700;//10200;
+            public static final int Lsu4yRenewableFrGpa2_2De74=3400;//3300//3100;
+           public static final int Lsu4yRenewableFrGpa2De75_3De24=6600;//6400// 6100;
+           public static final int Lsu4yRenewableFrGpa3De25_3De49=7700 ;//7500//7100;
+           public static final int Lsu4yRenewableFrGpa3De50_3De74=8900;//8600//8200;
+            public static final int Lsu4yRenewableFrGpa3De75_4=11000;//10700//10200;
             
                 //FrTF means freshMan Gpa is Gpa 2De74 means 2.74
-            public static final int Lsu4yRenewableFrTfGpa2_2De74=3300;//3100;
-           public static final int Lsu4yRenewableFrTfGpa2De75_3De24=4300;//4100;
-           public static final int Lsu4yRenewableFrTfGpa3De25_3De49=5400;//5100;
-           public static final int Lsu4yRenewableFrTfGpa3De50_3De74=6400;//6100;
-            public static final int Lsu4yRenewableFrTfGpa3De75_4=7500;//7100;
+            public static final int Lsu4yRenewableFrTfGpa2_2De74=3400;//3300//3100;
+           public static final int Lsu4yRenewableFrTfGpa2De75_3De24=4400;//4300//4100;
+           public static final int Lsu4yRenewableFrTfGpa3De25_3De49=5600;//5400//5100;
+           public static final int Lsu4yRenewableFrTfGpa3De50_3De74=6600;//6400//6100;
+            public static final int Lsu4yRenewableFrTfGpa3De75_4=7700;//7500//7100;
            
 /*     */   public static final int subDirectLoanMaxFr = 3500;
 /*     */   
@@ -370,9 +370,10 @@
 /*     */   public static final int fwsSub12001 = 2500;
 /*     */   public static final int fwsSub100000 = 3000;
 
+           public static final int roomAndBoard = 9900;
            public static final int lsuNeedGrant=1000;
            
-           public static final int lsuAchievementInit=10700;//10200;
+           public static final int lsuAchievementInit=11000;//10700;//10200;
            
            public static final int _subDirectFr_F2=3500;
            
