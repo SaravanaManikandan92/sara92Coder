@@ -212,7 +212,7 @@
     /*      */
  /*      */
  /*      */
- /*  210 */    private int tuitionAndFees = 0;
+ /*  210 */       private int tuitionAndFees = 0;
     /*  211 */    private int addlExp = 0;
     /*      */
  /*      */
@@ -257,6 +257,15 @@
     /*      */
  /*      */
  /*  254 */    private int lsu4yRenewable = 0;
+
+    public int getUniversityHouseGrant() {
+        return universityHouseGrant;
+    }
+
+    public void setUniversityHouseGrant(int universityHouseGrant) {
+        this.universityHouseGrant = universityHouseGrant;
+    }
+                private int universityHouseGrant=0;
     /*  255 */    private int lsuAchievement = 0;
     /*  256 */    private int lsuAchievementInit = PackValues.lsuAchievementInit;//10000
     /*  257 */    private int lsuNeedGrant = 0;
@@ -290,7 +299,7 @@ public void resetValues() {
  /*      */
  /*  282 */ this.familyDiscount =PackValues.familyDisctInit;// 900;
         /*      */
- /*      */
+ /*      */  this.universityHouseGrant=0;
  /*  285 */ this._nonCaGrantDesc = "";
         /*  286 */ this._nonCaGrantAmt = 0;
         /*  287 */ this._outsideScholarship = "";
@@ -360,6 +369,7 @@ public void resetValues() {
         /*      */
  /*      */
  /*      */
+ this.universityHouseGrant=0;
  /*  354 */ this.lsu4yRenewable = 0;
         /*  355 */ this.lsuAchievement = 0;
         /*  356 */ this.lsuNeedGrant = 0;
@@ -1409,19 +1419,47 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
 
     /*      */
  /*      */
+ 
+ public final int getUnivHousingGrant(){
+ 
+      boolean student_freshmen= this.std.getStd_1st_freshmen()==1?true:false;
+      boolean isAdventist= this.std.getStudentNSda().equalsIgnoreCase("yes")?true:false;
+      boolean isLiveInRes = this.std.getStudentWDorm().equalsIgnoreCase("yes")?true:false;
+      
+      if(student_freshmen && isAdventist && isLiveInRes ){
+      return PackValues.universityHouseGrant;
+      }
+     return 0;
+ }
  /*      */ public final int getLsu4yRenewable() {
      
+     //showEFC
+     int sai=0;
+                  String na=this.showEFC();
+                  if(!na.equalsIgnoreCase("n/a")){
+                      
+        na = na.replace("$", "").replace(",", ""); // Remove "$" and commas
+        
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        try{
+        Number parsedNumber = numberFormat.parse(na);
+        sai=parsedNumber.intValue();
+        }catch(Exception  ex){}
+         
+                      
+                  }
      //converting this function to FreshMan and FreshMan transfer
         /* 1341 */ int _4yrenewable = 0;
         /* 1342 */ boolean zerogpa_ind = this.std.getStudentPGpa() !=null ? this.std.getStudentPGpa().equals(BigDecimal.ZERO):false;
         /* 1343 */ String _gpa = String.format("%3.2f", new Object[]{this.std.getStudentPGpa()});
         /*      */
  /*      */    boolean student_freshMan_transfer= this.std.getStd_transfer_ind()==1?true:false;
+ /*      */    boolean student_freshMan_returning= this.std.getReturnStdInd()==1 ? true:false;
  /*      */
  /*      */
  /*      */
- /*      */
- /* 1350 */ if (this.SAVE_STUDENT_U_ACADEMIC!=null && (this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("FR") || this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("F2")) && zerogpa_ind) {
+ /* 1350 */ if (this.SAVE_STUDENT_U_ACADEMIC!=null && (this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("FR") || 
+         this.SAVE_STUDENT_U_ACADEMIC.equalsIgnoreCase("F2")) && zerogpa_ind) {
             /* 1351 */ if (this.std.getStudentLIntlStud()!=null && this.std.getStudentLIntlStud().equalsIgnoreCase("YES")) {
                 /* 1352 */ _gpa = "2.75";//3.25
                 /*      */            }
@@ -1429,46 +1467,188 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
 //                /* 1354 */ _gpa = "2.75";
 //                /*      */            }
             /*      */        }
+ if(na.equalsIgnoreCase("n/a")){
+ 
+     /* 1357 */ if (_gpa.compareTo("2.0") >= 0 && !student_freshMan_transfer ) /* 2.50     */
+        {
+           
+            
+ /* 1360 */ if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrGpa2_2De74_sai_3;//2500;
+                /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa2De75_3De24_sai_3;//3500;
+                /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De25_3De49_sai_3;//4500;
+                /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De50_3De74_sai_3;//6000;
+                /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De75_4_sai_3;//7000;
+                /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrGpa3De75_4_sai_3 ;//8500;//TBD
+                /*      */            }
+            /*      */        }
+        else if(_gpa.compareTo("2.0") >= 0 && student_freshMan_transfer)
+        {
+            if(this.SAVE_STUDENT_U_ACADEMIC !=null && student_freshMan_transfer)
+            {
+                 if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrTfGpa2_2De74_sai_3;//2500;
+                /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa2De75_3De24_sai_3;//3500;
+                /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De25_3De49_sai_3;//4500;
+                /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De50_3De74_sai_3;//6000;
+                /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De75_4_sai_3;//7000;
+                /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrTfGpa3De75_4_sai_3 ;//8500;//TBD
+                /*      */            }
+                
+            }
+        
+        }else
+        {
+            if (_gpa.compareTo("2.0") >= 0 && student_freshMan_returning){
+        if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableRGpa2_2De74_sai_3;//2500;
+                /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa2De75_3De24_sai_3;//3500;
+                /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa3De25_3De49_sai_3;//4500;
+                /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa3De50_3De74_sai_3;//6000;
+                /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa3De75_4_sai_3;//7000;
+                /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableRGpa3De75_4_sai_3 ;//8500;//TBD
+                /*      */            }
+            }
+            
+        }
+     //no sai
+     
+ }
+ 
+ else if(sai>=-1500 && sai<=6550){
         /* 1357 */ if (_gpa.compareTo("2.0") >= 0 && !student_freshMan_transfer ) /* 2.50     */
         {
            
             
  /* 1360 */ if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
-                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrGpa2_2De74;//2500;
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrGpa2_2De74_sai_1;//2500;
                 /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
-                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa2De75_3De24;//3500;
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa2De75_3De24_sai_1;//3500;
                 /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
-                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De25_3De49;//4500;
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De25_3De49_sai_1;//4500;
                 /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
-                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De50_3De74;//6000;
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De50_3De74_sai_1;//6000;
                 /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
-                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De75_4;//7000;
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De75_4_sai_1;//7000;
                 /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
-                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrGpa3De75_4 ;//8500;//TBD
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrGpa3De75_4_sai_1 ;//8500;//TBD
                 /*      */            }
             /*      */        }
-        else
+        else if(_gpa.compareTo("2.0") >= 0 && student_freshMan_transfer)
         {
             if(this.SAVE_STUDENT_U_ACADEMIC !=null && student_freshMan_transfer)
             {
                  if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
-                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrTfGpa2_2De74;//2500;
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrTfGpa2_2De74_sai_1;//2500;
                 /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
-                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa2De75_3De24;//3500;
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa2De75_3De24_sai_1;//3500;
                 /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
-                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De25_3De49;//4500;
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De25_3De49_sai_1;//4500;
                 /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
-                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De50_3De74;//6000;
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De50_3De74_sai_1;//6000;
                 /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
-                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De75_4;//7000;
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De75_4_sai_1;//7000;
                 /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
-                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrTfGpa3De75_4 ;//8500;//TBD
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrTfGpa3De75_4_sai_1 ;//8500;//TBD
                 /*      */            }
                 
             }
         
+        }else
+        {
+            if (_gpa.compareTo("2.0") >= 0 && student_freshMan_returning){
+        if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableRGpa2_2De74_sai_1;//2500;
+                /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa2De75_3De24_sai_1;//3500;
+                /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa3De25_3De49_sai_1;//4500;
+                /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa3De50_3De74_sai_1;//6000;
+                /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa3De75_4_sai_1;//7000;
+                /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableRGpa3De75_4_sai_1 ;//8500;//TBD
+                /*      */            }
+            }
+            
         }
+ }else if(sai>=6551){
+     /* 1357 */ if (_gpa.compareTo("2.0") >= 0 && !student_freshMan_transfer ) /* 2.50     */
+        {
+           
+            
+ /* 1360 */ if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrGpa2_2De74_sai_2;//2500;
+                /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa2De75_3De24_sai_2;//3500;
+                /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De25_3De49_sai_2;//4500;
+                /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De50_3De74_sai_2;//6000;
+                /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableFrGpa3De75_4_sai_2;//7000;
+                /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrGpa3De75_4_sai_2 ;//8500;//TBD
+                /*      */            }
+            /*      */        }
+        else if(_gpa.compareTo("2.0") >= 0 && student_freshMan_transfer)
+        {
+            if(this.SAVE_STUDENT_U_ACADEMIC !=null && student_freshMan_transfer)
+            {
+                 if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableFrTfGpa2_2De74_sai_2;//2500;
+                /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa2De75_3De24_sai_2;//3500;
+                /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De25_3De49_sai_2;//4500;
+                /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De50_3De74_sai_2;//6000;
+                /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableFrTfGpa3De75_4_sai_2;//7000;
+                /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableFrTfGpa3De75_4_sai_2 ;//8500;//TBD
+                /*      */            }
+                
+            }
         
+        }else
+        {
+            if (_gpa.compareTo("2.0") >= 0 && student_freshMan_returning){
+        if (_gpa.compareTo("2.0") >= 0 && _gpa.compareTo("2.74") <= 0) {
+                /* 1361 */ _4yrenewable =  PackValues.Lsu4yRenewableRGpa2_2De74_sai_2;//2500;
+                /* 1362 */            } else if (_gpa.compareTo("2.75") >= 0 && _gpa.compareTo("3.24") <= 0) { //"2.99"
+                /* 1363 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa2De75_3De24_sai_2;//3500;
+                /* 1364 */            } else if (_gpa.compareTo("3.25") >= 0 && _gpa.compareTo("3.49") <= 0) {
+                /* 1365 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa3De25_3De49_sai_2;//4500;
+                /* 1366 */            } else if (_gpa.compareTo("3.50") >= 0 && _gpa.compareTo("3.74") <= 0) {
+                /* 1367 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa3De50_3De74_sai_2;//6000;
+                /* 1368 */            } else if (_gpa.compareTo("3.75") >= 0 && _gpa.compareTo("4.0") <= 0) {
+                /* 1369 */ _4yrenewable = PackValues.Lsu4yRenewableRGpa3De75_4_sai_2;//7000;
+                /* 1370 */            } else if (_gpa.compareTo("4.0") >= 0) {
+                /* 1371 */ _4yrenewable =PackValues.Lsu4yRenewableRGpa3De75_4_sai_2 ;//8500;//TBD
+                /*      */            }
+            }
+            
+        }
+ 
+ }
+ 
         
         /* 1374 */ return _4yrenewable;
         /*      */    }
@@ -1503,27 +1683,14 @@ if (this.std.getStudentAgNonlsuAllowrance()!=null && !this.std.getStudentAgNonls
  /*      */ public final int getNationalMerit() {
         /* 1402 */ int _nationalMeritAmt = 0;
         /* 1403 */ int _nationalMeritBase = 0;
-        /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
+
+
  /* 1410 */ if (this.std.getStudentPGpa()!=null && this.std.getStudentPGpa().compareTo(new BigDecimal(3.5D)) < 0) {
             /* 1411 */ _nationalMeritAmt = 0;
             /*      */        } else {
-            /*      */
+
  /* 1414 */ _nationalMeritBase = getTuitionAndFees() - getFallOrientationFee();
-            /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
+
  /* 1425 */ if (this.SAVE_STUDENT_S_MERIT!=null && TRIM(this.SAVE_STUDENT_S_MERIT).indexOf("MF") >= 0) {
                 /* 1426 */ _nationalMeritAmt = (new BigDecimal(_nationalMeritBase)).multiply(PackValues.nationalMeritMF).intValue();
                 /* 1427 */            } else if (TRIM(this.SAVE_STUDENT_S_MERIT).indexOf("MS") >= 0) {
@@ -2007,44 +2174,9 @@ _fws=4000;
     /*      */
  /*      */ public final int enforceLsuLimits() {
         /* 1795 */ int _lsuSubtotal = 0, _lsuLimit = 0, _lsuLimitSubtotal = 0;
-        /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /* 1813 */ _lsuSubtotal = round((this.calGrantA + this.calGrantB + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9));
-        /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
+
+ /* 1813 */ _lsuSubtotal = round((this.calGrantA + this.calGrantB + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable+ this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9));
+
  /* 1834 */ if (this.use_need_ind > 0 && (this.calGrantA > 0 || this.calGrantB > 1551)) {
             /* 1835 */ _lsuLimit = getTuitionAndFees() - getFallOrientationFee(); //+ 1000;
             /*      */        } else {
@@ -2096,7 +2228,7 @@ _fws=4000;
                 /*      */
  /* 1883 */ this.lsuAchievement = 0;
                 /* 1884 */ this.lsu4yRenewable = 0;
-                /*      */
+                /*      *///this.universityHouseGrant=0;
  /* 1886 */ this.familyDiscount = 0;
                 /* 1887 */ this.nationalMerit = 0;
                 /* 1888 */ this.churchMatch = 0;
@@ -2129,7 +2261,7 @@ _fws=4000;
             /*      */
  /* 1916 */ this.lsuAchievement = 0;
             /* 1917 */ this.lsu4yRenewable = 0;
-            /*      */
+            /*      *///this.universityHouseGrant=0;
  /* 1919 */ this.familyDiscount = 0;
             /* 1920 */ this.nationalMerit = 0;
             /* 1921 */ this.churchMatch = 0;
@@ -2156,7 +2288,7 @@ _fws=4000;
             /*      */
  /* 1943 */ this.lsuAchievement = 0;
             /* 1944 */ this.lsu4yRenewable = 0;
-            /*      */
+            /*      *///this.universityHouseGrant=0;
  /* 1946 */ this.familyDiscount = 0;
             /* 1947 */ this.nationalMerit = 0;
             /* 1948 */ this.churchMatch = 0;
@@ -2182,7 +2314,7 @@ _fws=4000;
                 /*      */
  /* 1969 */ this.lsuAchievement = 0;
                 /* 1970 */ this.lsu4yRenewable = 0;
-                /*      */
+                /*      *///this.universityHouseGrant=0;
  /* 1972 */ this.familyDiscount = 0;
                 /* 1973 */ this.nationalMerit = 0;
                 /* 1974 */ this.churchMatch = 0;
@@ -2210,7 +2342,7 @@ _fws=4000;
                 /*      */
  /* 1997 */ this.lsuAchievement = 0;
                 /* 1998 */ this.lsu4yRenewable = 0;
-                /*      */
+                /*      *///this.universityHouseGrant=0;
  /* 2000 */ this.familyDiscount = 0;
                 /* 2001 */ this.nationalMerit = 0;
                 /* 2002 */ this.churchMatch = 0;
@@ -2235,7 +2367,7 @@ _fws=4000;
             /*      */
  /* 2022 */ this.lsuAchievement = 0;
             /* 2023 */ this.lsu4yRenewable = 0;
-            /*      */
+            /*      *///this.universityHouseGrant=0;
  /* 2025 */ this.churchMatch = 0;
             /* 2026 */ this.pacificCampMatch = 0;
             /* 2027 */ this.nonPacificCampMatch = 0;
@@ -2254,7 +2386,7 @@ _fws=4000;
             /*      */
  /* 2041 */ this.lsuAchievement = 0;
             /* 2042 */ this.lsu4yRenewable = 0;
-            /*      */
+            /*      *///this.universityHouseGrant=0;
  /* 2044 */ this.churchMatch = 0;
             /* 2045 */ this.pacificCampMatch = 0;
             /* 2046 */ this.nonPacificCampMatch = 0;
@@ -2272,7 +2404,7 @@ _fws=4000;
             /* 2058 */ this.lsuAchievement -= _lsuLimitSubtotal - _lsuLimit;
             /*      */
  /* 2060 */ this.lsu4yRenewable = 0;
-            /*      */
+            /*      *///this.universityHouseGrant=0;
  /* 2062 */ this.churchMatch = 0;
             /* 2063 */ this.pacificCampMatch = 0;
             /* 2064 */ this.nonPacificCampMatch = 0;
@@ -2561,18 +2693,7 @@ _fws=4000;
  /* 2376 */ _reduceRemaining = reduceAid(11);
             /* 2377 */ return true;
             /*      */        }
-        /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
+
  /* 2391 */ if (this.use_need_ind > 0) {
             /*      */
  /*      */
@@ -3033,15 +3154,7 @@ _fws=4000;
         /* 2809 */ this.SAVE_STUDENT_L_INTL_STUD = newStrVal;
         /*      */    }
 
-    /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
+
  /*      */ public void setSAVE_STUDENT_M_MARRY(String SAVE_STUDENT_M_MARRY) {
         /* 2821 */ this.SAVE_STUDENT_M_MARRY = SAVE_STUDENT_M_MARRY;
         /*      */    }
@@ -3458,16 +3571,6 @@ _fws=4000;
         /* 3149 */ this.err = err;
         /*      */    }
 
-    /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
- /*      */
  /*      */ public void setOutsideDesc(String outsideDesc) {
         /* 3162 */ this.outsideDesc = outsideDesc;
         /*      */    }
@@ -3859,8 +3962,11 @@ if (maxaid2 < maxaid1) {
         /*      */
  /* 3490 */ this.nationalMerit = this.actor.getNationalMerit();
         /*      */
+ /*      */this.lsu4yRenewable = this.actor.getLsu4yRenewable();
  /*      */
- /*      */
+ this.universityHouseGrant = this.actor.getUnivHousingGrant();
+ 
+ 
  /*      */
  /*      */
  /*      */
@@ -3870,17 +3976,17 @@ if (maxaid2 < maxaid1) {
             /* 3500 */ this.lsuAchievement = this.actor.getLsuAchievement();
             /*      */        }
         /*      */
- /* 3503 */ this.lsu4yRenewable = this.actor.getLsu4yRenewable();
+ /* 3503 */ 
         /*      */
  /*      */
- /* 3506 */ if (this.lsu4yRenewable > this.lsuAchievement + this.nationalMerit) {
-            /* 3507 */ this.lsuAchievement = 0;
+ /* 3506 */ if (this.lsu4yRenewable > this.lsuAchievement +  this.nationalMerit) {
+            /* 3507 */ this.lsuAchievement = 0; 
             /* 3508 */ this.nationalMerit = 0;
             /*      */        } else {
             /* 3510 */ this.lsu4yRenewable = 0;
             /*      */        }
         /*      */
- /*      */
+ /*      */   
  /* 3514 */ this.churchMatch = this.actor.getChurchMatch();
         /* 3515 */ this.pacificCampMatch = this.actor.getPacificCampMatch();
         /* 3516 */ this.nonPacificCampMatch = this.actor.getNonPacificCampMatch();
@@ -3891,13 +3997,13 @@ if (maxaid2 < maxaid1) {
             enforceCJLimits(); //start from here after lUnch
         }
         /*      */
- /* 3522 */ this.maxAid = this.pellGrant + this.calGrantA + this.calGrantB + this.fseogAmt + this.extAllowance + this.nonCaGrantAmt + this.outsideAmt + this.churchBase + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.subDirect + this.perkinsLoan + this.fwsAmount + this.unsubDirect;
+ /* 3522 */ this.maxAid = this.pellGrant + this.calGrantA + this.calGrantB + this.fseogAmt + this.extAllowance + this.nonCaGrantAmt + this.outsideAmt + this.churchBase + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable +this.universityHouseGrant+ this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.subDirect + this.perkinsLoan + this.fwsAmount + this.unsubDirect;
         /*      */
  /*      */
  /* 3525 */ this.maxAid += this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
         /*      */
  /*      */
- /* 3528 */ this.sum_lasu_aid = this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
+ /* 3528 */ this.sum_lasu_aid = this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable +this.universityHouseGrant+ this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
         /*      */
  /*      */
  /* 3531 */ this.sum_tuition_aid = this.sum_lasu_aid + this.calGrantA + this.calGrantB;
@@ -3908,13 +4014,13 @@ if (maxaid2 < maxaid1) {
  /* 3536 */ this.lsuLimitSubtotal = this.actor.enforceLsuLimits();
         /*      */
  /*      */
- /* 3539 */ this.maxAid = this.pellGrant + this.calGrantA + this.calGrantB + this.fseogAmt + this.extAllowance + this.nonCaGrantAmt + this.outsideAmt + this.churchBase + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.subDirect + this.perkinsLoan + this.fwsAmount + this.unsubDirect;
+ /* 3539 */ this.maxAid = this.pellGrant + this.calGrantA + this.calGrantB + this.fseogAmt + this.extAllowance + this.nonCaGrantAmt + this.outsideAmt + this.churchBase + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable +this.universityHouseGrant+ this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.subDirect + this.perkinsLoan + this.fwsAmount + this.unsubDirect;
         /*      */
  /*      */
  /* 3542 */ this.maxAid += this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
         /*      */
  /*      */
- /* 3545 */ this.sum_lasu_aid = this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
+ /* 3545 */ this.sum_lasu_aid = this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable +this.universityHouseGrant+ this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
         /*      */
  /*      */
  /* 3548 */ this.sum_tuition_aid = this.sum_lasu_aid + this.calGrantA + this.calGrantB;
@@ -3949,13 +4055,13 @@ if (maxaid2 < maxaid1) {
  /*      */
  /* 3578 */ this.fwsAmount = this.actor.getFWS();
         /*      */
- /* 3580 */ this.maxAid = this.pellGrant + this.calGrantA + this.calGrantB + this.fseogAmt + this.extAllowance + this.nonCaGrantAmt + this.outsideAmt + this.churchBase + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.subDirect + this.perkinsLoan + this.fwsAmount + this.unsubDirect;
+ /* 3580 */ this.maxAid = this.pellGrant + this.calGrantA + this.calGrantB + this.fseogAmt + this.extAllowance + this.nonCaGrantAmt + this.outsideAmt + this.churchBase + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable+this.universityHouseGrant + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.subDirect + this.perkinsLoan + this.fwsAmount + this.unsubDirect;
         /*      */
  /*      */
  /* 3583 */ this.maxAid += this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
         /*      */
  /*      */
- /* 3586 */ this.sum_lasu_aid = this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
+ /* 3586 */ this.sum_lasu_aid = this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable +this.universityHouseGrant+ this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
         /*      */
  /*      */
  /* 3589 */ this.sum_tuition_aid = this.sum_lasu_aid + this.calGrantA + this.calGrantB;
@@ -3989,7 +4095,7 @@ if (maxaid2 < maxaid1) {
             /* 3618 */ this.unsubDirect = getLoanAmtAfterOrigination(this.unsubDirect);
             /*      */        }
         /*      */
- /* 3621 */ this.maxAid = this.pellGrant + this.calGrantA + this.calGrantB + this.fseogAmt + this.extAllowance + this.nonCaGrantAmt + this.outsideAmt + this.churchBase + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.subDirect + this.perkinsLoan + this.fwsAmount + this.unsubDirect;
+ /* 3621 */ this.maxAid = this.pellGrant + this.calGrantA + this.calGrantB + this.fseogAmt + this.extAllowance + this.nonCaGrantAmt + this.outsideAmt + this.churchBase + this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable +this.universityHouseGrant+ this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.subDirect + this.perkinsLoan + this.fwsAmount + this.unsubDirect;
         /*      */
  /*      */
  /*      */
@@ -4010,7 +4116,7 @@ if (maxaid2 < maxaid1) {
  /*      */
  /*      */
  /*      */
- /* 3642 */ this.sum_lasu_aid = this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable + this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
+ /* 3642 */ this.sum_lasu_aid = this.lsuAllowance + this.sdaAward + this.lsuNeedGrant + this.lasuGrantAmt + this.lsuAchievement + this.lsu4yRenewable +this.universityHouseGrant+ this.familyDiscount + this.nationalMerit + this.churchMatch + this.pacificCampMatch + this.nonPacificCampMatch + this.litEvanMatch + this.scholarship_amt_1 + this.scholarship_amt_2 + this.scholarship_amt_7 + this.scholarship_amt_8 + this.scholarship_amt_9;
         /*      */
  /*      */
  /* 3645 */ this.sum_tuition_aid = this.sum_lasu_aid + this.calGrantA + this.calGrantB;
@@ -4065,7 +4171,8 @@ if (maxaid2 < maxaid1) {
             /*      */
  /*      */        }
         /* 3688 */ if (this.actor.getInternationalStatus().equalsIgnoreCase("International") || !this.SAVE_STUDENT_X_FAFSA.equalsIgnoreCase("YES")) {
-            /* 3689 */ return "n/a";
+            /* 3689 */ //return this.fmt.format(0);
+                        return "n/a"; 
             /*      */        }
         /* 3691 */ return this.fmt.format(val);
         /*      */    }
@@ -4188,22 +4295,62 @@ if (maxaid2 < maxaid1) {
 
     /*      */
     
+//     public String showLsuMeritTF() {
+//          boolean student_freshMan_transfer= this.std.getStd_transfer_ind()==1?true:false;
+//         if (student_freshMan_transfer) {
+//             return this.fmt.format(this.lsu4yRenewable);
+//         } else {
+//             return "0";
+//         }
+//
+//     }
+//
+//     public String showLsuMeritFR() {
+//          boolean student_freshMan_transfer= this.std.getStd_transfer_ind()==1?true:false;
+//         if (!student_freshMan_transfer) {
+//             return this.fmt.format(this.lsu4yRenewable);
+//         } else {
+//             return "0";
+//         }
+//     }
+    
      public String showLsuMeritTF() {
-          boolean student_freshMan_transfer= this.std.getStd_transfer_ind()==1?true:false;
-         if (student_freshMan_transfer) {
+          boolean student_merit_transfer= this.std.getStd_transfer_ind()==1?true:false;
+         if (student_merit_transfer) {
              return this.fmt.format(this.lsu4yRenewable);
          } else {
-             return "0";
+             return this.fmt.format(0);
+
          }
 
      }
 
      public String showLsuMeritFR() {
-          boolean student_freshMan_transfer= this.std.getStd_transfer_ind()==1?true:false;
-         if (!student_freshMan_transfer) {
+          boolean student_merit_fr= this.std.getStd_1st_freshmen()==1?true:false;
+         if (student_merit_fr) {
              return this.fmt.format(this.lsu4yRenewable);
          } else {
-             return "0";
+            return this.fmt.format(0);
+         }
+     }
+     
+         public String showLsuMeritR() {
+          boolean student_returning= this.std.getReturnStdInd()==1?true:false;
+         if (student_returning) {
+             return this.fmt.format(this.lsu4yRenewable);
+         } else {
+              return this.fmt.format(0);
+         }
+     }
+         
+          public String showUnivHouseGrant() {
+          boolean student_freshmen= this.std.getStd_1st_freshmen()==1?true:false;
+          boolean isAdventist= this.std.getStudentNSda().equalsIgnoreCase("yes")?true:false;
+          boolean isLiveInRes = this.std.getStudentWDorm().equalsIgnoreCase("yes")?true:false;
+         if (student_freshmen && isAdventist && isLiveInRes) {
+             return this.fmt.format(this.universityHouseGrant);
+         } else {
+            return this.fmt.format(0);
          }
      }
  /*      */

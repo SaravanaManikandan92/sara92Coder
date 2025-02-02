@@ -117,7 +117,7 @@ import org.apache.commons.beanutils.BeanUtils;
     /*      */
  /*      */    private boolean std_intl;
                private boolean std_tf;
-    /*      */
+    /*      */private boolean std_ftfr;
  /*      */    private boolean std_marry;
     /*      */
  /*      */    private boolean std_sda;
@@ -195,6 +195,7 @@ import org.apache.commons.beanutils.BeanUtils;
  /*      */    private boolean stdo_intl;
     /*      */
     private boolean stdo_tf;
+    private boolean stdo_ftfr;
 
 
     private boolean std_pellGrant;
@@ -292,8 +293,12 @@ import org.apache.commons.beanutils.BeanUtils;
         /*      */
 //add the TF 
         int _i = this.stud.getStd_transfer_ind();
-        this.std_tf = _i == -1 ? false : true;
+        this.std_tf = _i == 1 ? true : false;
         this.stdo_tf = this.std_tf;
+        
+        int _j= this.stud.getStd_1st_freshmen();
+        this.std_ftfr = _j == 1 ? true: false;
+        this.stdo_ftfr=this.std_ftfr;
 
         /*  277 */ str = this.stud.getStudentMMarry();
         /*  278 */ this.std_marry = !(str == null || str.isEmpty() || str.trim().equalsIgnoreCase("Single") || str.trim().equalsIgnoreCase("No"));
@@ -1827,6 +1832,10 @@ import org.apache.commons.beanutils.BeanUtils;
             /*      */
             this.std_tf = this.stdo_tf;
             this.stud.setStd_transfer_ind(this.std_tf ? 1 : 0);
+            
+           this.std_ftfr=this.stdo_ftfr;
+           this.stud.setStd_1st_freshmen(this.std_ftfr ?1:0);
+           
             /* 1771 */ this.return_std_ind = this.stdo_return_ind;
             /* 1772 */ this.stud.setReturnStdInd(Integer.valueOf(this.return_std_ind ? 1 : 0));
             /*      */
@@ -2523,6 +2532,10 @@ import org.apache.commons.beanutils.BeanUtils;
         this.stdo_tf = this.std_tf;
         this.stud.setStd_transfer_ind(this.std_tf ? 1 : 0);
     }
+      public void ftfr_Ch() {
+        this.stdo_ftfr = this.std_ftfr;
+        this.stud.setStd_1st_freshmen(this.std_ftfr ? 1 : 0);
+    }
 
     /*      */ public void stdtfchanged(AjaxBehaviorEvent event) {
         this.stdo_tf = this.std_tf;
@@ -2531,7 +2544,14 @@ import org.apache.commons.beanutils.BeanUtils;
 /* 2469 */ this.calc.refreshCalc(this.stud);
 
     }
+ public void stdftfrchanged(AjaxBehaviorEvent event) {
+        this.stdo_ftfr = this.std_ftfr;
+        this.stud.setStd_1st_freshmen(this.std_ftfr ? 1 : 0);
+        /*      */     //this.stdo_academic = this.stud.getStudentUAcademic();
+/* 2469 */ this.calc.refreshCalc(this.stud);
 
+    }
+    
     /*      */
  /*      */ public void stdintlchanged(AjaxBehaviorEvent event) {
         /* 2659 */ this.stdo_intl = this.std_intl;
@@ -2886,6 +2906,15 @@ import org.apache.commons.beanutils.BeanUtils;
         /* 2981 */ this.stud.setStd_transfer_ind(this.std_tf ? 1 : 0);
     }
 
+     public boolean isStd_ftfr() {
+        /* 2976 */ return this.std_ftfr;
+        /*      */    }
+
+    /*      */ public void setStd_ftfr(boolean std_ftfr) {
+        this.std_ftfr = std_ftfr;
+        /* 2981 */ this.stud.setStd_1st_freshmen(this.std_ftfr ? 1 : 0);
+    }
+    
     /*      */ public void setStd_intl(boolean std_intl) {
         /* 2980 */ this.std_intl = std_intl;
         /* 2981 */ this.stud.setStudentLIntlStud(std_intl ? "yes" : "no");
