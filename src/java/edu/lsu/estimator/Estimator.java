@@ -5743,6 +5743,7 @@ System.out.println("this.calc.getActor().getPellGrant() "+ this.calc.getActor().
  /*      */ public void returningIndChanged(AjaxBehaviorEvent event) {
         /* 5466 */ this.stud.setReturnStdInd(Integer.valueOf(this.return_std_ind ? 1 : 0));
         /* 5467 */ this.stdo_return_ind = this.return_std_ind;
+                   this.calc.refreshCalc(this.stud);
         /*      */    }
 
     /*      */

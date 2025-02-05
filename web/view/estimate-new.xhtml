@@ -1179,7 +1179,7 @@ $myForm.find(':input:disabled').prop('disabled',false)
                     -->                    
                     <tr>
                         <td colspan="3"><h:selectBooleanCheckbox  id="std_returning" value="#{estimator.return_std_ind}"  tabindex="18">
-                                <f:ajax event="change" execute="@this"   listener="#{estimator.returningIndChanged}" />
+                                <f:ajax event="change" execute="@this"   render="-auth-bar"  listener="#{estimator.returningIndChanged}" />
                             </h:selectBooleanCheckbox>
                             <h:outputLabel for="std_returning" value="Returning Student"/></td>
                     </tr>  
