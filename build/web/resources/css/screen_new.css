@@ -293,7 +293,18 @@ span.mark{
 }
 .messages{
     color: red;
+    position: fixed;
+    width: 40%;
+    top: 12%;
 }
+.ui-messages-error{
+    
+    color: red !important;
+    position: fixed !important ;
+    width: 38% !important;
+    top: 13.5% !important;
+}
+
 
 div#auth-sv-ptab table td input{
     margin-top:0px;

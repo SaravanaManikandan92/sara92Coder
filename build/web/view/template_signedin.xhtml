@@ -157,7 +157,7 @@
                               <th>Your Estimates</th><th><b>#{info.otherCounselorNumb}</b> others</th>
                               <th><h:commandButton value="Search"  action="query_new?faces-redirect=true" style="padding:2px 3px 2px 3px; margin:0px; font-size: smaller; vertical-align: middle; text-align: center; "/></th></tr>
                           <tr><td><h:outputText id="last" value="#{ref.showDTShort(info.lastSyncTime)}"></h:outputText></td><td><b><h:outputText id="mine" value="#{info.studsOfUser}" /></b></td><td><h:outputText id="others" value="#{info.otherCounselorStuds}" /></td><td> 
-                                  <h:commandLink id="tot" value=" #{info.totStuds} " action="query?faces-redirect=true"></h:commandLink> </td>
+                                  <h:commandLink id="tot" value=" #{info.totStuds} " action="query_new?faces-redirect=true"></h:commandLink> </td>
                           </tr></table>
                           <!--  Poll:autheader-j_idt27 needs to be enclosed in a form component -->
                           

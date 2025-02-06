@@ -178,9 +178,9 @@
                 /*     */            }
             /*     */
  /*     */ try {
-     //Enable or Disable LDAP here 
+     //Enable or Disable LDAP here Sara
                 /* 160 */ auth=this.darkPlain.authLDAPS(this.credentials.getUsername(), this.credentials.getPassword(), found); 
-                         // auth = 1;
+                          //auth = 1;
                 /* 161 */            } catch (Exception ste) {
                 /* 162 */ auth = 0;
                 /*     */

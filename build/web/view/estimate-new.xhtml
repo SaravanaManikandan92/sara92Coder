@@ -29,7 +29,7 @@
                                      </td>   
                                     <th style="border:0px;"><center>Estimate Summary <br/>(Rule Version #{ref.clientverions})</center></th>
                                     <td  style="text-align: right;">
-                                        <h:commandButton id="toemail" action="#{estimator.toEmail}" style="padding:5px; font-size: smaller;vertical-align: middle; " value="Save and Email" > <!-- global="true"   -->
+                                        <h:commandButton id="toemail" action="#{estimator.toEmail}" style="padding:5px;    background: #e4e4e4;    border: 0.5px solid #e4e4e4;color: #0000002e; font-size: smaller;vertical-align: middle; " disabled="true"  value="Save and Email" > <!-- global="true"   -->
                                             <!--<p:ajax onstart="this.disable();" oncomplete="this.enable();" /> -->
                                         </h:commandButton>
                                     </td>
@@ -61,8 +61,9 @@
                     <td class="item">+Additional Expenses</td><td class="numb">#{estimator.calc.showAddlExpense()}</td>
                 </tr>
                 <tr class="#{estimator.sumrow()}">
-                    <td class="item">-Expected Family Contribution (EFC)</td><td class="numb">#{estimator.calc.showEFC()}</td>
-                </tr><!-- <h:outputText value="#{estimator.std_intl eq true? 0: estimator.stud.studentAfFamilyContrib}"><f:convertNumber pattern="$#,###" /></h:outputText> -->
+<!--                    <td class="item">-Expected Family Contribution (EFC)</td><td class="numb">#{estimator.calc.showEFC()}</td>-->
+                     <td class="item">-Student Aid Index (SAI)</td><td class="numb">#{estimator.calc.showEFC()}</td>
+                </tr>
                 <tr>
                     <td class="item">&nbsp;</td><td class="tot">#{estimator.calc.showNeedAmt()}</td>
                 </tr>
@@ -121,10 +122,10 @@
                 <tr class="#{estimator.sumrow()}">
                     <td class="item">SDA Award</td><td class="numb">#{estimator.calc.showSdaAwardAmt()}</td>
                 </tr>
-                
-                <tr class="#{estimator.sumrow()}">
+                <!-- Commented Univ Grant for 2025-->
+<!--                <tr class="#{estimator.sumrow()}">
                     <td class="item">La Sierra Univ. Grant</td><td class="numb">#{estimator.calc.showLasuGrantAmt()}</td>
-                </tr>
+                </tr>-->
                 <!--
                 <tr>
                     <td class="item">La Sierra Performance</td><td class="numb">#{estimator.calc.showLsuPerformanceAmt()}</td>
@@ -149,12 +150,27 @@
 <!--                <tr class="#{estimator.sumrow()}">
                     <td class="item">La Sierra 4-year Renewable Scholarship</td><td class="numb">#{estimator.calc.showLsu4yRenewableAmt()}</td>
                 </tr>-->
-                 <tr class="#{estimator.sumrow()}">
+<!--                 <tr class="#{estimator.sumrow()}">
                     <td class="item">La Sierra Merit (FR)</td><td class="numb">#{estimator.calc.showLsuMeritFR()}</td>
+                </tr>-->
+                 <tr class="#{estimator.sumrow()}">
+                    <td class="item">La Sierra U Grant (FR)</td><td class="numb">#{estimator.calc.showLsuMeritFR()}</td>
+                </tr>
+                
+                
+<!--                 <tr class="#{estimator.sumrow()}">
+                    <td class="item"> La Sierra Merit (TF)</td><td class="numb">#{estimator.calc.showLsuMeritTF()}</td>
+                </tr>-->
+                    <tr class="#{estimator.sumrow()}">
+                    <td class="item"> La Sierra U Grant (TF) </td><td class="numb">#{estimator.calc.showLsuMeritTF()}</td>
                 </tr>
                 
                  <tr class="#{estimator.sumrow()}">
-                    <td class="item"> La Sierra Merit (TF)</td><td class="numb">#{estimator.calc.showLsuMeritTF()}</td>
+                    <td class="item">La Sierra U Grant (R)</td><td class="numb">#{estimator.calc.showLsuMeritR()}</td>
+                </tr>
+                
+                <tr class="#{estimator.sumrow()}">
+                    <td class="item">University House Grant</td><td class="numb">#{estimator.calc.showUnivHouseGrant()}</td>
                 </tr>
                 
                 <f:subview id="opt_award1" rendered="#{estimator.calc.getScholarship1Amt() gt 0 }">
@@ -271,7 +287,8 @@
                     <td class="item">Tuition &amp; Fees</td><td class="numb">#{estimator.calc.showTuitionFees()}</td>
                 </tr>
                 <tr class="#{estimator.sumrow()}">
-                    <td class="item">+Room &amp; Board</td><td class="numb">#{estimator.calc.initAndShowRoomBoardAmt()}</td>
+<!--                    <td class="item">+Room &amp; Board</td><td class="numb">#{estimator.calc.initAndShowRoomBoardAmt()}</td>-->
+                    <td class="item">+Room &amp; Meal Plan</td><td class="numb">#{estimator.calc.initAndShowRoomBoardAmt()}</td>
                 </tr>
                 <tr class="#{estimator.sumrow()}">
                     <td class="item">-Financial Aid <font size="smaller">#{estimator.calc.showFaidExtDesc()}</font></td><td class="numb">#{estimator.calc.showFaidAmt()}</td>
@@ -1162,7 +1179,7 @@ $myForm.find(':input:disabled').prop('disabled',false)
                     -->                    
                     <tr>
                         <td colspan="3"><h:selectBooleanCheckbox  id="std_returning" value="#{estimator.return_std_ind}"  tabindex="18">
-                                <f:ajax event="change" execute="@this"   listener="#{estimator.returningIndChanged}" />
+                                <f:ajax event="change" execute="@this"   render="-auth-bar"  listener="#{estimator.returningIndChanged}" />
                             </h:selectBooleanCheckbox>
                             <h:outputLabel for="std_returning" value="Returning Student"/></td>
                     </tr>  
@@ -1188,14 +1205,38 @@ $myForm.find(':input:disabled').prop('disabled',false)
                             </h:selectBooleanCheckbox>
                                 <h:outputLabel for="std_sda" value="Seventh-day Adventist"/></td>
                     </tr>
-
-                           <tr>
+                     <tr>
                                <td colspan="3"><h:selectBooleanCheckbox  id="std_tf" value="#{estimator.std_tf}" tabindex="21">
                                 <f:ajax event="change" execute="@this" render="-auth-bar"  listener="#{estimator.stdtfchanged}" />
                             </h:selectBooleanCheckbox>
                             <h:outputLabel for="std_tf" value="Starting/started at La Sierra as a transfer student"/></td>                                    
                     </tr>
-                           
+
+                           <tr>
+                               <td colspan="3"><h:selectBooleanCheckbox  id="std_ftfr" value="#{estimator.std_ftfr}" tabindex="21">
+                               <f:ajax event="change" execute="@this" render="-auth-bar"  listener="#{estimator.stdftfrchanged}" />
+                            </h:selectBooleanCheckbox>
+                            <h:outputLabel for="std_ftfr" value="New-freshmen"/></td>                                    
+                    </tr>
+
+<!--<tr>  <td colspan="1" >Student-is-
+        <td> 
+                              <h:selectOneRadio id="std_ftfr"  value="#{estimator.std_ftfr}" layout="pageDirection" >
+                                               <f:selectItem itemLabel=".first-time-freshmen" itemValue="0"  itemDisabled="false" />  
+                                                <p:ajax event="change" process="@this" update="-auth-bar" listener="#{estimator.stdftfrchanged}" oncomplete="resize_height();"/>
+                              </h:selectOneRadio>   </td>
+          <td>  <h:selectOneRadio id="std_tf"  value="#{estimator.std_tf}" layout="pageDirection" >
+                                                 <f:selectItem itemLabel=".new-transfer" itemValue="0"  itemDisabled="false" />  
+                                                <p:ajax event="change" process="@this" update="-auth-bar" listener="#{estimator.stdtfchanged}" oncomplete="resize_height();"/>
+              </h:selectOneRadio>   </td>     
+        <td> <h:selectOneRadio id="std_returning"  value="#{estimator.return_std_ind}" layout="pageDirection" >
+                                                 <f:selectItem itemLabel=".returning" itemValue="0"  itemDisabled="false" />  
+                                                <p:ajax event="change" process="@this" update="-auth-bar" listener="#{estimator.returningIndChanged}" oncomplete="resize_height();"/>
+                                 </h:selectOneRadio></td>    </td>
+    
+                    </tr>-->
+                            
+                                            
                   
                     <tr>
                         <td colspan="3"><h:selectBooleanCheckbox  id="std_indept" value="#{estimator.std_indept}" disabled="#{estimator.std_indepts.size() gt 0}"   tabindex="22"> 
@@ -1358,11 +1399,18 @@ $myForm.find(':input:disabled').prop('disabled',false)
                                                         </h:selectBooleanCheckbox> <h:outputLabel for="std_fafsa" value="FAFSA Eligible"/></td>
                                                     <td></td>
                                                 </tr>
-                                                <tr><td><h:selectBooleanCheckbox id="std_calgrant" value="#{estimator.std_calgrant}" disabled="#{estimator.std_intl eq true}">
+                                                 <!-- Pell Eligible -->
+                                                   <tr><td><h:selectBooleanCheckbox id="std_pellGrant" value="#{estimator.std_pellGrant}">
+                                                          <p:ajax event="change" process="@this" update="-auth-bar std_intl std_calgrant" listener="#{estimator.std_pellgrantchanged}"/>
+                                                        </h:selectBooleanCheckbox> <h:outputLabel for="std_pellGrant" value="Pell Grant Eligible"/></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr><td><h:selectBooleanCheckbox id="std_calgrant" value="#{estimator.std_calgrant}" disabled="#{estimator.std_intl eq true  or  estimator.std_pellGrant eq false or estimator.std_pellGrant_value eq 0 }" >
                                                           <p:ajax event="change" process="@this" update="-auth-bar std_intl calgrantab_adjust std_calgranta std_calgrantb" listener="#{estimator.std_calgrantchanged}"/>
                                                         </h:selectBooleanCheckbox> <h:outputLabel for="std_calgrant" value="Cal Grant Eligible"/></td>
                                                     <td></td>
                                                 </tr>
+                                               
                                                 
                                                 <tr><td><h:selectBooleanCheckbox id="std_ealsu" value="#{estimator.std_ealsu}">
                                                             <p:ajax event="change" process="@this" update="-auth-bar ealsu_perc -auth-sv-msgs"  listener="#{estimator.ealsuchanged}"   oncomplete="chg_ealsu_ind();" /> <!--resize_height();"  /> -->
@@ -1391,9 +1439,11 @@ $myForm.find(':input:disabled').prop('disabled',false)
                                                 <tr><td><h:selectBooleanCheckbox id="std_efc" value="#{estimator.std_efc}" >
                                                             <!--<f:ajax event="change"  execute="@this" render="-auth-bar  efc_amt std_fafsa  std_intl" listener="#{estimator.efc_indchanged}"/>-->
                                                             <p:ajax event="change"  process="@this efc_amt" update="-auth-bar  efc_amt std_fafsa  std_intl"  listener="#{estimator.efc_indchanged}"   oncomplete="chg_efc_ind();" /> <!-- chg_efc_ind(); -->
-                                                        </h:selectBooleanCheckbox><h:outputLabel for="std_efc" value="Received EFC or EFC quote"/></td>
-                                                    <td><p:inputText disabled="#{estimator.std_efc eq true? 'false':'true'}"   id="efc_amt" value="#{estimator.stud.studentAfFamilyContrib}" size="5"  style="text-align:right" label="Financial #{msg['layer']} #{msg['EstimateForm.financial.efcamt.label']} ">
-                                                            <p:ajax event="change" process="@this" update="-auth-bar @this std_efc -auth-sv-msgs" listener="#{estimator.efc_amtchanged}"   oncomplete="resize_height();" />
+<!--                                                        </h:selectBooleanCheckbox><h:outputLabel for="std_efc" value="Received EFC or EFC quote"/></td>-->
+                                                    </h:selectBooleanCheckbox><h:outputLabel for="std_efc" value="Received SAI or SAI quote"/></td>
+                                                    <td><p:inputText disabled="#{estimator.std_efc eq true? 'false':'true'}"   id="efc_amt" value="#{estimator.stud.studentAfFamilyContrib}" size="5"  
+                                                                     style="text-align:right" label="Financial #{msg['layer']} #{msg['EstimateForm.financial.efcamt.label']} ">
+                                                            <p:ajax event="change" process="@this" update="-auth-bar std_pellGrant @this std_efc std_calgrant -auth-sv-msgs" listener="#{estimator.efc_amtchanged}"   oncomplete="resize_height();" />
                                                              <f:convertNumber integerOnly="true" minFractionDigits="0" pattern="#,###" />
                                                         </p:inputText>Amount</td>
                                                 </tr>
@@ -1491,12 +1541,12 @@ $myForm.find(':input:disabled').prop('disabled',false)
                            
                                 <tr>
                                     <td width="92%"><label for="auth-sv-ptab-ship1note">#{estimator.stud.studentAsScholarship1Name}<font size="-1"><i>#{estimator.fund1extra}</i></font></label><br/>
-                                        <p:inputText id="ship1note"  value="#{estimator.stud.studentAtScholarship1Note}" style="width:99%" onfocus="setSpecParentNode(this);"  maxlength="250" readonly="true" disabled="#{ref.fundMaxOutIndById(estimator.stud.fund1id) lt 0 ? 'true': 'flase'}">
+                                        <p:inputText id="ship1note"  value="#{estimator.stud.studentAtScholarship1Note}" style="width:99%" onfocus="setSpecParentNode(this);"  maxlength="250" readonly="false" disabled="#{ref.fundMaxOutIndById(estimator.stud.fund1id) lt 0 ? 'true': 'false'}">
                                             <f:ajax event="change" execute="@this" render="@this" listener="#{estimator.lsuawardnoteschanged1}" />
                                         </p:inputText>
                                     </td>
                                     <td><label for="auth-sv-ptab-ship1amt">Amount:</label><br/>
-                                        <p:inputText  id="ship1amt"  value="#{estimator.stud.studentAuScholarship1Amt}" style="width:99%" label="Institutional #{msg['layer']} #{msg['EstimateForm.institute.scholarship1amt.label']}"   readonly="true" disabled="#{ref.fundMaxOutIndById(estimator.stud.fund1id) lt 0 ? 'true': 'flase'}" onfocus="setSpecParentNode(this);" >
+                                        <p:inputText  id="ship1amt"  value="#{estimator.stud.studentAuScholarship1Amt}" style="width:99%" label="Institutional #{msg['layer']} #{msg['EstimateForm.institute.scholarship1amt.label']}"   readonly="false" disabled="#{ref.fundMaxOutIndById(estimator.stud.fund1id) lt 0 ? 'true': 'false'}" onfocus="setSpecParentNode(this);" >
                                             <p:ajax event="change" process="@this" update="-auth-bar  @this -auth-sv-msgs"   listener="#{estimator.lsuawardamtchanged1}"   oncomplete="resize_height();"/>
                                             
                                         <f:convertNumber integerOnly="true" minFractionDigits="0" pattern="#,###" />
